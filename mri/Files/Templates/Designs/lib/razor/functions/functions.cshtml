@@ -1,0 +1,220 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@using System.Web;
+
+@functions {
+    string GetAbsoluteUrl(string url)
+    {
+        var request = HttpContext.Current.Request;
+        return request.Url.Scheme + "://" + request.Url.Host + url;
+    }
+
+    string GetQueryParameter(string name)
+    {
+        return HttpContext.Current.Request[name];
+    }
+
+    string BuildUrl(dynamic parameters, bool clear = false)
+    {
+        return BuildUrl(HttpContext.Current.Request.Url.PathAndQuery, parameters, clear);
+    }
+
+    string BuildUrl(string url, dynamic parameters, bool clear = false)
+    {
+        var dict = new Dictionary<string, object>();
+        if (parameters != null)
+        {
+            var type = parameters.GetType();
+            var properties = type.GetProperties();
+            foreach (var property in properties)
+            {
+                dict.Add(property.Name, property.GetValue(parameters));
+            }
+        }
+        return BuildUrl(url, dict, clear);
+    }
+
+    string BuildUrl(string url, Dictionary<string, object> parameters, bool clear = false)
+    {
+        var query = HttpUtility.ParseQueryString("");
+        var index = url.IndexOf('?');
+        if (index > -1)
+        {
+            if (!clear)
+            {
+                query = HttpUtility.ParseQueryString(url.Substring(index));
+            }
+            url = url.Substring(0, index);
+        }
+
+        if (parameters != null)
+        {
+            foreach (var e in parameters)
+            {
+                query.Remove(e.Key);
+                query.Add(e.Key, e.Value == null ? "" : e.Value.ToString());
+            }
+        }
+
+        if (query.Count > 0)
+        {
+            query.Remove("debug");
+            query.Remove("dbstat");
+            query.Remove("parse");
+            query.Remove("purge");
+
+            return string.Format("{0}?{1}", url, query);
+        }
+        else
+        {
+            return url;
+        }
+    }
+}
+
+@using System.Text.RegularExpressions;
+
+@functions {
+    string GetExcerpt(string text, int length, string dots = " …")
+    {
+        var excerpt = Regex.Replace(System.Net.WebUtility.HtmlDecode(text), "<[^>]*>", "");
+        if (excerpt.Length > length)
+        {
+            excerpt = excerpt.Remove(length);
+            excerpt = Regex.Replace(excerpt, @"\s[^\s]+$", "");
+            excerpt += dots;
+        }
+        return excerpt;
+    }
+}
+
+@functions {
+    string StripTags(string content)
+    {
+        return Regex.Replace(content, "<[^>]*>", "");
+    }
+
+    string XmlEncode(object value)
+    {
+        return value != null ? XmlEncode(value.ToString()) : null;
+    }
+
+    string XmlEncode(string value)
+    {
+        return System.Net.WebUtility.HtmlEncode(System.Net.WebUtility.HtmlDecode(value));
+    }
+
+    string XmlElement(string elementName, object content)
+    {
+        var s = string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}", content);
+        if (string.IsNullOrEmpty(s))
+        {
+            return "<" + elementName + "/>";
+        }
+        else
+        {
+            // Prevent Html Agility Pack from messing up the markup
+            return "<" + elementName + ">" + s + "<" + "/" + elementName + ">";
+        }
+    }
+}
+
+@using Dynamicweb.Content.Items;
+
+@functions {
+    IEnumerable<Item> GetItemsByIds(string itemType, string idList)
+    {
+        var ids = idList.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
+        return GetItemsByIds(itemType, ids);
+    }
+
+    IEnumerable<Item> GetItemsByIds(string itemType, List<string> ids)
+    {
+        try
+        {
+            var repo = new Dynamicweb.Content.Items.Queries.Repository(itemType);
+            var items = repo.SelectByIds(ids).OrderBy(i => ids.IndexOf(i.Id));
+            return items;
+        }
+        catch { }
+        return null;
+    }
+
+    Dynamicweb.Frontend.Page GetAncestor(Predicate<Dynamicweb.Frontend.Page> predicate, Dynamicweb.Frontend.Page page = null)
+    {
+        if (page == null)
+        {
+            page = Pageview.Page;
+        }
+
+        var parent = page.Parent;
+        while (parent != null)
+        {
+            if (predicate(parent))
+            {
+                break;
+            }
+            parent = parent.Parent;
+        }
+
+        return parent;
+    }
+
+    Dynamicweb.Frontend.Page GetMostDistantAncestor(Predicate<Dynamicweb.Frontend.Page> predicate, Dynamicweb.Frontend.Page page = null)
+    {
+        Dynamicweb.Frontend.Page ancestor = null;
+        if (page == null)
+        {
+            page = Pageview.Page;
+        }
+
+        var parent = page.Parent;
+        while (parent != null)
+        {
+            if (predicate(parent))
+            {
+                ancestor = parent;
+            }
+            parent = parent.Parent;
+        }
+
+        return ancestor;
+    }
+
+    Dynamicweb.Frontend.Page GetMostDistantAncestorOrSelf(Predicate<Dynamicweb.Frontend.Page> predicate, Dynamicweb.Frontend.Page page = null)
+    {
+        Dynamicweb.Frontend.Page ancestor = null;
+        if (page == null)
+        {
+            page = Pageview.Page;
+        }
+
+        var parent = page;
+        while (parent != null)
+        {
+            if (predicate(parent))
+            {
+                ancestor = parent;
+            }
+            parent = parent.Parent;
+        }
+
+        return ancestor;
+    }
+    
+
+    Dynamicweb.Frontend.Page GetAncestorByItemType(string itemType, Dynamicweb.Frontend.Page page = null)
+    {
+        return GetAncestor(p => p.Item != null && p.Item.SystemName == itemType, page);
+    }
+
+    Dynamicweb.Frontend.Page GetMostDistantAncestorByItemType(string itemType, Dynamicweb.Frontend.Page page = null)
+    {
+        return GetMostDistantAncestor(p => p.Item != null && p.Item.SystemName == itemType, page);
+    }
+
+    Dynamicweb.Frontend.Page GetMostDistantAncestorOrSelfByItemType(string itemType, Dynamicweb.Frontend.Page page = null)
+    {
+        return GetMostDistantAncestorOrSelf(p => p.Item != null && p.Item.SystemName == itemType, page);
+    }
+}

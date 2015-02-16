@@ -1,0 +1,39 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@MasterPageFile("Master/Dwtc15.cshtml")
+
+<div class="speaker">
+    <h1 class="name">@GetValue("Item.Name")</h1>
+    <div class="title">
+        <span class="title">@GetValue("Item.Title")</span>,
+
+        @foreach (var company in GetLoop("Item.Company"))
+        {
+            <span class="company">@company.GetValue("Item.Company.Name")</span>
+        }
+    </div>
+
+    <div class="biography">@GetValue("Item.Biography")</div>
+
+    @{
+        var sessions = new Dynamicweb.Content.Items.Queries.Repository("Dwtc15_Session")
+            .SelectByReference("Speakers", "Dwtc15_Speaker", GetString("Item.Id"), null, false, false).OrderBy(i => i["StartTime"]);
+        if (sessions != null && sessions.Count() > 0)
+        {
+            <h2>@Translate("Sessions")</h2>
+            <div class="sessions">
+                @foreach (var session in sessions)
+                {
+                    <div class="session">
+                        <div class="title">
+                            <a href="/Default.aspx?Id=@session.Page.ID">
+                                @session["Title"]
+                            </a>
+                        </div>
+                        <div class="starttime">@(((DateTime)session["StartTime"]).ToString("dddd, dd MMMM @ HH:mm"))</div>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>

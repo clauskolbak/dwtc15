@@ -1,0 +1,16 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@{
+    var data = new List<Dictionary<string, object>>();
+    foreach (var item in GetLoop("ItemPublisher:Items.List"))
+    {
+        var values = new Dictionary<string, object>();
+        foreach (var field in item.GetLoop("ItemPublisher:Item.Fields"))
+        {
+            values[field.GetString("ItemPublisher:Item.Field.SystemName")] = field.GetValue("ItemPublisher:Item.Field.Value");
+
+        }
+        data.Add(values);
+    }
+    @Newtonsoft.Json.JsonConvert.SerializeObject(data);
+}

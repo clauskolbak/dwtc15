@@ -1,0 +1,80 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@functions {
+    string FieldDelimiter = @",";
+    string DataDelimiter = @"""";
+    bool IncludeHeader = false;
+
+    void configure()
+    {
+        var paragraph = Pageview.CurrentParagraph;
+        if (paragraph != null && !string.IsNullOrEmpty(paragraph.ItemType) && !string.IsNullOrEmpty(paragraph.ItemId))
+        {
+            var item = Dynamicweb.Content.Items.Item.GetItemById(paragraph.ItemType, paragraph.ItemId);
+            if (item != null)
+            {
+                FieldDelimiter = (string)item["Csv_FieldDelimiter"];
+                DataDelimiter = (string)item["Csv_DataDelimiter"];
+                IncludeHeader = (bool)item["Csv_IncludeHeader"];
+            }
+        }
+        if (string.IsNullOrWhiteSpace(FieldDelimiter))
+        {
+            FieldDelimiter = @",";
+        }
+        if (string.IsNullOrWhiteSpace(DataDelimiter))
+        {
+            DataDelimiter = @"""";
+        }
+    }
+    
+    string FormatValue(object value)
+    {
+        var formatted = value == null ? "" : value.ToString();
+        if (formatted.Contains(FieldDelimiter) || formatted.Contains(DataDelimiter))
+        {
+            formatted = DataDelimiter + formatted.Replace(DataDelimiter, DataDelimiter + DataDelimiter) + DataDelimiter;
+        }
+        return formatted;
+    }
+
+    string RenderRow(List<object> values)
+    {
+        return values != null ? string.Join(FieldDelimiter, values.Select(v => FormatValue(v))) : null;
+    }
+}
+@{
+    configure();
+    
+    var first = true;
+    var data = new List<List<object>>();
+    foreach (var item in GetLoop("ItemPublisher:Items.List"))
+    {
+        if (first && IncludeHeader)
+        {
+            var header = new List<object>();
+            foreach (var field in item.GetLoop("ItemPublisher:Item.Fields"))
+            {
+                header.Add(field.GetValue("ItemPublisher:Item.Field.SystemName"));
+            }
+            data.Add(header);
+        }
+        var values = new List<object>();
+        foreach (var field in item.GetLoop("ItemPublisher:Item.Fields"))
+        {
+            values.Add(field.GetValue("ItemPublisher:Item.Field.Value"));
+        }
+        data.Add(values);
+        first = false;
+    }
+
+    var response = System.Web.HttpContext.Current.Response;
+    foreach (var row in data)
+    {
+        var line = RenderRow(row);
+        if (line != null)
+        {
+            response.Write(line+"\n");
+        }
+    }
+}

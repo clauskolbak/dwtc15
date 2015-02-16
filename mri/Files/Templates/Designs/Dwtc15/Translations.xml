@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<translations>
+  <key name="Contact">
+    <translation culture="zh-CN"><![CDATA[]]></translation>
+    <translation culture="zh-MO"><![CDATA[]]></translation>
+    <translation culture="en-GB"><![CDATA[Contact]]></translation>
+    <translation culture="da-DK"><![CDATA[Kontakt]]></translation>
+  </key>
+  <key name="Add to cart">
+    <translation culture="da-DK"><![CDATA[Læg i kurv]]></translation>
+  </key>
+  <key name="Product">
+    <translation culture="da-DK"><![CDATA[Produkt]]></translation>
+  </key>
+  <key name="Qty">
+    <translation culture="da-DK"><![CDATA[Antal]]></translation>
+  </key>
+  <key name="Edit cart">
+    <translation culture="da-DK"><![CDATA[Rediger kurv]]></translation>
+  </key>
+  <key name="Empty basket">
+    <translation culture="da-DK"><![CDATA[Tøm kurv]]></translation>
+  </key>
+  <key name="Proceed to checkout">
+    <translation culture="da-DK"><![CDATA[Gå til kassen]]></translation>
+  </key>
+  <key name="Description">
+    <translation culture="da-DK"><![CDATA[Beskrivelse]]></translation>
+  </key>
+  <key name="Related products">
+    <translation culture="da-DK"><![CDATA[Relaterede varer]]></translation>
+  </key>
+  <key name="Sign up">
+    <translation culture="da-DK"><![CDATA[Tilmeld]]></translation>
+  </key>
+  <key name="Product name">
+    <translation culture="da-DK"><![CDATA[Produkt]]></translation>
+  </key>
+  <key name="Price">
+    <translation culture="da-DK"><![CDATA[Pris]]></translation>
+  </key>
+  <key name="Quantity">
+    <translation culture="da-DK"><![CDATA[Antal]]></translation>
+  </key>
+  <key name="Change">
+    <translation culture="da-DK"><![CDATA[Rediger]]></translation>
+  </key>
+  <key name="Cancel">
+    <translation culture="da-DK"><![CDATA[Fortryd]]></translation>
+  </key>
+  <key name="Save changes">
+    <translation culture="da-DK"><![CDATA[Gem ændringer]]></translation>
+  </key>
+  <key name="Delivery">
+    <translation culture="da-DK"><![CDATA[Levering]]></translation>
+  </key>
+  <key name="Payment">
+    <translation culture="da-DK"><![CDATA[Betalingsmetode]]></translation>
+  </key>
+  <key name="Invoice">
+    <translation culture="da-DK"><![CDATA[Faktura]]></translation>
+  </key>
+  <key name="Enter voucher code">
+    <translation culture="da-DK"><![CDATA[Indtast rabatkode]]></translation>
+  </key>
+  <key name="Apply voucher">
+    <translation culture="da-DK"><![CDATA[Tilføj rabatkode]]></translation>
+  </key>
+  <key name="Firstname">
+    <translation culture="da-DK"><![CDATA[Fornavn]]></translation>
+  </key>
+  <key name="Lastname">
+    <translation culture="da-DK"><![CDATA[Efternavn]]></translation>
+  </key>
+  <key name="Message">
+    <translation culture="da-DK"><![CDATA[Besked]]></translation>
+  </key>
+  <key name="Phone">
+    <translation culture="da-DK"><![CDATA[Telefon]]></translation>
+  </key>
+  <key name="Send message">
+    <translation culture="da-DK"><![CDATA[Send forespørgsel]]></translation>
+  </key>
+  <key name="Read more">
+    <translation culture="da-DK"><![CDATA[Læs mere]]></translation>
+  </key>
+  <key name="Filename">
+    <translation culture="da-DK"><![CDATA[Filnavn]]></translation>
+  </key>
+  <key name="Filesize">
+    <translation culture="da-DK"><![CDATA[Filstrørrelse]]></translation>
+  </key>
+  <key name="Date">
+    <translation culture="da-DK"><![CDATA[Dato]]></translation>
+  </key>
+  <key name="Search products">
+    <translation culture="da-DK"><![CDATA[Søg efter produkt]]></translation>
+  </key>
+  <key name="News">
+    <translation culture="da-DK"><![CDATA[Nyheder]]></translation>
+  </key>
+  <key name="Email address">
+    <translation culture="da-DK"><![CDATA[Email adresse]]></translation>
+  </key>
+  <key name="Password">
+    <translation culture="da-DK"><![CDATA[Kodeord]]></translation>
+  </key>
+  <key name="Remember me">
+    <translation culture="da-DK"><![CDATA[Husk mig]]></translation>
+  </key>
+  <key name="Sign in">
+    <translation culture="da-DK"><![CDATA[Log ind]]></translation>
+  </key>
+  <key name="Your email address">
+    <translation culture="da-DK"><![CDATA[Din email adresse]]></translation>
+  </key>
+  <key name="Mailing list">
+    <translation culture="da-DK"><![CDATA[Nyhedsbrev]]></translation>
+  </key>
+  <key name="Contact us">
+    <translation culture="da-DK"><![CDATA[Kontaktoplysninger]]></translation>
+  </key>
+  <key name="All rights reserved.">
+    <translation culture="da-DK"><![CDATA[Alle rettigheder forbeholdes.]]></translation>
+  </key>
+  <key name="You have">
+    <translation culture="da-DK"><![CDATA[Du har]]></translation>
+  </key>
+  <key name="items in your cart">
+    <translation culture="da-DK"><![CDATA[varer i din kurv]]></translation>
+  </key>
+  <key name="Written by">
+    <translation culture="da-DK"><![CDATA[Publiseret af]]></translation>
+  </key>
+  <key name="on">
+    <translation culture="da-DK"><![CDATA[den]]></translation>
+  </key>
+  <key name="Sign up if you would like to receive occasional treats from us.">
+    <translation culture="da-DK"><![CDATA[Tilmeld dig hvis du vil modtage vores nyhedsbrev.]]></translation>
+  </key>
+  <key name="Email">
+    <translation culture="da-DK"><![CDATA[Email]]></translation>
+  </key>
+  <key name="Your shopping cart is empty.">
+    <translation culture="da-DK"><![CDATA[Din kurv er tom.]]></translation>
+  </key>
+  <key name="Logout">
+    <translation culture="da-DK"><![CDATA[Log ud]]></translation>
+  </key>
+  <key name="Login">
+    <translation culture="da-DK"><![CDATA[Log ind]]></translation>
+  </key>
+  <key name="Enter username">
+    <translation culture="da-DK"><![CDATA[Brugernavn]]></translation>
+  </key>
+  <key name="Enter password">
+    <translation culture="da-DK"><![CDATA[Kodeord]]></translation>
+  </key>
+  <key name="Do you want to empty your basket?">
+    <translation culture="da-DK"><![CDATA[Ønsker du at tømme kurven?]]></translation>
+  </key>
+  <key name="Select variant">
+    <translation culture="da-DK"><![CDATA[Vælg variant]]></translation>
+  </key>
+  <key name="Availability">
+    <translation culture="da-DK"><![CDATA[Lagerstatus]]></translation>
+  </key>
+  <key name="Product number">
+    <translation culture="da-DK"><![CDATA[Varenummer]]></translation>
+  </key>
+  <key name="All products">
+    <translation culture="da-DK"><![CDATA[Alle produkter]]></translation>
+  </key>
+  <key name="Showing page">
+    <translation culture="da-DK"><![CDATA[Viser side]]></translation>
+  </key>
+  <key name="of">
+    <translation culture="da-DK"><![CDATA[af]]></translation>
+  </key>
+  <key name="products">
+    <translation culture="da-DK"><![CDATA[produkter]]></translation>
+  </key>
+  <key name="On sale!">
+    <translation culture="da-DK"><![CDATA[Tilbud!]]></translation>
+  </key>
+  <key name="There are no related products">
+    <translation culture="da-DK"><![CDATA[Der findes ingen relaterede produkter]]></translation>
+  </key>
+  <key name="Other costumers also saw">
+    <translation culture="da-DK"><![CDATA[Andre kunder har også kigget på]]></translation>
+  </key>
+  <key name="Empty Cart">
+    <translation culture="da-DK"><![CDATA[Tøm kurven]]></translation>
+  </key>
+  <key name="Cart is empty...">
+    <translation culture="da-DK"><![CDATA[Kurven er tom...]]></translation>
+  </key>
+  <key name="Total">
+    <translation culture="da-DK"><![CDATA[I alt]]></translation>
+  </key>
+  <key name="Change shipping and payment method">
+    <translation culture="da-DK"><![CDATA[Rediger leverings- og betalingsmetode]]></translation>
+  </key>
+  <key name="Ooops!">
+    <translation culture="da-DK"><![CDATA[Ups!]]></translation>
+  </key>
+  <key name="Edit">
+    <translation culture="da-DK"><![CDATA[Rediger]]></translation>
+  </key>
+  <key name="Shipping address">
+    <translation culture="da-DK"><![CDATA[Leveringsadresse]]></translation>
+  </key>
+  <key name="I accept the terms and conditions of this website.">
+    <translation culture="da-DK"><![CDATA[Jeg accepterer vilkårene]]></translation>
+  </key>
+  <key name="Billing address">
+    <translation culture="da-DK"><![CDATA[Faktura adresse]]></translation>
+  </key>
+  <key name="Back">
+    <translation culture="da-DK"><![CDATA[Tilbage]]></translation>
+  </key>
+  <key name="Place order">
+    <translation culture="da-DK"><![CDATA[Gå til betaling]]></translation>
+  </key>
+  <key name="Show cart">
+    <translation culture="da-DK"><![CDATA[Vis kurv]]></translation>
+  </key>
+  <key name="Customer information">
+    <translation culture="da-DK"><![CDATA[Kontaktoplysninger]]></translation>
+  </key>
+  <key name="Confirm order">
+    <translation culture="da-DK"><![CDATA[Ordrebekræftigelse]]></translation>
+  </key>
+  <key name="Receipt">
+    <translation culture="da-DK"><![CDATA[Kvittering]]></translation>
+  </key>
+  <key name="Company">
+    <translation culture="da-DK"><![CDATA[Virksomhed]]></translation>
+  </key>
+  <key name="Name">
+    <translation culture="da-DK"><![CDATA[Navn]]></translation>
+  </key>
+  <key name="Address">
+    <translation culture="da-DK"><![CDATA[Adresse]]></translation>
+  </key>
+  <key name="Zip code">
+    <translation culture="da-DK"><![CDATA[Postnummer]]></translation>
+  </key>
+  <key name="City">
+    <translation culture="da-DK"><![CDATA[By]]></translation>
+  </key>
+  <key name="Country">
+    <translation culture="da-DK"><![CDATA[Land]]></translation>
+  </key>
+  <key name="Proceed">
+    <translation culture="da-DK"><![CDATA[Fortsæt]]></translation>
+  </key>
+  <key name="Deliver to billing address.">
+    <translation culture="da-DK"><![CDATA[Brug faktureringsadressen]]></translation>
+  </key>
+  <key name="Order information">
+    <translation culture="da-DK"><![CDATA[Ordre information]]></translation>
+  </key>
+  <key name="Order number">
+    <translation culture="da-DK"><![CDATA[Ordrenummer]]></translation>
+  </key>
+  <key name="Order date">
+    <translation culture="da-DK"><![CDATA[Ordre dato]]></translation>
+  </key>
+  <key name="Payment method">
+    <translation culture="da-DK"><![CDATA[Betalingsmetode]]></translation>
+  </key>
+  <key name="Transaction number">
+    <translation culture="da-DK"><![CDATA[Transaktionsnummer]]></translation>
+  </key>
+  <key name="Shipping method">
+    <translation culture="da-DK"><![CDATA[Leveringsmetode]]></translation>
+  </key>
+  <key name="Client IP">
+    <translation culture="da-DK"><![CDATA[IP Adresse]]></translation>
+  </key>
+  <key name="Total with VAT">
+    <translation culture="da-DK"><![CDATA[I alt inkl. Moms]]></translation>
+  </key>
+  <key name="VAT">
+    <translation culture="da-DK"><![CDATA[Moms]]></translation>
+  </key>
+  <key name="Discount">
+    <translation culture="da-DK"><![CDATA[Tilbud]]></translation>
+  </key>
+  <key name="Choose">
+    <translation culture="da-DK"><![CDATA[Vælg]]></translation>
+  </key>
+  <key name="Choose variant">
+    <translation culture="da-DK"><![CDATA[Vælg variant]]></translation>
+  </key>
+  <key name="Recently viewed items">
+    <translation culture="da-DK"><![CDATA[Produkter du tidligere har set på]]></translation>
+  </key>
+  <key name="Other great products in the same category">
+    <translation culture="da-DK"><![CDATA[Andre lækre produkter i samme kategori]]></translation>
+  </key>
+  <key name="Order ID">
+    <translation culture="da-DK"><![CDATA[Ordre ID]]></translation>
+  </key>
+  <key name="Freight">
+    <translation culture="da-DK"><![CDATA[Fragt]]></translation>
+  </key>
+  <key name="State">
+    <translation culture="da-DK"><![CDATA[Stand]]></translation>
+  </key>
+  <key name="No orders found">
+    <translation culture="da-DK"><![CDATA[Ingen ordrer fundet]]></translation>
+  </key>
+  <key name="Toggle navigation">
+    <translation culture="da-DK"><![CDATA[Skift navigation]]></translation>
+  </key>
+  <key name="Text">
+    <translation culture="da-DK"><![CDATA[Tekst]]></translation>
+  </key>
+  <key name="Products">
+    <translation culture="da-DK"><![CDATA[Produkter]]></translation>
+  </key>
+  <key name="Any product">
+    <translation culture="da-DK"><![CDATA[Alle produkter]]></translation>
+  </key>
+  <key name="Any month">
+    <translation culture="da-DK"><![CDATA[Alle måneder]]></translation>
+  </key>
+  <key name="Any year">
+    <translation culture="da-DK"><![CDATA[Alle år]]></translation>
+  </key>
+  <key name="Order amount">
+    <translation culture="da-DK"><![CDATA[Ordre størrelse]]></translation>
+  </key>
+  <key name="Date interval">
+    <translation culture="da-DK"><![CDATA[Dato interval]]></translation>
+  </key>
+  <key name="From">
+    <translation culture="da-DK"><![CDATA[Fra]]></translation>
+  </key>
+  <key name="To">
+    <translation culture="da-DK"><![CDATA[Til]]></translation>
+  </key>
+  <key name="New password">
+    <translation culture="da-DK"><![CDATA[Nyt kodeord]]></translation>
+  </key>
+  <key name="Confirm password">
+    <translation culture="da-DK"><![CDATA[Bekræft kodeord]]></translation>
+  </key>
+  <key name="Username">
+    <translation culture="da-DK"><![CDATA[Brugernavn]]></translation>
+  </key>
+  <key name="Zip">
+    <translation culture="da-DK"><![CDATA[Postnummer]]></translation>
+  </key>
+  <key name="New user">
+    <translation culture="da-DK"><![CDATA[Ny bruger]]></translation>
+  </key>
+  <key name="succesfully created">
+    <translation culture="da-DK"><![CDATA[er hermed oprettet]]></translation>
+  </key>
+  <key name="Department">
+    <translation culture="da-DK"><![CDATA[Afdeling]]></translation>
+  </key>
+  <key name="Private phone">
+    <translation culture="da-DK"><![CDATA[Privat Telefon]]></translation>
+  </key>
+  <key name="Business phone">
+    <translation culture="da-DK"><![CDATA[Arbejds Telefon]]></translation>
+  </key>
+  <key name="Mobile phone">
+    <translation culture="da-DK"><![CDATA[Mobiltelefon]]></translation>
+  </key>
+  <key name="Jobtitle">
+    <translation culture="da-DK"><![CDATA[Job titel]]></translation>
+  </key>
+  <key name="Userprofile">
+    <translation culture="da-DK"><![CDATA[Brugerprofil]]></translation>
+  </key>
+  <key name="Error in the input field">
+    <translation culture="da-DK"><![CDATA[Fejl i feltet]]></translation>
+  </key>
+  <key name="Update user">
+    <translation culture="da-DK"><![CDATA[Opdater bruger]]></translation>
+  </key>
+  <key name="Back to detail view">
+    <translation culture="da-DK"><![CDATA[Tilbage til detalje siden]]></translation>
+  </key>
+  <key name="Edit user">
+    <translation culture="da-DK"><![CDATA[Rediger bruger:]]></translation>
+  </key>
+  <key name="Edit your profile">
+    <translation culture="da-DK"><![CDATA[Rediger]]></translation>
+  </key>
+  <key name="I want to sign up">
+    <translation culture="da-DK"><![CDATA[Jeg ønsker at tilmelde mig]]></translation>
+  </key>
+  <key name="Subscribe">
+    <translation culture="da-DK"><![CDATA[Tilmeld]]></translation>
+  </key>
+  <key name="Subscribe for email">
+    <translation culture="da-DK"><![CDATA[Tilmelding af email]]></translation>
+  </key>
+  <key name="Unsubscribe for email">
+    <translation culture="da-DK"><![CDATA[Afmelding af email]]></translation>
+  </key>
+  <key name="Unsubscribe">
+    <translation culture="da-DK"><![CDATA[Afmeld]]></translation>
+  </key>
+  <key name="I want to unsubscribe">
+    <translation culture="da-DK"><![CDATA[Jeg ønsker at afmelde]]></translation>
+  </key>
+  <key name="Dear Administrator">
+    <translation culture="da-DK"><![CDATA[Kære administrator]]></translation>
+  </key>
+  <key name="An account has been created with this email">
+    <translation culture="da-DK"><![CDATA[En konto er blevet oprettet med emailadressen]]></translation>
+  </key>
+  <key name="and this username">
+    <translation culture="da-DK"><![CDATA[og brugernavnet]]></translation>
+  </key>
+  <key name="But has not yet been approved">
+    <translation culture="da-DK"><![CDATA[Men mangler din godkendelse]]></translation>
+  </key>
+  <key name="Show more products">
+    <translation culture="da-DK"><![CDATA[Vis flere produkter]]></translation>
+  </key>
+  <key name="Search">
+    <translation culture="da-DK"><![CDATA[Søg]]></translation>
+  </key>
+  <key name="Add New Request">
+    <translation culture="da-DK"><![CDATA[Opret ny forespørgsel]]></translation>
+  </key>
+  <key name="RMA ID">
+    <translation culture="da-DK"><![CDATA[RMA ID]]></translation>
+  </key>
+  <key name="Status">
+    <translation culture="da-DK"><![CDATA[Status]]></translation>
+  </key>
+  <key name="No RMAs found">
+    <translation culture="da-DK"><![CDATA[Ingen poster fundet]]></translation>
+  </key>
+  <key name="Stemap">
+    <translation culture="da-DK"><![CDATA[Sitemap]]></translation>
+  </key>
+  <key name="You are receiving this email because">
+    <translation culture="da-DK"><![CDATA[Du modtager denne email fordi]]></translation>
+  </key>
+  <key name="you subscribed via">
+    <translation culture="da-DK"><![CDATA[du tilmeldte dig via]]></translation>
+  </key>
+  <key name="our website">
+    <translation culture="da-DK"><![CDATA[vores hjemmeside]]></translation>
+  </key>
+  <key name="click here">
+    <translation culture="da-DK"><![CDATA[klik her]]></translation>
+  </key>
+  <key name="and we won't bug you again">
+    <translation culture="da-DK"><![CDATA[så forstyrer vi dig ikke igen]]></translation>
+  </key>
+  <key name="Social links">
+    <translation culture="da-DK"><![CDATA[Sociale links]]></translation>
+  </key>
+  <key name="Sort by">
+    <translation culture="da-DK"><![CDATA[Sortering]]></translation>
+  </key>
+  <key name="Price low-high">
+    <translation culture="da-DK"><![CDATA[Pris lav-høj]]></translation>
+  </key>
+  <key name="Price high-low">
+    <translation culture="da-DK"><![CDATA[Pris høj-lav]]></translation>
+  </key>
+  <key name="Popularity">
+    <translation culture="da-DK"><![CDATA[Popularitet]]></translation>
+  </key>
+  <key name="Default">
+    <translation culture="da-DK"><![CDATA[Standard]]></translation>
+  </key>
+  <key name="Reorder">
+    <translation culture="da-DK"><![CDATA[Genbestil]]></translation>
+  </key>
+  <key name="Return">
+    <translation culture="da-DK"><![CDATA[Returner]]></translation>
+  </key>
+  <key name="Unit price">
+    <translation culture="da-DK"><![CDATA[Enheds pris]]></translation>
+  </key>
+  <key name="Total price">
+    <translation culture="da-DK"><![CDATA[Total pris]]></translation>
+  </key>
+  <key name="Track and trace number">
+    <translation culture="da-DK"><![CDATA[Track and trace nummer]]></translation>
+  </key>
+  <key name="Att">
+    <translation culture="da-DK"><![CDATA[Att]]></translation>
+  </key>
+  <key name="Vat">
+    <translation culture="da-DK"><![CDATA[Moms]]></translation>
+  </key>
+  <key name="Sub-total excl. vat">
+    <translation culture="da-DK"><![CDATA[Sub-total excl. moms]]></translation>
+  </key>
+  <key name="Total price excl. vat">
+    <translation culture="da-DK"><![CDATA[Total pris excl. moms]]></translation>
+  </key>
+  <key name="Shipping">
+    <translation culture="da-DK"><![CDATA[Fragt]]></translation>
+  </key>
+  <key name="Total price incl. vat">
+    <translation culture="da-DK"><![CDATA[Total pris inkl. moms]]></translation>
+  </key>
+  <key name="Voucher">
+    <translation culture="da-DK"><![CDATA[Rabatkode]]></translation>
+  </key>
+  <key name="Review Order">
+    <translation culture="da-DK"><![CDATA[Ordre oversigt]]></translation>
+  </key>
+  <key name="Your name">
+    <translation culture="da-DK"><![CDATA[Dit navn]]></translation>
+  </key>
+  <key name="Find us">
+    <translation culture="da-DK"><![CDATA[Find os]]></translation>
+  </key>
+  <key name="Forgot your password?">
+    <translation culture="da-DK"><![CDATA[Har du glemt dit kodeord?]]></translation>
+  </key>
+  <key name="Not a user yet?">
+    <translation culture="da-DK"><![CDATA[Er du ikke bruger endnu?]]></translation>
+  </key>
+  <key name="Create user profile">
+    <translation culture="da-DK"><![CDATA[Opret brugerprofil]]></translation>
+  </key>
+  <key name="Create new user">
+    <translation culture="da-DK"><![CDATA[Opret ny bruger]]></translation>
+  </key>
+  <key name="Get back into your account">
+    <translation culture="da-DK"><![CDATA[Få adgang til din konto igen]]></translation>
+  </key>
+  <key name="Check your email">
+    <translation culture="da-DK"><![CDATA[Tjek din email]]></translation>
+  </key>
+  <key name="User not found!">
+    <translation culture="da-DK"><![CDATA[Brugeren findes ikke!]]></translation>
+  </key>
+  <key name="Check your email - we sent you an email with a link. Click it to continue to reset your password.">
+    <translation culture="da-DK"><![CDATA[Tjek din email - Vi har sendt dig et link. Klik på det for at gemme dit nye password.]]></translation>
+  </key>
+  <key name="Something went wrong">
+    <translation culture="da-DK"><![CDATA[Noget gik galt]]></translation>
+  </key>
+  <key name="Try recover password">
+    <translation culture="da-DK"><![CDATA[Prøv at genskabe kodeord]]></translation>
+  </key>
+  <key name="again">
+    <translation culture="da-DK"><![CDATA[igen]]></translation>
+  </key>
+  <key name="The recovery password link out of date">
+    <translation culture="da-DK"><![CDATA[Kodeordslinket er blevet for gamelt]]></translation>
+  </key>
+  <key name="Choose a new password">
+    <translation culture="da-DK"><![CDATA[Vælg et nyt kodeord]]></translation>
+  </key>
+  <key name="Notice">
+    <translation culture="da-DK"><![CDATA[Husk]]></translation>
+  </key>
+  <key name="A strong password is a combination of letters and punctuation marks">
+    <translation culture="da-DK"><![CDATA[For at få et stærkt kodeord, skal du kombinere bogstaver, tal og specialtegn]]></translation>
+  </key>
+  <key name="New Password">
+    <translation culture="da-DK"><![CDATA[Nyt kodeord]]></translation>
+  </key>
+  <key name="Checkout">
+    <translation culture="da-DK"><![CDATA[Kassen]]></translation>
+  </key>
+  <key name="Reciept">
+    <translation culture="da-DK"><![CDATA[Kvittering]]></translation>
+  </key>
+  <key name="Show products">
+    <translation culture="da-DK"><![CDATA[Vis produkter]]></translation>
+  </key>
+  <key name="Congratulations!">
+    <translation culture="da-DK"><![CDATA[Tillykke!]]></translation>
+  </key>
+  <key name="We have sent your password to email">
+    <translation culture="da-DK"><![CDATA[Vi har sendt dit kodeord til din email]]></translation>
+  </key>
+  <key name="User not found">
+    <translation culture="da-DK"><![CDATA[Brugeren blev ikke fundet]]></translation>
+  </key>
+  <key name="Delivery address">
+    <translation culture="da-DK"><![CDATA[Leveringsadresse]]></translation>
+  </key>
+  <key name="Already have an account">
+    <translation culture="da-DK"><![CDATA[Har du allerede en konto]]></translation>
+  </key>
+  <key name="Click here to sign in">
+    <translation culture="da-DK"><![CDATA[Klik her for at logge ind]]></translation>
+  </key>
+  <key name="Alternative delivering address">
+    <translation culture="en-GB"><![CDATA[Alternative delivering address]]></translation>
+    <translation culture="da-DK"><![CDATA[Alternativ leveringsadresse]]></translation>
+  </key>
+</translations>

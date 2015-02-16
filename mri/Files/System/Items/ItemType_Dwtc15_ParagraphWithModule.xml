@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<items>
+  <item category="" name="Dwtc15_Paragraph with module" systemName="Dwtc15_ParagraphWithModule" description="" icon="" largeIcon="" includeInUrlIndex="False" pageDefaultView="item" fieldForTitle="" title="{{Heading}} {{Content}}" inherits="Dwtc15_Paragraph">
+    <fields>
+      <field name="Available feeds" systemName="AvailableFeeds" description="" type="System.Collections.Generic.IEnumerable`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.CheckboxListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.CheckboxListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.CheckboxListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.CheckboxListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.CheckboxListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="csv" value="csv" icon="" />
+            <option name="Json" value="json" icon="" />
+            <option name="RSS" value="rss" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="Field delimiter" systemName="Csv_FieldDelimiter" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue=",">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <validators>
+          <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
+        </validators>
+      </field>
+      <field name="Data delimiter" systemName="Csv_DataDelimiter" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="&quot;">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <validators>
+          <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
+        </validators>
+      </field>
+      <field name="Include header" systemName="Csv_IncludeHeader" description="" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="True">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+    </fields>
+    <rules>
+      <rule name="Allow in websites" type="Dynamicweb.Content.Items.Activation.AreaRestrictionRule, Dynamicweb" value="*" />
+      <rule name="" type="Dynamicweb.Content.Items.Activation.ModuleAttachmentRestrictionRule, Dynamicweb" value="True" />
+      <rule name="Enable item type for" type="Dynamicweb.Content.Items.Activation.StructureRestrictionRule, Dynamicweb" value="Paragraphs" />
+    </rules>
+    <layout>
+      <groups>
+        <group name="Feeds" systemName="Feeds" collapsibleState="None" visibilityField="" visibilityCondition="0" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="AvailableFeeds" />
+          </fields>
+        </group>
+        <group name="Csv" systemName="Csv" collapsibleState="None" visibilityField="" visibilityCondition="0" visibilityConditionValueType="3" visibilityConditionValue="">
+          <fields>
+            <field systemName="Csv_FieldDelimiter" />
+            <field systemName="Csv_DataDelimiter" />
+            <field systemName="Csv_IncludeHeader" />
+          </fields>
+        </group>
+        <group name="General" systemName="General" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="Heading" />
+            <field systemName="HeadingLevel" />
+            <field systemName="Content" />
+          </fields>
+        </group>
+      </groups>
+    </layout>
+  </item>
+</items>

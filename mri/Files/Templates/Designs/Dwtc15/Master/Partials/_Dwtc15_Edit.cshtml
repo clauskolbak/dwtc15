@@ -1,0 +1,43 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@{
+    var backendUser = Dynamicweb.Modules.UserManagement.User.get_Current(Dynamicweb.Modules.UserManagement.PagePermissionLevels.Backend);
+
+    if (backendUser != null)
+    {
+        <div class="page-edit" style="position: fixed; bottom: 10px; right: 10px; z-index: 100">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-default">@Translate("Page actions")</button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    @if (Pageview.Page.Item == null)
+                    {
+                        <li><a target="backend" href="/Admin/Content/PageEdit.aspx?ID=@Pageview.Page.ID">@Translate("Edit page properties")</a></li>
+                        <li><a target="backend" href="/Admin/Content/ParagraphList.aspx?PageID=@Pageview.Page.ID">@Translate("Edit paragraphs")</a></li>
+                    }
+                    else
+                    {
+                        <li><a target="backend" href="/Admin/Content/Items/Editing/ItemEdit.aspx?PageID=@Pageview.Page.ID">@Translate("Edit page")</a></li>
+                        <li><a target="backend" href="/Admin/Content/ParagraphList.aspx?PageID=@Pageview.Page.ID&amp;mode=viewParagraphs">@Translate("Edit paragraphs")</a></li>
+                        <li><a target="backend" href="/Admin/Content/PageEdit.aspx?ID=@Pageview.Page.ID">@Translate("Edit page properties")</a></li>
+                    }
+                </ul>
+            </div>
+
+            @*
+                <div id="editpage">
+                    <a href="@System.Web.HttpContext.Current.Request.Url.PathAndQuery">@System.Web.HttpContext.Current.Request.Url.PathAndQuery</a>
+                <a target="backend" href="/Admin/Content/PageEdit.aspx?ID=@Pageview.Page.ID">Edit page properties</a>
+                @if (Pageview.Page.Item == null) {
+                    <a target="backend" href="/Admin/Content/ParagraphList.aspx?PageID=@Pageview.Page.ID">Edit paragraphs</a>
+                } else {
+                    <a target="backend" href="/Admin/Content/ParagraphList.aspx?PageID=@Pageview.Page.ID&amp;mode=viewParagraphs">Edit paragraphs</a>
+                        <a target="backend" href="/Admin/Content/Items/Editing/ItemEdit.aspx?PageID=@Pageview.Page.ID">Edit page</a>
+                    }
+                </div>
+            *@
+        </div>
+    }
+}

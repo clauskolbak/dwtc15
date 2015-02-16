@@ -1,0 +1,246 @@
+<style>
+    @@import '@GetValue("Template:BaseUrl")stylesheets/Program.min.css';
+</style>
+
+@{
+    // var sessions = GetLoop("ItemPublisher:Items.List");
+}
+
+@*
+    @{
+        var venues = new Dynamicweb.Content.Items.Queries.Repository("Dwtc15_Venue").SelectByAreaId(Pageview.Area.ID).ToDictionary(i => i.Id, i => i);
+        var venueIds = new int[] { 1, 2, 3 };
+        var sessions = GetLoop("ItemPublisher:Items.List");
+
+        // <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(venues, Newtonsoft.Json.Formatting.Indented)</pre>
+    }
+*@
+
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@IncludeFile("../../../lib/razor/functions/functions.cshtml")
+
+@functions {
+    public class Session
+    {
+        public string Title;
+        public DateTime StartTime;
+        public bool IsBreak;
+        public int TechnicalLevel;
+
+        public string Description;
+        public string Track;
+        public string Url;
+        public List<Speaker> Speakers;
+        public LoopItem Item;
+    }
+
+    public class Speaker
+    {
+        public string Name;
+        public string Title;
+        public string Url;
+    }
+
+    class Day : Dictionary<DateTime, List<Session>> { }
+
+    private string GetSpeakerPageUrl(LoopItem item)
+    {
+        var itemType = "Employee";
+        var itemId = item.GetString("ItemPublisher:Item.Speakers.Id");
+        foreach (Dynamicweb.Frontend.Page page in Pageview.PageCollection.Values)
+        {
+            var pageItemType = !(page.Values["pageitemtype"] is DBNull) ? (string)page.Values["pageitemtype"] : null;
+            var pageItemId = !(page.Values["pageitemid"] is DBNull) ? (string)page.Values["pageitemid"] : null;
+
+            if (pageItemType == itemType && pageItemId == itemId)
+            {
+                return "/Default.aspx?Id=" + page.ID;
+            }
+        }
+        return null;
+    }
+
+    private List<Speaker> GetSpeakers(LoopItem session)
+    {
+        var speakers = new List<Speaker>();
+
+        foreach (var item in session.GetLoop("ItemPublisher:Item.Speakers"))
+        {
+            speakers.Add(new Speaker
+            {
+                Name = item.GetString("ItemPublisher:Item.Speakers.Name"),
+                Title = item.GetString("ItemPublisher:Item.Speakers.Title"),
+                Url = item.GetString("ItemPublisher:Item.Speakers.Url")
+            });
+        }
+        return speakers;
+    }
+}
+
+@helper DisplaySpeakers(Session session)
+{
+    if (session.Speakers.Count > 0)
+    {
+        <div class="speakers">
+            <div class="header">@Translate(session.Speakers.Count == 1 ? "Speaker" : "Speakers")</div>
+            <ul>
+                @foreach (var speaker in session.Speakers)
+                {
+                    <li class="speaker">
+                        <a href="@speaker.Url">
+                            <span class="name">@speaker.Name</span>@if (!string.IsNullOrWhiteSpace(speaker.Title))
+                            {<text>,</text> <span class="title">@speaker.Title</span>
+                            }
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+@helper DisplaySession(Session session)
+{
+    var editUrl = "";
+    var backendUser = Dynamicweb.Modules.UserManagement.User.get_Current(Dynamicweb.Modules.UserManagement.PagePermissionLevels.Backend);
+    if (backendUser != null)
+    {
+        editUrl = "/Admin/Content/Items/Editing/ItemEdit.aspx?PageID=" + session.Item.GetInteger("ItemPublisher:Item.Field.PageId");
+    }
+
+    <div class='session @(session.IsBreak ? "break" : null) technical-level-@session.TechnicalLevel'>
+        @if (!string.IsNullOrWhiteSpace(editUrl))
+        {
+            <a class="edit" target="backend" href="@editUrl"><span class="glyphicon glyphicon-edit"></span></a>
+        }
+        <div class="title">@session.Title</div>
+        @if (!session.IsBreak)
+        {
+            <div class="description">@session.Description</div>
+        }
+        @DisplaySpeakers(session)
+    </div>
+}
+
+@{
+    var sessions = new List<Session>();
+    foreach (var item in GetLoop("ItemPublisher:Items.List"))
+    {
+        sessions.Add(new Session
+        {
+            Title = item.GetString("ItemPublisher:Item.Title"),
+            Description = item.GetString("ItemPublisher:Item.Description"),
+            Track = item.GetString("ItemPublisher:Item.Location"),
+            TechnicalLevel = item.GetInteger("ItemPublisher:Item.TechnicalLevel"),
+
+            IsBreak = item.GetBoolean("ItemPublisher:Item.IsBreak"),
+            StartTime = item.GetDate("ItemPublisher:Item.StartTime"),
+            Url = item.GetString("ItemPublisher:Item.Url"),
+            Speakers = GetSpeakers(item),
+            Item = item
+        });
+    }
+
+    var tracks = new List<string>();
+    foreach (var session in sessions)
+    {
+        var ids = session.Track.Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+        foreach (var id in ids)
+        {
+            if (!tracks.Contains(id))
+            {
+                tracks.Add(id);
+            }
+        }
+    }
+
+    var locations = new Dynamicweb.Content.Items.Queries.Repository("Dwtc15_Venue").SelectByAreaId(Pageview.Area.ID).OrderBy(i => i.Id).Where(i => tracks.Contains(i.Id));
+
+    var days = new SortedDictionary<DateTime, SortedDictionary<DateTime, List<Session>>>();
+    foreach (var session in sessions)
+    {
+        if (!days.ContainsKey(session.StartTime.Date))
+        {
+            days[session.StartTime.Date] = new SortedDictionary<DateTime, List<Session>>();
+        }
+        var day = days[session.StartTime.Date];
+        if (!day.ContainsKey(session.StartTime))
+        {
+            day[session.StartTime] = new List<Session>();
+        }
+        day[session.StartTime].Add(session);
+        day[session.StartTime] = day[session.StartTime].OrderBy(s => s.Track).ToList();
+    }
+}
+
+<div class="schedule">
+    @foreach (var day in days)
+    {
+        <h2 id='@day.Key.ToString("yyyy-MM-dd")'>
+            <a href='/Default.aspx?Id=@Pageview.Page.ID#@day.Key.ToString("yyyy-MM-dd")'>
+                @day.Key.ToString("dddd, MMMM dd yyyy")
+            </a>
+        </h2>
+        <table class="program tracks-@locations.Count()">
+            <thead>
+                <tr>
+                    <td></td>
+                    @foreach (var location in locations)
+                    {
+                        var filterUrl = BuildUrl(new { Location = location.Id });
+                        <th>
+                            <a href="@filterUrl">@location["Name"]</a>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var slot in day.Value)
+                {
+                    <tr class="slot">
+                        <td class="time">@slot.Key.ToString("H:mm")</td>
+                        @if (slot.Value.Count == 1)
+                        {
+                            var session = slot.Value[0];
+                            <td class='@(session.IsBreak ? "break" : null)' colspan="@locations.Count()">@DisplaySession(session)</td>
+                        }
+                        else
+                        {
+                            foreach (var session in slot.Value)
+                            {
+                                <td>
+                                    @DisplaySession(session)
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<script>
+    window.addEventListener('load', function () {
+        Array.prototype.slice.call(document.querySelectorAll('.program .slot')).forEach(function (row) {
+            ['.session .title', '.session .speakers', '.session'].forEach(function (selector) {
+                var elements = Array.prototype.slice.call(row.querySelectorAll(selector));
+                var height = 0;
+                elements.forEach(function (el) {
+                    if (el.offsetHeight > height) {
+                        height = el.offsetHeight;
+                    }
+                });
+                if (height > 0) {
+                    elements.forEach(function (el) {
+                        el.style.height = height + 'px';
+                        if (el.classList.contains('session')) {
+                            el.classList.add('fixed');
+                        }
+                    });
+                }
+            });
+        });
+    })
+</script>

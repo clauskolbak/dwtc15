@@ -1,0 +1,116 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@IncludeFile("../../../lib/razor/functions/functions.cshtml")
+
+@functions {
+    bool HasFilter(string key)
+    {
+        return key != null && !string.IsNullOrWhiteSpace(GetQueryParameter(key));
+    }
+
+    string GetSorting(string key)
+    {
+        if (key != null && GetQueryParameter("OrderBy") == key)
+        {
+            return GetQueryParameter("Direction") == "desc" ? "desc" : "asc";
+        }
+        return null;
+    }
+}
+
+@helper DisplayHeader(string value, string key, bool withFilter = false)
+{
+    var sorting = GetSorting(key);
+    var url = BuildUrl(new
+    {
+        PID = Pageview.CurrentParagraph.ID,
+        OrderBy = key,
+        Direction = sorting == "asc" ? "desc" : "asc"
+    });
+    <a href="@url">
+        @Translate(value)
+        @if (sorting != null)
+        {
+            <span class='glyphicon @(sorting == "asc" ? "glyphicon-sort-by-attributes" : "glyphicon-sort-by-attributes-alt")'></span>
+        }
+    </a>
+
+    var hasFilter = withFilter && HasFilter(key);
+    if (hasFilter)
+    {
+        <a class="btn-sm btn-link" href="/Default.aspx?Id=@Pageview.ID" title='@Translate("Remove filter")'>
+            <span class="glyphicon glyphicon-filter"></span>
+        </a>
+    }
+}
+
+@helper DisplayFilter(LoopItem item, string key)
+{
+    var value = item.GetValue("ItemPublisher:Item." + key);
+    if (!HasFilter(key) && value != null)
+    {
+        var url = BuildUrl(new Dictionary<string, object>() { { key, value }, { "PID", Pageview.CurrentParagraph.ID } });
+        <a class='filter' href="@url" title='@Translate("Apply filter")'>@value</a>
+    }
+    else
+    {
+        @: @value
+        }
+}
+
+<div class="attendees">
+    @{
+        var attendees = GetLoop("ItemPublisher:Items.List");
+
+        if (attendees.Count == 0)
+        {
+            <div class="alert alert-info">@Translate("Nothing to see here")</div>
+        }
+        else
+        {
+
+            <style>
+                .attendees .name,
+                .attendees .company {
+                    width: 40%;
+                }
+
+                .filter .glyphicon-filter {
+                    display: none;
+                }
+
+                .filter:hover .glyphicon-filter {
+                    display: inline;
+                }
+            </style>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="name">@DisplayHeader("Name", "Name")</th>
+                        <th class="company">@DisplayHeader("Company", "CompanyName", true)</th>
+                        <th class="country">@DisplayHeader("Country", "Address.Country", true)</th>
+                        @if (GetBoolean("ItemPublisher:ItemType.CanEdit"))
+                        {
+                            <th></th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var attendee in attendees)
+                    {
+                        <tr>
+                            <td class="name">@attendee.GetValue("ItemPublisher:Item.Name")</td>
+                            <td class="company">@DisplayFilter(attendee, "CompanyName")</td>
+                            <td class="country">@DisplayFilter(attendee, "Address.Country")</td>
+                            @if (attendee.GetBoolean("ItemPublisher:Item.CanEdit"))
+                            {
+                                <td><a href="@attendee.GetValue("ItemPublisher:Item.EditUrl")">edit</a></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    }
+</div>

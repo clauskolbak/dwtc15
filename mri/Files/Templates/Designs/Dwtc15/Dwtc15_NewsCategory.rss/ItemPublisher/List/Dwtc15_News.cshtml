@@ -1,0 +1,20 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@IncludeFile("../../../../lib/razor/functions/functions.cshtml")
+
+@{
+        var newsItems = GetLoop("ItemPublisher:Items.List");
+        if (newsItems.Count > 0)
+        {
+            foreach (var news in newsItems)
+            {
+                    var url = GetAbsoluteUrl(news.GetString("ItemPublisher:Item.Url"));
+                <item>
+                    @XmlElement("title", XmlEncode(StripTags(news.GetString("ItemPublisher:Item.Heading").Trim())))
+                    @XmlElement("description", XmlEncode(news.GetString("ItemPublisher:Item.Content").Trim()))
+                    @XmlElement("link", XmlEncode(url))
+                    @XmlElement("pubDate", news.GetDate("ItemPublisher:Item.PublicationTime").ToString("ddd, dd MMM yyyy HH:mm:ss K"))
+                </item>
+            }
+        }
+}

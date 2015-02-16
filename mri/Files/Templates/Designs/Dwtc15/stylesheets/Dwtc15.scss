@@ -1,0 +1,24 @@
+﻿.body-wrap.shad.body-boxed ~ .body-wrap.body-boxed,
+footer {
+    display: none;
+}
+
+.paragraph {
+    + .paragraph {
+        margin-top: 1em;
+    }
+
+    .module {
+        .feeds {
+            text-align: right;
+            opacity: 0;
+            transition: opacity ease-in .2s;
+        }
+
+        &:hover {
+            .feeds {
+                opacity: 1;
+            }
+        }
+    }
+}

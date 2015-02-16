@@ -1,0 +1,70 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@IncludeFile("../../../../lib/razor/functions/functions.cshtml")
+
+<div class="news-list">
+    @{
+        var newsItems = GetLoop("ItemPublisher:Items.List");
+
+        if (newsItems.Count == 0)
+        {
+            <div class="alert alert-info">@Translate("No news is good news!")</div>
+        }
+        else
+        {
+            foreach (var news in newsItems)
+            {
+                var url = news.GetValue("ItemPublisher:Item.Url");
+                <article class="news">
+                    <h1>
+                        <a href="@url">
+                            @news.GetValue("ItemPublisher:Item.Heading")
+                        </a>
+
+                        @{
+                var expirationTime = news.GetDate("ItemPublisher:Item.ExpirationTime");
+
+                if (expirationTime > new DateTime(1975, 05, 23) && expirationTime < DateTime.Now)
+                {
+                    <span class="label label-info">@Translate("Archive") @expirationTime</span>
+                }
+                        }
+                    </h1>
+
+                    <div class="excerpt">
+                        @GetExcerpt(news.GetString("ItemPublisher:Item.Content"), 80)
+                    </div>
+
+                    @{
+                var categories = news.GetLoop("ItemPublisher:Item.Categories.Options").Where(i => i.GetBoolean("ItemPublisher:Item.Categories.Option.IsSelected"));
+                if (categories.Any())
+                {
+                    var mainCategoryPage = GetMostDistantAncestorOrSelfByItemType("Dwtc15_NewsCategory");
+
+                    <div class="categories">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        @foreach (var category in categories)
+                        {
+                            if (mainCategoryPage != null)
+                            {
+                                url = BuildUrl(new
+                                       {
+                                           Id = mainCategoryPage.ID,
+                                           Categories = category.GetValue("ItemPublisher:Item.Categories.Option.Value")
+                                       });
+                                <a href="@url" class="category">@category.GetValue("ItemPublisher:Item.Categories.Option.Label")</a>
+                            }
+                            else
+                            {
+                                <span class="category">@category.GetValue("ItemPublisher:Item.Categories.Option.Label")</span>
+                            }
+                        }
+                    </div>
+                }
+                    }
+
+                </article>
+            }
+        }
+    }
+</div>

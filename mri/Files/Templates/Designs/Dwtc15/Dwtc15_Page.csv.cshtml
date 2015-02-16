@@ -1,0 +1,11 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@{
+    var response = System.Web.HttpContext.Current.Response;
+    response.ContentType = "text/csv";
+    var filename = System.Text.RegularExpressions.Regex.Replace(GetString("Title"), @"[^a-z0-9-_.]+", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+    response.AddHeader("Content-Disposition", "attachment; filename=" + filename + ".csv");
+}@GetValue("DwContent(content)")@*
+    @GetValue("Stylesheets")
+    @GetValue("Javascripts")
+    <div class="dwcontent" id="content" title="Content"></div> *@

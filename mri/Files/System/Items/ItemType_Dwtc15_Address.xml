@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<items>
+  <item category="" name="Address" systemName="Dwtc15_Address" description="" icon="" largeIcon="" includeInUrlIndex="False" pageDefaultView="item" fieldForTitle="" title="" inherits="">
+    <fields>
+      <field name="Street" systemName="Street" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="ZIP code" systemName="ZIPCode" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="City" systemName="City" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Country" systemName="Country" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Region" systemName="Region" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Geolocation" systemName="Geolocation" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.GeolocationEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.GeolocationEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.GeolocationEditor" name="Address fields" value="Street, ZIPCode, City, Country" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+    </fields>
+    <rules>
+      <rule name="" type="Dynamicweb.Content.Items.Activation.ModuleAttachmentRestrictionRule, Dynamicweb" value="Nothing" />
+      <rule name="Enable item type for" type="Dynamicweb.Content.Items.Activation.StructureRestrictionRule, Dynamicweb" value="ItemList" />
+    </rules>
+    <layout>
+      <groups>
+        <group name="General" systemName="General" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="Street" />
+            <field systemName="ZIPCode" />
+            <field systemName="City" />
+            <field systemName="Country" />
+            <field systemName="Region" />
+            <field systemName="Geolocation" />
+          </fields>
+        </group>
+      </groups>
+    </layout>
+  </item>
+</items>

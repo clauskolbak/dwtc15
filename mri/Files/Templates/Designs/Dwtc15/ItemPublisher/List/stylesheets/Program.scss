@@ -1,0 +1,104 @@
+﻿.program {
+    width: 100%;
+
+    .slot > * {
+        vertical-align: top;
+        padding: 1em;
+    }
+
+    $time-width: 10%;
+
+    @for $i from 1 through 3 {
+        &.tracks-#{$i} {
+            .slot > * {
+                width: (100%-$time-width)/$i;
+            }
+        }
+    }
+
+    .slot > *:first-child {
+        width: $time-width;
+    }
+
+    .title {
+        font-weight: bold;
+    }
+
+    th {
+        text-align: center;
+        border-bottom: solid 2px #000;
+    }
+
+
+    .time {
+        text-align: right;
+        padding-right: 1em;
+    }
+
+    .break {
+        text-align: center;
+    }
+
+    .break .title {
+        background: #eee;
+    }
+
+    .speakers ul,
+    .speakers li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .speakers .header {
+        font-weight: bold;
+    }
+
+    $geek-width: 17px;
+    $geek-height: 18px;
+
+    .session::before {
+        content: '';
+        display: block;
+        background: url('../images/geek.png') 0 0 repeat-x;
+        background-size: $geek-width $geek-height;
+        width: 0;
+        height: 18px;
+        float: right;
+        margin-left: 10px;
+    }
+
+    .session.technical-level-1::before {
+        width: 1*$geek-width;
+    }
+
+    .session.technical-level-2::before {
+        width: 2*$geek-width;
+    }
+
+    .session.technical-level-3::before {
+        width: 3*$geek-width;
+    }
+
+    .session {
+        position: relative;
+    }
+
+
+    .session.fixed .speakers {
+        position: absolute;
+        bottom: 0;
+    }
+
+    .session .edit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 100;
+        opacity: 0;
+    }
+
+    .session:hover .edit {
+        opacity: 1;
+    }
+}

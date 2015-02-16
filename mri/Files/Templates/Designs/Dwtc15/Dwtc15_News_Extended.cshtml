@@ -1,0 +1,78 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@MasterPageFile("Master/Dwtc15.cshtml")
+
+@IncludeFile("../lib/razor/functions/functions.cshtml")
+
+@using Dynamicweb.Content.Items
+
+@functions {
+    string categoryItemType = "Dwtc15_NewsCategory";
+
+    HashSet<string> GetNewsCategoryIds()
+    {
+        var ids = new HashSet<string>();
+        ids.UnionWith(GetLoop("Item.Categories.Options").Where(i => i.GetBoolean("Item.Categories.Option.IsSelected")).Select(i => i.GetString("Item.Categories.Option.Value")));
+        // @TODO Add parent news category
+        var parentCategory = (Pageview.Page.Parent != null && Pageview.Page.Parent.Item != null && Pageview.Page.Parent.Item.SystemName == categoryItemType) ? Pageview.Page.Parent.Item : null;
+        if (parentCategory != null)
+        {
+            ids.Add(parentCategory.Id);
+        }
+        return ids;
+    }
+
+    IEnumerable<Item> GetNewsCategories()
+    {
+        var ids = GetNewsCategoryIds();
+        return GetItemsByIds(categoryItemType, ids.ToList<string>()).OrderBy(i => i["Name"]);
+    }
+}
+
+<article class="news">
+    <h1>@GetValue("Item.Heading")</h1>
+
+    <div class="content">@GetValue("Item.Content")</div>
+
+    <pre>@Newtonsoft.Json.JsonConvert.SerializeObject( GetNewsCategoryIds())</pre>
+    @{
+        var categories = GetNewsCategories();
+        if (categories.Any())
+        {
+            var mainCategoryPage = GetMostDistantAncestor(categoryItemType);
+            <div class="categories">
+                @foreach (var category in categories)
+                {
+                    if (mainCategoryPage != null && mainCategoryPage.Page != null)
+                    {
+                        var url = BuildUrl(new
+                        {
+                            Id = mainCategoryPage.Page.ID,
+                            Categories = category.Id
+                        });
+                        <a href="@url" class="category">@category["Name"]</a>
+                    }
+                    else
+                    {
+                        <span class="category">@category["Name"]</span>
+                    }
+                }
+            </div>
+        }
+    }
+
+    @{
+        var relatedNews = GetLoop("Item.RelatedNews");
+        if (relatedNews.Count > 0)
+        {
+            <h2>@Translate("Related news")</h2>
+            <ul class="related-news">
+                @foreach (var news in relatedNews)
+                {
+                    var url = news.GetValue("Item.RelatedNews.Url");
+                    <li><a href="@url">@news.GetValue("Item.RelatedNews.Heading")</a></li>
+                }
+            </ul>
+        }
+    }
+</article>

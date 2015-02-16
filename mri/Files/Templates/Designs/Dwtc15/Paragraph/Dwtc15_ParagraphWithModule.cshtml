@@ -1,0 +1,33 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@MasterPageFile("Dwtc15_Paragraph.cshtml")
+
+@if (!string.IsNullOrWhiteSpace(GetString("ParagraphModule")))
+{
+    <div class="module">
+        @if (Pageview.Item != null)
+        {
+            var formats = GetString("Item.AvailableFeeds").Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            if (formats.Length > 0)
+            {
+                <div class="feeds">
+                    @{
+                foreach (var format in formats)
+                {
+                    var url = BuildUrl(new
+                    {
+                        LayoutTemplate = Pageview.Item.SystemName + "." + format + ".cshtml",
+                        ParagraphId = GetInteger("ParagraphID")
+                    });
+                    <a href="@url" class="feed @format">@format</a>
+                }
+                    }
+                </div>
+            }
+        }
+
+        <div class="module-content">
+            @GetValue("ParagraphModule")
+        </div>
+    </div>
+}

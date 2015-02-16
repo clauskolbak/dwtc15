@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<items>
+  <item category="" name="Speaker" systemName="Dwtc15_Speaker" description="" icon="" largeIcon="" includeInUrlIndex="False" pageDefaultView="item" fieldForTitle="Name" title="" inherits="Dwtc15_Attendee">
+    <fields>
+      <field name="Image" systemName="Image" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.FileEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.FileEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Base directory" value="/Images/Dwtc15/Speakers" /><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Extensions" value="jpg" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Biography" systemName="Biography" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.RichTextEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RichTextEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.RichTextEditor" name="SelectConfgurationId" value="0" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Homepage" systemName="Homepage" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Title" systemName="Title" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Company" systemName="Company" description="" type="System.Int32, mscorlib" defaultValueCulture="en-US" defaultValue="0">
+        <editor type="Dynamicweb.Content.Items.Editors.ItemRelationListEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ItemRelationListEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ItemRelationListEditor" name="Item type" value="Dwtc15_Company" /><Parameter addin="Dynamicweb.Content.Items.Editors.ItemRelationListEditor" name="Sort by" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.ItemRelationListEditor" name="Sort order" value="ASC" /><Parameter addin="Dynamicweb.Content.Items.Editors.ItemRelationListEditor" name="Item source" value="Page" /><Parameter addin="Dynamicweb.Content.Items.Editors.ItemRelationListEditor" name="Minumum number of items" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.ItemRelationListEditor" name="Maximum number of items" value="" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Name" value="Name" icon="" />
+            <option name="Homepage" value="Homepage" icon="" />
+            <option name="Address" value="Address" icon="" />
+          </Static>
+        </options>
+      </field>
+    </fields>
+    <rules>
+      <rule name="Allow in websites" type="Dynamicweb.Content.Items.Activation.AreaRestrictionRule, Dynamicweb" value="*" />
+      <rule name="" type="Dynamicweb.Content.Items.Activation.ModuleAttachmentRestrictionRule, Dynamicweb" value="Nothing" />
+      <rule name="Enable item type for" type="Dynamicweb.Content.Items.Activation.StructureRestrictionRule, Dynamicweb" value="Pages" />
+    </rules>
+    <layout>
+      <groups>
+        <group name="General" systemName="General" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="Name" />
+            <field systemName="Email" />
+          </fields>
+        </group>
+        <group name="Personal details" systemName="PersonalDetails" collapsibleState="None" visibilityField="" visibilityCondition="0" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="Image" />
+            <field systemName="Biography" />
+            <field systemName="Homepage" />
+            <field systemName="Title" />
+            <field systemName="Company" />
+          </fields>
+        </group>
+        <group name="Other" systemName="Other" collapsibleState="None" visibilityField="" visibilityCondition="0" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="Address" />
+            <field systemName="CompanyName" />
+          </fields>
+        </group>
+      </groups>
+    </layout>
+  </item>
+</items>

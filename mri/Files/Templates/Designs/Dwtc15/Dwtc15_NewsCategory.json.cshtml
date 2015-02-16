@@ -1,0 +1,67 @@
+@functions {
+    IEnumerable<Dynamicweb.Content.Items.Item> GetItems()
+    {
+        try
+        {
+            var rules = new Dynamicweb.Modules.Searching.Rules.RulesGroup()
+            {
+                CombineMethod = Dynamicweb.Modules.Searching.Rules.RuleGroupCombineMethod.And
+            };
+            rules.Add(new Dynamicweb.Modules.Searching.Rules.Rule(new Dynamicweb.Modules.Searching.Rules.RuleField()
+            {
+                ID = "PublicationTime",
+                Name = "PublicationTime",
+                TypeName = typeof(DateTime).FullName
+            }, Dynamicweb.Modules.Searching.Rules.RuleOperator.IsBefore, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), null));
+            var query = new Dynamicweb.Content.Items.Queries.Query();
+            query.Where = new Dynamicweb.Modules.Searching.Rules.RulesGroupCollection();
+            query.Where.Add(rules);
+            query.OrderBy = new Dynamicweb.Content.Items.Queries.OrderByCollection();
+            query.OrderBy.Add(new Dynamicweb.Content.Items.Queries.OrderBy("PublicationTime", Dynamicweb.Content.Items.Queries.OrderByDirection.Descending));
+
+            // query.Fields = new string[] { "PublicationTime" };
+
+            query.Amount = 10;
+
+            return new Dynamicweb.Content.Items.Queries.Repository("Dwtc15_News").SelectByParentPageId(Pageview.Page.ID, query, false, true);
+        }
+        catch { }
+        return null;
+    }
+}
+
+@{
+    var data = new
+    {
+        channel = new
+        {
+            title = GetValue("Item.Name"),
+            description = GetValue("Item.Description"),
+            link = GetAbsoluteUrl(BuildUrl(null)),
+            lastBuildDate = DateTime.Now,
+            pubDate = DateTime.Now,
+            ttl = 1800,
+            items = GetItems().Select(item => new
+            {
+                title = ((string)item["Heading"] ?? "").Trim(),
+                description = ((string)item["Content"] ?? "").Trim(),
+                link = item.Page != null ? GetAbsoluteUrl("/Default.aspx?Id=" + item.Page.ID) : null,
+                pubDate = item["PublicationTime"],
+            })
+        }
+    };
+
+    @Newtonsoft.Json.JsonConvert.SerializeObject(data)
+}
+
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@* Remove stuff that Dynamicweb automatically injects into the template
+    @GetValue("Stylesheets")
+    @GetValue("Javascripts")
+    <div class="dwcontent" id="content" title="Content"></div> *@
+@{
+    System.Web.HttpContext.Current.Response.ContentType = "application/json";
+}
+
+@IncludeFile("../lib/razor/functions/functions.cshtml")

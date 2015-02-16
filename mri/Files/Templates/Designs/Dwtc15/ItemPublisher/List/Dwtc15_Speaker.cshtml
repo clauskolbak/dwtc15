@@ -1,0 +1,61 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@functions {
+    LoopItem GetCompany(LoopItem speaker)
+    {
+        foreach (var company in speaker.GetLoop("ItemPublisher:Item.Company"))
+        {
+            return company;
+        }
+        return null;
+    }
+}
+
+@helper DisplayTitle(LoopItem speaker)
+{
+    var company = GetCompany(speaker);
+    <small>
+        <span class="title">@speaker.GetValue("ItemPublisher:Item.Title")</span>@if (company != null)
+        {<text>,</text>
+            <span class="company">@company.GetString("ItemPublisher:Item.Company.Name")</span>  }
+    </small>
+}
+
+<div class="speakers">
+    @foreach (var speaker in GetLoop("ItemPublisher:Items.List"))
+    {
+        <div class="speaker">
+            <h1>
+                <span class="name">@speaker.GetValue("ItemPublisher:Item.Name")</span>
+                @DisplayTitle(speaker)
+            </h1>
+
+            <div class="description">@speaker.GetValue("ItemPublisher:Item.Biography")</div>
+
+            @{
+        var sessions = new Dynamicweb.Content.Items.Queries.Repository("Dwtc15_Session").SelectByReference("Speakers", "Dwtc15_Speaker", speaker.GetString("ItemPublisher:Item.Field.Id"), null, false, false).OrderBy(i => i["StartTime"]);
+        if (false && sessions != null && sessions.Count() > 0)
+        {
+            <fieldset>
+                <legend>
+                    @Translate("Sessions")
+                </legend>
+                <div class="sessions">
+                    @foreach (var session in sessions)
+                    {
+                        <div class="session">
+                            <div class="title">
+                                <a href="/Default.aspx?Id=@session.Page.ID">
+                                    @session["Title"]
+                                </a>
+                            </div>
+                            <div class="starttime">@(((DateTime)session["StartTime"]).ToString("dddd, dd MMMM @ HH:mm"))</div>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        }
+            }
+        </div>
+    }
+</div>

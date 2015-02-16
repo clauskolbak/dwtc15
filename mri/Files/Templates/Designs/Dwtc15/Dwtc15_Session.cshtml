@@ -1,0 +1,35 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@MasterPageFile("Master/Dwtc15.cshtml")
+
+<div class="session">
+    <h1>@GetValue("Item.Title")</h1>
+
+    <div class="description">@GetValue("Item.Description")</div>
+
+    <dl class="dl-horizontal">
+        @{
+            var speakers = GetLoop("Item.Speakers");
+            <dt>@Translate(speakers.Count == 1 ? "Speaker" : "Speakers")</dt>
+            <dd>
+                @foreach (var speaker in speakers)
+                {
+                var url = speaker.GetValue("Item.Speakers.Url");
+                <div class="speaker"><a href="@url">@speaker.GetValue("Item.Speakers.Name")</a></div>
+                }
+            </dd>
+        }
+
+        <dt>@Translate("Time")</dt>
+        <dd>@GetDate("Item.StartTime").ToString("yyyy-MM-dd @ HH:mm")</dd>
+
+        @{
+            var location = Dynamicweb.Content.Items.Item.GetItemById("Dwtc15_Venue", GetString("Item.Location"));
+            if (location != null)
+            {
+                <dt>@Translate("Location")</dt>
+                <dd>@location["Name"]</dd>
+            }
+        }
+    </dl>
+</div>

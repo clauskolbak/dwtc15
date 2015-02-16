@@ -1,0 +1,30 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@IncludeFile("../../lib/razor/functions/functions.cshtml")
+
+<div class="paragraph">
+    @if (!string.IsNullOrWhiteSpace(GetString("Item.Heading")))
+    {
+        switch (GetInteger("Item.HeadingLevel"))
+        {
+            case 3:
+                <h3>@GetString("Item.Heading")</h3>
+                break;
+            case 2:
+            <h2>@GetString("Item.Heading")</h2>
+                break;
+            default:
+            <h1>@GetString("Item.Heading")</h1>
+                break;
+        }
+    }
+
+    @if (!string.IsNullOrWhiteSpace(GetString("Item.Content")))
+    {
+        <div class="content">@GetString("Item.Content")</div>
+    }
+    
+    @ContentPlaceholder()
+
+    @IncludeFile("Partials/_Dwtc15_Edit.cshtml")
+</div>

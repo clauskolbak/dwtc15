@@ -1,0 +1,59 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@MasterPageFile("Master/Dwtc15.cshtml")
+
+@IncludeFile("../lib/razor/functions/functions.cshtml")
+
+<article class="news-list">
+    <div class="feeds pull-right">
+        @{
+            foreach (var format in new string[] { "rss", "json" })
+            {
+                var url = BuildUrl(new
+                {
+                    LayoutTemplate = GetString("Item.SystemName") + "." + format + ".cshtml"
+                });
+                <a href="@url">@format</a>
+            }
+        }
+    </div>
+
+    @* <h1><a href="/Default.aspx?id=@Pageview.Page.ID">@GetValue("Item.Name")</a></h1> *@
+
+    @* http://templates.dynamicweb.com/TemplateTags/Dynamicweb-template-tags/Module-tags/Item-publisher/Item-Render.aspx *@
+    @if (GetBoolean("Item.IsArchive"))
+    {
+        @RenderItemList(new
+{
+    ItemType = "Dwtc15_News",
+    ListSourceType = "Page",
+    ListSourcePage = GetInteger("Item.NewsPage"),
+    IncludeAllChildItems = true,
+    IncludeInheritedItems = true,
+    ItemFieldsList = "*",
+    ListTemplate = "ItemPublisher/List/Dwtc15_News.cshtml",
+    ListPageSize = 10,
+    ListOrderBy = "PublicationTime",
+    ListOrderByDirection = "Descending",
+    Filter = "ExpirationTime is before " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+})
+    }
+    else
+    {
+        @RenderItemList(new
+{
+    ItemType = "Dwtc15_News",
+    ListSourceType = "SelfPage",
+    IncludeAllChildItems = true,
+    IncludeInheritedItems = true,
+    ItemFieldsList = "*",
+    ListTemplate = "ItemPublisher/List/Dwtc15_News.cshtml",
+    ListPageSize = 10,
+    ListOrderBy = "PublicationTime",
+    ListOrderByDirection = "Descending",
+    Filter = "ExpirationTime is after " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+    + " and PublicationTime is before " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+})
+    }
+</article>
+

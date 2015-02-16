@@ -1,0 +1,66 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+    
+@GetValue("ItemCreator:Edit.Form.Begin")
+@if (GetString("ItemCreator:Edit.Status") == "ITEM_CREATED")
+{
+    <div class="alert alert-success">
+        @Translate("Thank you!")
+    </div>
+
+    <div class="form-horizontal readonly">
+        @foreach (var group in GetLoop("ItemCreator:Item.Groups"))
+        {
+            <fieldset>
+                <legend>@group.GetValue("ItemCreator:Item.Group.Name")</legend>
+
+                @foreach (var field in group.GetLoop("ItemCreator:Item.Group.Fields"))
+                {
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">@field.GetValue("ItemCreator:Item.Field.Name")</label>
+                        <div class="col-sm-10">
+                            <span class="form-control">@field.GetValue("ItemCreator:Item.Field.Value")</span>
+                        </div>
+                    </div>
+                }
+            </fieldset>
+        }
+    </div>
+}
+else if (GetString("ItemCreator:Edit.Status") != "NEW_SESSION")
+{
+    var errors = GetLoop("ValidationErrors");
+    if (errors.Count > 0)
+    {
+        <div class="alert alert-danger validation-errors">
+            <p><strong>@Translate("Please check your input")</strong></p>
+            <ul>
+                @foreach (var error in errors)
+                {
+                    <li>@error.GetValue("ItemCreator:Edit.Validation.FieldName"): @error.GetValue("ItemCreator:Edit.Validation.Error")</li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+@if (GetString("ItemCreator:Edit.Status") != "ITEM_CREATED")
+{
+    <div class="form-horizontal" role="form">
+        @foreach (var fieldName in new[] { "Name", "CompanyName", "Email", "Address.Country" })
+        {
+            <div class="form-group">
+                <label for='@GetValue("ItemCreator:Edit.Item."+fieldName+".SystemName")' class="col-sm-2 control-label">@Translate(fieldName)</label>
+                <div class="col-sm-10">
+                    <input id='@GetValue("ItemCreator:Edit.Item." + fieldName + ".SystemName")' name='@GetValue("ItemCreator:Edit.Item." + fieldName + ".SystemName")' type="text" value='@GetValue("ItemCreator:Edit.Item." + fieldName + ".Value")' class="form-control" />
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">@Translate("Sign up")</button>
+            </div>
+        </div>
+    </div>
+}
+@GetValue("ItemCreator:Edit.Form.End")

@@ -1,0 +1,40 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@if (Pageview.Device == Dynamicweb.Frontend.PageView.DeviceType.Desktop)
+{
+    var backendUser = Dynamicweb.Modules.UserManagement.User.get_Current(Dynamicweb.Modules.UserManagement.PagePermissionLevels.Backend);
+    if (backendUser != null)
+    {
+        <style>
+            .paragraph {
+                position: relative;
+            }
+
+                .paragraph .paragraph-edit {
+                    display: none;
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                }
+
+                .paragraph:hover .paragraph-edit {
+                    display: block;
+                }
+        </style>
+        <div class="paragraph-edit">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-default">@Translate("Paragraph actions")</button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    <li><a target="backend" href='/Admin/Content/ParagraphEdit.aspx?ID=@GetValue("ParagraphID")&amp;PageID=@Pageview.Page.ID'>@Translate("Edit paragraph")</a></li>
+                    @if (!string.IsNullOrWhiteSpace(GetString("ParagraphModule")))
+                    {
+                        <li><a target="backend" href='/Admin/Content/ParagraphEditModule.aspx?ID=@GetValue("ParagraphID")&amp;PageID=@Pageview.Page.ID'>@Translate("Edit module")</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+}
