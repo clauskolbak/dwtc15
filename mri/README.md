@@ -12,6 +12,5 @@ Installation
 ------------
 
 * Add item types and the Dwsimple design from [Wrap for Dynamicweb](http://developer.dynamicweb.com/downloads.aspx) to a Dynamicweb solution
-* Copy the design dwtc15 to the solution
+* Copy the design Dwtc15 to the solution
 * Copy the Dwtc15 item types to the solution
-* Copy all template files from the Dwsimple design into the dwtc15 design
