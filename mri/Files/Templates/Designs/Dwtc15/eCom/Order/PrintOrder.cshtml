@@ -1,0 +1,246 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+        <div class="w-box">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                       &nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                            @Translate("Order ID", "Order ID"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                            @GetString("Ecom:Order.ID")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Order date", "Order date"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Date")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Track and trace number", "Track and trace number"): &nbsp;
+                        @GetString("Ecom:Order.TrackTraceNumber")
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Company", "Company"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Customer.Company")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Att", "Att").:
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Customer.Name")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Address", "Address"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Customer.Address")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Zip", "Zip") / @Translate("City", "City"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Customer.Zip")
+                        &nbsp; @GetString("Ecom:Order.Customer.City")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Country", "Country"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Customer.Country")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Email", "Email"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Customer.Email")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @Translate("Phone", "Phone"):
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        @GetString("Ecom:Order.Customer.Phone")
+                    </div>
+                </div>
+                <div class="row">
+                    &nbsp;
+                </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <hr></hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <table class="table">
+                        <thead>
+                            <tr style="background: none !important; font-weight: bold">
+                                <td width="5%">
+                                    @Translate("Qty", "Qty")
+                                </td>
+                                <td width="20%">
+                                    @Translate("Product number", "Product number").
+                                </td>
+                                <td width="45%">
+                                    @Translate("Description", "Description")
+                                </td>
+                                <td width="15%" align="right">
+                                    @Translate("Unit price", "Unit price")
+                                </td>
+                                <td width="15%" align="right">
+                                    @Translate("Total price", "Total price")
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (LoopItem orderline in GetLoop("OrderLines"))
+                            {
+                                <tr>
+                                    <td>
+                                        @orderline.GetString("Ecom:Order:OrderLine.Quantity")
+                                    </td>
+                                    <td>
+                                        @orderline.GetString("Ecom:Order:OrderLine.ProductNumber")
+                                    </td>
+                                    <td>
+                                        @orderline.GetString("Ecom:Order:OrderLine.ProductName.Short")
+                                        @if (!string.IsNullOrWhiteSpace(GetString("Ecom:Order:OrderLine.ProductVariantText"))) {
+                                            <br />
+                                            @orderline.GetString("com:Order:OrderLine.ProductVariantText")
+                                        }
+                                    </td>
+                                    <td align="right">
+                                        @orderline.GetString("Ecom:Order:OrderLine.UnitPrice")
+                                    </td>
+                                    <td align="right">
+                                        @orderline.GetString("Ecom:Order:OrderLine.TotalPrice")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <hr></hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            @Translate("Total price excl. vat", "Total price excl. vat")
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            @GetString("Ecom:Order.PriceWithoutFees.PriceWithoutVATFormatted")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            @Translate("Payment", "Payment")
+                            @if (!string.IsNullOrWhiteSpace(GetString("Ecom:Order.PaymentMethod"))) {
+                                <text>&nbsp;: </text><span class='disableText' style='font-size: 9px;'>(@GetString("Ecom:Order.PaymentMethod"))</span>
+                            }
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            @GetString("Ecom:Order.PaymentFee.PriceFormatted")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            @Translate("Shipping", "Shipping")
+                            @if (!string.IsNullOrWhiteSpace(GetString("Ecom:Order.ShippingMethod"))) {
+                                <text>&nbsp;: </text><span class='disableText' style='font-size: 9px;'>(@GetString("Ecom:Order.ShippingMethod"))</span>
+                            }
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            @GetString("Ecom:Order.ShippingFee.PriceFormatted")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            @Translate("Sub-total excl. vat", "Sub-total excl. vat")
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            @GetString("Ecom:Order.Price.PriceWithoutVATFormatted")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            @Translate("Vat", "Vat")
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            @GetString("Ecom:Order.Price.VATFormatted")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <hr></hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6">
+                            <span style="font-weight: bold;">@Translate("Total price incl. vat", "Total price incl. vat")</span>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-6">
+                            <span style="font-weight: bold;">
+                                @GetString("Ecom:Order.Price.PriceFormatted")
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-0">
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <hr></hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,93 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="wp-block default user-form">
+                <div class="form-header">
+                    <h2>@GetGlobalValue("Global:Page.Name")</h2>
+                </div>
+                <div class="row">&nbsp;</div>
+                <!--
+                @if (string.IsNullOrWhiteSpace(GetString("DW_extranet_error_uk"))) {
+                    <div id="errormessages" class="alert alert-danger">@GetString("DW_extranet_error_uk")</div>
+                }
+                 -->
+
+                @{
+                    string pageid = GetGlobalValue("Global:Page.ID");
+                }
+
+                <form class="form-body" method="post" action="/Default.aspx?ID=@pageid">
+                    <input type="hidden" name="ID" value="@pageid" />
+                    <input type="hidden" name="DWExtranetUsernameRemember" value="True" />
+                    <input type="hidden" name="DWExtranetPasswordRemember" value="True" />
+                    @if (string.IsNullOrWhiteSpace(GetString("UserManagement:User.Login.SuccessRedirectToPage"))) {
+                        <input type="hidden" name="Redirect" value="@GetString("UserManagement:User.Login.SuccessRedirectToPage")" />
+                    }
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <label class="control-label" for="login-username">
+                                User name:
+                            </label>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            @{ 
+                                string defname = ""; 
+
+                                if (string.IsNullOrWhiteSpace(GetString("Server:Request.username"))){
+                                    defname = GetString("Server:Request.username");
+                                }    
+                            }
+                            <input style="width: 100%" class="form-control" type="text" id="login-username" name="username" value="@defname" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <label class="control-label" for="login-password">
+                                Password:
+                            </label>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            @{ 
+                                string defpass = ""; 
+
+                                if (string.IsNullOrWhiteSpace(GetString("Server:Request.password"))){
+                                    defpass = GetString("Server:Request.password");
+                                }    
+                            }
+                            <input style="width: 100%" class="form-control" type="password" id="login-password" name="password" value="@defpass" />
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="col-md-6 hidden-sm hidden-xs">
+                            <a class="btn btn-default pull-left" href="/Default.aspx?ID=@pageid&LoginAction=Recovery">@Translate("Forgot your password?", "Forgot your password?")</a>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <button class="btn btn-two pull-right" type="submit" name="LoginAction" value="Login">@Translate("Login", "Login")</button>
+                            <div class="checkbox pull-right" style="margin-top: 6px !important">
+                                <input type="checkbox" name="Autologin" checked="checked" value="True"> @Translate("Remember me", "Remember me") &nbsp;&nbsp;&nbsp;</input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <div class="row">
+                        <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
+                            <a class="btn btn-default pull-left" href="/Default.aspx?id=@pageid&LoginAction=Recovery">@Translate("Forgot your password?", "Forgot your password?")</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="wp-block light-gray user-form">
+                <div class="form-body">
+                    <h2>@Translate("Not a user yet?", "Not a user yet?")</h2>
+                    <hr></hr>
+                    <a class="btn btn-base" href="/create-user-profile">@Translate("Create user profile", "Create user profile")</a>
+                    <div class="row">&nbsp;</div> 
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>

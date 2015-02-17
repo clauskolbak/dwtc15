@@ -221,47 +221,47 @@ _parsed/
 mri/Files/System/Items/WebsiteLayouts_*
 
 # Ignore everything from Dwsimple design
-mri/Files/Templates/Designs/dwtc15/assets/
-mri/Files/Templates/Designs/dwtc15/css/
-mri/Files/Templates/Designs/dwtc15/DataManagement/
-mri/Files/Templates/Designs/dwtc15/eCom/
-mri/Files/Templates/Designs/dwtc15/eCom7/
-mri/Files/Templates/Designs/dwtc15/Filepublish/
-mri/Files/Templates/Designs/dwtc15/font-awesome/
-mri/Files/Templates/Designs/dwtc15/fullwidth.cshtml
-mri/Files/Templates/Designs/dwtc15/Gallery/
-mri/Files/Templates/Designs/dwtc15/images/
-mri/Files/Templates/Designs/dwtc15/index.html
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/Details/NewsDetail.cshtml
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/FaqList.html
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/includes/NewsList.cshtml
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/includes/ProductGalleryList.cshtml
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/JsonList.html
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/List.html
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/NewsList.cshtml
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/NewsListShort.cshtml
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/ProductGalleryFour.cshtml
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/ProductGalleryThree.cshtml
-mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/RssNews.html
-mri/Files/Templates/Designs/dwtc15/js/
-mri/Files/Templates/Designs/dwtc15/master.cshtml
-mri/Files/Templates/Designs/dwtc15/Navigation/
-mri/Files/Templates/Designs/dwtc15/news.cshtml
-mri/Files/Templates/Designs/dwtc15/newsletter/
-mri/Files/Templates/Designs/dwtc15/newsletter.*html
-mri/Files/Templates/Designs/dwtc15/nolayout/
-mri/Files/Templates/Designs/dwtc15/nolayout.*html
-mri/Files/Templates/Designs/dwtc15/Paragraph/Banner.cshtml
-mri/Files/Templates/Designs/dwtc15/Paragraph/Carousel.cshtml
-mri/Files/Templates/Designs/dwtc15/Paragraph/Default.html
-mri/Files/Templates/Designs/dwtc15/Paragraph/FacebookParagraph.cshtml
-mri/Files/Templates/Designs/dwtc15/Paragraph/GoogleMaps2.cshtml
-mri/Files/Templates/Designs/dwtc15/Paragraph/HorizontalSpaceing.cshtml
-mri/Files/Templates/Designs/dwtc15/Paragraph/MultiPurposeParagraph.cshtml
-mri/Files/Templates/Designs/dwtc15/ProductGalleryPage.cshtml
-#mri/Files/Templates/Designs/dwtc15/Translations.xml
-mri/Files/Templates/Designs/dwtc15/UserManagement/
-mri/Files/Templates/Designs/dwtc15/_shared/
-mri/Files/Templates/Designs/dwtc15/_wrap/
-mri/Files/System/Items/ItemType_DwsimpleWebsiteSettings.xml
-mri/Files/System/Items/ItemType_SocialLinks.xml
+# mri/Files/Templates/Designs/dwtc15/assets/
+# mri/Files/Templates/Designs/dwtc15/css/
+# mri/Files/Templates/Designs/dwtc15/DataManagement/
+# mri/Files/Templates/Designs/dwtc15/eCom/
+# mri/Files/Templates/Designs/dwtc15/eCom7/
+# mri/Files/Templates/Designs/dwtc15/Filepublish/
+# mri/Files/Templates/Designs/dwtc15/font-awesome/
+# mri/Files/Templates/Designs/dwtc15/fullwidth.cshtml
+# mri/Files/Templates/Designs/dwtc15/Gallery/
+# mri/Files/Templates/Designs/dwtc15/images/
+# mri/Files/Templates/Designs/dwtc15/index.html
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/Details/NewsDetail.cshtml
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/FaqList.html
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/includes/NewsList.cshtml
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/includes/ProductGalleryList.cshtml
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/JsonList.html
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/List.html
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/NewsList.cshtml
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/NewsListShort.cshtml
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/ProductGalleryFour.cshtml
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/ProductGalleryThree.cshtml
+# mri/Files/Templates/Designs/dwtc15/ItemPublisher/List/RssNews.html
+# mri/Files/Templates/Designs/dwtc15/js/
+# mri/Files/Templates/Designs/dwtc15/master.cshtml
+# mri/Files/Templates/Designs/dwtc15/Navigation/
+# mri/Files/Templates/Designs/dwtc15/news.cshtml
+# mri/Files/Templates/Designs/dwtc15/newsletter/
+# mri/Files/Templates/Designs/dwtc15/newsletter.*html
+# mri/Files/Templates/Designs/dwtc15/nolayout/
+# mri/Files/Templates/Designs/dwtc15/nolayout.*html
+# mri/Files/Templates/Designs/dwtc15/Paragraph/Banner.cshtml
+# mri/Files/Templates/Designs/dwtc15/Paragraph/Carousel.cshtml
+# mri/Files/Templates/Designs/dwtc15/Paragraph/Default.html
+# mri/Files/Templates/Designs/dwtc15/Paragraph/FacebookParagraph.cshtml
+# mri/Files/Templates/Designs/dwtc15/Paragraph/GoogleMaps2.cshtml
+# mri/Files/Templates/Designs/dwtc15/Paragraph/HorizontalSpaceing.cshtml
+# mri/Files/Templates/Designs/dwtc15/Paragraph/MultiPurposeParagraph.cshtml
+# mri/Files/Templates/Designs/dwtc15/ProductGalleryPage.cshtml
+# #mri/Files/Templates/Designs/dwtc15/Translations.xml
+# mri/Files/Templates/Designs/dwtc15/UserManagement/
+# mri/Files/Templates/Designs/dwtc15/_shared/
+# mri/Files/Templates/Designs/dwtc15/_wrap/
+# mri/Files/System/Items/ItemType_DwsimpleWebsiteSettings.xml
+# mri/Files/System/Items/ItemType_SocialLinks.xml

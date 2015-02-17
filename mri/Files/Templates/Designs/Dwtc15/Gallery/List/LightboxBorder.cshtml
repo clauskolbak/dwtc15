@@ -1,0 +1,10 @@
+﻿@foreach (LoopItem i in GetLoop("Images")){
+var imageTitle = @i.GetValue("Gallery.Image.Name");
+var imageLink = @i.GetValue("Gallery.Image.Thumb.Large.Path");
+<div class="LBimg">
+	<a href="@imageLink" rel="lightbox[img]" title="@imageTitle">
+		@i.GetValue("Gallery.Image.Thumb.Medium")
+	</a>
+</div>
+}
+@GetValue("Gallery.List.NoImagesText")

@@ -1,0 +1,937 @@
+@using System.Drawing
+@using System.Net
+
+
+@functions{
+	public class GeneralSettings
+	{
+		public class Background
+		{
+			public static string Color { get; set; }
+			public static string Image { get; set; }
+			public static string CustomImage { get; set; }
+			public static bool GradientColor { get; set; }
+			public static string GradientPercentage { get; set; }
+			public static string Style { get; set; }
+			public static string Position { get; set; }
+		}
+
+		public class Header
+		{
+			public static string Mode { get; set; }
+			public static string Classes { get; set; }
+			public static bool Show { get; set; }
+			public static string Background { get; set; }
+		}
+
+		public class Navigation
+		{
+			public static string Position { get; set; }
+			public static string InvertedPosition { get; set; }
+			public static string StickyMenu { get; set; }
+			public static string SelectionMode { get; set; }
+			public static string SelectionStyle { get; set; }
+			public static int SelectionWeight { get; set; }
+			public static bool Case { get; set; }
+
+			public static string BreadcrumbMode { get; set; }
+			public static string BreadcrumbAlign { get; set; }
+
+			public static string LeftmenuMode { get; set; }
+
+			public static string ButtonDesign { get; set; }
+		}
+
+		public class Headings
+		{
+			public static string Mode { get; set; }
+		}
+
+		public class Site
+		{
+			public static bool Shadow { get; set; }
+			public static string LayoutMode { get; set; }
+		}
+
+		public class Images
+		{
+			public static bool RoundCorners { get; set; }
+		}
+	}
+
+	private void InitGeneralSettings()
+	{	
+		//Background settings
+		GeneralSettings.Background.Image = GetString("Item.Area.BackgroundImage");
+	    GeneralSettings.Background.CustomImage = GetString("Item.Area.BackgroundCustomImage");
+	    GeneralSettings.Background.Color = GetString("Item.Area.BackgroundColor");
+	    GeneralSettings.Background.GradientColor = GetBoolean("Item.Area.BackroundGradientColor");
+	    GeneralSettings.Background.GradientPercentage = GetString("Item.Area.GradientPercentage");
+
+	    if (@GetString("Item.Area.BackgroundFixed") == "True")
+	    {
+	        GeneralSettings.Background.Position = "fixed";
+	    }
+	    else 
+	    {
+	    	GeneralSettings.Background.Position = "";
+	    }
+ 
+	    if (GeneralSettings.Background.Image == "none")
+	    {
+	        if (!string.IsNullOrWhiteSpace(GeneralSettings.Background.CustomImage))
+	        {
+	        	GeneralSettings.Background.Style = "background: url(/Admin/Public/GetImage.ashx?width=1920&Crop=1&Compression=75&image=" + GeneralSettings.Background.CustomImage + ") " + GeneralSettings.Background.Position + " !important; ";
+	        }
+	    } 
+	    else
+	    {
+			GeneralSettings.Background.Style = "background: url(/Admin/Public/GetImage.ashx?width=1920&Crop=1&Compression=75&image=/Files/Templates/Designs/Dwsimple/images/background/" + GeneralSettings.Background.Image + ") " + GeneralSettings.Background.Position + " !important; ";
+	    } 
+
+
+	    //Header settings
+	    GeneralSettings.Header.Mode = GetString("Item.Area.HeaderLayoutMode");
+	    GeneralSettings.Header.Show = GetBoolean("Item.Area.HeaderShow");
+	    GeneralSettings.Header.Background = GetString("Item.Area.NavigationNavbarBackground");
+	    
+	    if (GeneralSettings.Header.Mode == "solid"){
+	    	GeneralSettings.Header.Classes = "header-standard-3";
+	    }
+
+	    if (GeneralSettings.Header.Mode == "cover"){
+	    	GeneralSettings.Header.Classes = "header-alpha header-cover";
+	    }
+
+	    if (GeneralSettings.Header.Mode == "mobile"){
+	    	GeneralSettings.Header.Classes = "header-alpha header-cover";
+	    }
+
+
+	    //Navigation settings
+	    GeneralSettings.Navigation.Position = GetString("Item.Area.NavigationPosition");
+	    GeneralSettings.Navigation.StickyMenu = "";
+
+	    if (GetBoolean("Item.Area.NavigationSticky")) {
+	    	if (GeneralSettings.Header.Show) 
+	    	{	
+	    		if (GeneralSettings.Header.Mode == "cover")
+				{
+            		GeneralSettings.Navigation.StickyMenu = "data-spy=\"affix\" data-offset-top=\"44\"";
+            	}
+            	else 
+            	{
+            		int offset = ImageHeight()+28;
+
+            		GeneralSettings.Navigation.StickyMenu = "data-spy=\"affix\" data-offset-top=\"" + offset.ToString() + "\"";
+            	}
+            } 
+            else 
+            {
+            	GeneralSettings.Navigation.StickyMenu = "data-spy=\"affix\" data-offset-top=\"0\"";
+            }
+        }
+
+        if (GeneralSettings.Navigation.Position == "left") {
+            GeneralSettings.Navigation.InvertedPosition = "right";
+        } 
+        else 
+        {
+            GeneralSettings.Navigation.InvertedPosition = "left";
+        }
+
+        GeneralSettings.Navigation.SelectionMode = GetString("Item.Area.NavigationSelectionMode");
+        GeneralSettings.Navigation.SelectionStyle = "";
+        GeneralSettings.Navigation.SelectionWeight = GetInteger("Item.Area.SelectionWeight");
+
+        if (GeneralSettings.Navigation.SelectionMode == "arrow") {
+        	GeneralSettings.Navigation.SelectionStyle = "navbar-arrow";
+	    }
+
+	    GeneralSettings.Navigation.Case = GetBoolean("Item.Area.NavigationUppercase");
+
+	    GeneralSettings.Navigation.BreadcrumbMode = GetString("Item.Area.NavigationBreadcrumbLayout");
+	    GeneralSettings.Navigation.BreadcrumbAlign = GetString("Item.Area.NavigationBreadcrumbAlign");
+
+	    GeneralSettings.Navigation.LeftmenuMode = GetString("Item.Area.NavigationLeftNavigationMode");
+
+	    GeneralSettings.Navigation.ButtonDesign = GetString("Item.Area.NavigationButtonDesign");
+
+
+	    //Headings settings
+	    GeneralSettings.Headings.Mode = GetString("Item.Area.AdvHeadingsMode");
+
+
+	    //Site settings
+	    GeneralSettings.Site.Shadow = GetBoolean("Item.Area.BackgroundSiteShadow");
+	    GeneralSettings.Site.LayoutMode = GetString("Item.Area.LayoutMode");
+
+	    if (GeneralSettings.Site.LayoutMode == "boxed"){
+            GeneralSettings.Site.LayoutMode = "body-" + GeneralSettings.Site.LayoutMode;
+        }
+
+
+        //Image settings
+	    GeneralSettings.Images.RoundCorners = GetBoolean("Item.Area.LayoutRoundCorners");
+	}
+
+	public string GetGeneralCSS()
+	{
+		string CssString = "";
+		int SelectionWeight = GeneralSettings.Navigation.SelectionWeight;
+
+		//Site settings
+		if (GetString("Item.Area.LogoFontColor") == "#FFF" || GetString("Item.Area.LogoFontColor") == "#FFFFFF") 
+		{
+			CssString += @"
+			.dw-offsetmenu-logo {
+				color: #333;
+		    }";
+		}
+
+		if (!string.IsNullOrWhiteSpace(GeneralSettings.Background.Color))
+	    { 
+			CssString += @"
+			body {
+				background-color: " + GeneralSettings.Background.Color + @";
+		        background-size: cover; 
+		        overflow-y: scroll; 
+		    }";
+	    } 
+
+	    if (GeneralSettings.Background.GradientColor)
+	    {  
+            CssString += @"
+			body {
+				background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0." + GeneralSettings.Background.GradientPercentage + @") 0%, rgba(0, 0, 0, 0) 100%);
+        		background: -o-linear-gradient(bottom, rgba(0, 0, 0, 0." + GeneralSettings.Background.GradientPercentage + @") 0%, rgba(0, 0, 0, 0) 100%);
+       			background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0." + GeneralSettings.Background.GradientPercentage + @") 0%, rgba(0, 0, 0, 0) 100%);
+        		background: -moz-linear-gradient(bottom, rgba(0, 0, 0, 0." + GeneralSettings.Background.GradientPercentage + @") 0%, rgba(0, 0, 0, 0) 100%);
+        		background: linear-gradient(to top, rgba(0, 0, 0, 0." + GeneralSettings.Background.GradientPercentage + @") 0%, rgba(0, 0, 0, 0) 100%);
+        		background-attachment: fixed;
+        		background-color: " + GeneralSettings.Background.Color + @" !important;
+        	}";
+	    }
+
+	    if (GeneralSettings.Site.Shadow)
+    	{
+			CssString += @"
+			.shad {
+				-webkit-box-shadow: 0px 0px 8px 0px rgba(50, 50, 50, 0.75);
+	        	-moz-box-shadow: 0px 0px 8px 0px rgba(50, 50, 50, 0.75);
+	        	box-shadow: 0px 0px 8px 0px rgba(50, 50, 50, 0.75);
+			}";
+		}
+
+		//Image settings
+		if (GeneralSettings.Images.RoundCorners)
+	    {	
+	    	CssString += @"
+		    .content-image {
+				border-radius: 6px;
+				-webkit-border-radius: 6px;
+				-moz-border-radius: 6px;
+			}";
+	    }
+
+		//Navbar and header custom settings
+		if (GeneralSettings.Header.Mode == "cover")
+		{
+	    	CssString += @"
+		    .navbar-wp {
+		    	background-color: none !important;
+		    }";
+
+		    if (!GeneralSettings.Header.Show || GeneralSettings.Header.Mode == "mobile")
+		    {
+		    	CssString += @"
+		    	.header-cover .navbar-wp {
+			    	top: 0px !important;
+			   	}";
+		    }
+	    } 
+	    else
+	    {
+	    	if (GeneralSettings.Header.Show)
+	    	{
+			    CssString += @"
+			    .navbar-wp.affix .navbar-nav > li > a {
+			    	padding: 16px 16px !important;
+			    }";
+			}
+	    } 
+
+		if (GeneralSettings.Header.Background == "colorline")
+		{
+			CssString += @"
+			.navbar-wp, .navbar-wp.affix {
+		    	border-bottom: 4px solid " + GetString("Item.Area.ColorsPrimary") + @" !important;
+		    }
+
+		    .navbar-wp.affix, .navbar-wp.affix .navbar-nav > li > a {
+		    	background-color: #FFF;
+		    	color: #333;
+		    }";
+		} else if (GeneralSettings.Header.Background == "neutral")
+		{
+			CssString += @"
+			.navbar-wp, .navbar-wp.affix, .navbar-wp .navbar-nav > li > a {
+		    	background-color: #f1f1f1;
+		    	color: #333;
+		    }";
+		} 
+		else if (GeneralSettings.Header.Background == "transparent")
+		{
+			CssString += @"
+		    .navbar-wp, .navbar-wp.affix {
+		    	background-color: #FFF;
+		    	color: #333;
+		    	opacity: 0.9;
+    			filter: alpha(opacity=90); /* For IE8 and earlier */
+		    }";
+		} 
+		else 
+		{
+			CssString += @"
+		    .navbar-wp, .navbar-wp.affix, .navbar-wp .navbar-nav > li > a {
+		    	background-color: " + GetString("Item.Area.ColorsHeadmenuBackgroundColor") + @";
+		    }";
+		}
+
+		if (GeneralSettings.Navigation.SelectionMode == "background" || GeneralSettings.Navigation.SelectionMode == "arrow"){
+			CssString += NavbarPosition(false, SelectionWeight);
+
+			CssString += @"
+			.dw-navbar-button > a {
+    			background-color: transparent !important;
+			}
+
+			.dw-navbar-button > a:hover, dw-navbar-button > a:active, dw-navbar-button > a:focus, .active > a {
+				background-color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}";
+	    }
+
+		if (GeneralSettings.Navigation.SelectionMode == "underline"){
+			CssString += NavbarPosition(true);
+
+			CssString += ClearBackground();
+
+			CssString += @"
+			.dw-navbar-button > a span:after {
+				position: absolute;
+				content: '';
+				left: 0px;
+				bottom: 0px;
+				height: " + SelectionWeight + @"px;
+				width: 100%;
+				transform: scaleX(0);
+				transition: all 0.3s ease-in-out 0s;
+			}
+
+			.dw-navbar-button > a:hover span:after, dw-navbar-button > a:active span:after, dw-navbar-button > a:focus span:after, .active > a span:after {
+				transform: scaleX(1);
+				transition: all 0.3s ease-in-out 0s;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.SelectionMode == "boxed"){
+	    	CssString += NavbarPosition(true, SelectionWeight);
+
+	    	CssString += @"
+	    	.dw-navbar-button > a {
+    			background-color: transparent !important;
+			}
+
+			.dw-navbar-button > a:hover, dw-navbar-button > a:active, dw-navbar-button > a:focus, .active > a {
+				background-color:" + GetString("Item.Area.ColorsPrimary") + @" !important;
+				transition: all 0.3s ease-in-out 0s;
+				background-color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.SelectionMode == "border"){
+	    	CssString += NavbarPosition(true, 6, SelectionWeight);
+
+	    	CssString += ClearBackground();
+
+	    	CssString += @"
+			.dw-navbar-button > a {
+				border: " + SelectionWeight + @"px solid transparent !important; transition: None !important;
+			}
+
+			.dw-navbar-button > a:hover, dw-navbar-button > a:active, dw-navbar-button > a:focus, .active > a {
+				border-width: " + SelectionWeight + @"px !important;
+				border-color:" + GetString("Item.Area.ColorsPrimary") + @" !important;
+				transition: all 0.3s ease-in-out 0s;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.SelectionMode == "font"){
+	    	CssString += NavbarPosition();
+
+	    	CssString += ClearBackground();
+
+	    	SelectionWeight = (SelectionWeight*100);
+
+	    	CssString += @"
+			.dw-navbar-button > a:hover, dw-navbar-button > a:active, dw-navbar-button > a:focus, .active > a {
+				color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+				font-weight: " + SelectionWeight + @" !important;
+				transition: all 0.3s ease-in-out 0s; 
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.Case){
+	    	CssString += @"
+	    	.dw-navbar-button > a {
+				text-transform: uppercase !important;
+			}";
+	    } 
+	    else 
+	    {
+	    	CssString += @"
+	    	.dw-navbar-button > a {
+				text-transform: none !important;
+			}";
+	    }
+
+		
+		//Breadcrumb custom settings
+		if (GeneralSettings.Navigation.BreadcrumbMode == "light")
+		{
+			CssString += @"
+			.pg-opt {
+				border-bottom: 0px;
+				background: none repeat scroll 0% 0% #FFF;
+			}
+
+			.dw-breadcrumb-title {
+				font-size: 14px !important;
+				padding: 5px 0px 5px 0px !important;
+			}
+
+			.dw-breadcrumb {
+				padding: 5px !important;
+			}";
+		}
+
+		if (GeneralSettings.Navigation.BreadcrumbMode == "normal")
+		{
+			CssString += @"
+			.dw-breadcrumb-title {
+				font-size: 14px !important;
+				padding: 5px 0px 5px 0px !important;
+			}
+
+			.dw-breadcrumb a, .pg-opt .breadcrumb {
+				padding: 5px !important;
+			}";
+		}
+
+		if (GeneralSettings.Navigation.BreadcrumbMode == "large")
+		{
+			CssString += @"
+			.dw-breadcrumb-title {
+				font-size: 22px !important;
+				padding: 15px 0px 15px 0px !important;
+			}
+
+			.dw-breadcrumb {
+				padding: 15px !important;
+			}";
+		}
+
+
+		if (GeneralSettings.Navigation.BreadcrumbAlign == "right")
+		{
+	    	CssString += @"
+			.dw-breadcrumb {
+				float: right !important;
+			}";
+	    }
+	    else
+	    {
+	    	CssString += @"
+			.dw-breadcrumb {
+				float: left !important;
+			}";
+	    }
+
+
+	    //Left menu custom settings
+	    if (GeneralSettings.Navigation.LeftmenuMode == "light" || GeneralSettings.Navigation.LeftmenuMode == "light-color")
+	    {
+	    	CssString += @"
+	    	ul.dw-categories > li > ul > li > a {
+			    padding: 5px 35px;
+			}
+
+			ul.dw-categories, ul.dw-categories > li, ul.dw-categories > li > ul > li {
+				border: 0px solid #EEE;
+			}
+
+			ul.dw-categories > li > ul {
+			    background: none repeat scroll 0% 0% #FFF;
+			}
+
+			ul.dw-categories li a:hover, ul.dw-categories li a:focus, ul.dw-categories li a:active {
+			    background-color: #FFF !important;
+			    color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}
+
+			.list-active, .list-active > a {
+			    background-color: #FFF;
+			    color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}
+
+			.list-open-active {
+			    background-color: #FFF;
+			    color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.LeftmenuMode == "lines")
+	    {
+	    	CssString += @"
+	    	ul.dw-categories > li {
+	    		border-bottom: 1px solid #EEE;
+	    	}
+
+			ul.dw-categories {
+				border: 0px solid #EEE;
+			}
+
+			ul.dw-categories > li > ul {
+			    background: none repeat scroll 0% 0% #FFF;
+			}
+
+			ul.dw-categories li a:hover, a:focus, a:active {
+			    background-color: #FFF !important;
+			    color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}
+
+			.list-active, .list-active > a {
+			    background-color: #FFF;
+			    color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}
+
+			.list-open-active {
+			    background-color: #FFF;
+			    color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			}";
+	    }	
+
+	    if (GeneralSettings.Navigation.LeftmenuMode == "boxed")
+	    {
+	    	CssString += @"
+			ul.dw-categories, ul.dw-categories > li, ul.dw-categories > li > ul > li {
+				border: 0px solid #EEE;
+			}
+
+			.list-active, .list-active > a {
+			    background-color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			    color: #FFF;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.LeftmenuMode == "border")
+	    {
+	    	CssString += @"
+			ul.dw-categories > li {
+				border: 1px solid #EEE;
+			}
+
+			ul.dw-categories > li > ul > li {
+				border-top: 1px solid #EEE;
+			}
+
+			.list-active, .list-active > a {
+			    background-color: " + GetString("Item.Area.ColorsPrimary") + @" !important;
+			    color: #FFF;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.LeftmenuMode == "light-color")
+	    {	
+	    	CssString += @"
+	    	ul.dw-categories li a:hover, ul.dw-categories a:focus, ul.dw-categories a:active {
+				border-left: 6px solid " + GetString("Item.Area.ColorsPrimary") + @";
+			}
+
+			ul.dw-categories .list-active > a {
+			    border-left: 6px solid " + GetString("Item.Area.ColorsPrimary") + @";
+			}
+
+			.btn-dw:hover, .btn-dw:focus, .btn-dw:active {
+
+			}";
+		}
+
+
+		//Buttons custom designs
+		if (GeneralSettings.Navigation.ButtonDesign == "light-rounded")
+	    {
+	    	CssString += @"
+			.btn-dw-primary, .btn-dw-secondary, .btn-dw-cart {
+				border-width: 0px;
+			}
+
+			.btn-dw-primary:hover, .btn-dw-primary:focus, .btn-dw-primary:active {
+				background-color: " + GetString("Item.Area.ColorsHeadmenuBackgroundColor") + @";
+	    		color: #FFF;
+	    		border-width: 0px;
+			}
+
+			.btn-dw-secondary:hover, .btn-dw-secondary:focus, .btn-dw-secondary:active {
+				background-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		color: #FFF;
+	    		border-width: 0px;
+			}
+
+			.btn-dw-cart:hover, .btn-dw-cart:focus, .btn-dw-cart:active {
+				background-color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+	    		color: #FFF;
+	    		border-width: 0px;
+			}";
+	    }
+
+		if (GeneralSettings.Navigation.ButtonDesign == "corners")
+	    {
+	    	CssString += @"
+	    	.btn-dw-primary, .btn-dw-secondary, btn-dw-cart , .btn-dw-cart  {
+				border-radius: 0px !important;
+				border-width: 0px;
+			}
+
+			.btn-dw-primary:hover, .btn-dw-primary:focus, .btn-dw-primary:active {
+				background-color: " + GetString("Item.Area.ColorsHeadmenuBackgroundColor") + @";
+	    		color: #FFF;
+	    		border-width: 0px;	
+			}
+
+			.btn-dw-secondary:hover, .btn-dw-secondary:focus, .btn-dw-secondary:active {
+				background-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		color: #FFF;
+	    		border-width: 0px;	
+			}
+
+			.btn-dw-cart:hover, .btn-dw-cart:focus, .btn-dw-cart:active {
+				background-color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+	    		color: #FFF;
+	    		border-width: 0px;	
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.ButtonDesign == "round")
+	    {
+	    	CssString += @"
+	    	.btn-dw-primary, .btn-dw-secondary, .btn-dw-cart {
+	    		padding: 5px 15px;
+				border-radius: 200px !important;
+				border-width: 0px !important;
+			}
+
+			.btn-dw-primary:hover, .btn-dw-primary:focus, .btn-dw-primary:active {
+				background-color: " + GetString("Item.Area.ColorsHeadmenuBackgroundColor") + @";
+	    		color: #FFF;
+	    		border-width: 0px !important;
+			}
+
+			.btn-dw-secondary:hover, .btn-dw-secondary:focus, .btn-dw-secondary:active {
+				background-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		color: #FFF;
+	    		border-width: 0px !important;
+			}
+
+			.btn-dw-cart:hover, .btn-dw-cart:focus, .btn-dw-cart:active {
+				background-color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+	    		color: #FFF;
+	    		border-width: 0px !important;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.ButtonDesign == "border")
+	    {
+	    	CssString += @"
+	    	.btn-dw-primary, .btn-dw-secondary, .btn-dw-cart {
+	    		background-color: transparent;
+			}
+
+			.btn-dw-primary {
+				border-width: 4px;
+				padding: 3px 10px;
+				color: " + GetString("Item.Area.ColorsPrimary") + @";
+			}
+
+			.btn-dw-secondary {
+				border-width: 2px;
+				color: " + GetString("Item.Area.ColorsHeadmenuBackgroundColor") + @";
+			}
+
+			.btn-dw-cart {
+				border-width: 4px;
+				padding: 3px 10px;
+				color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+			}
+
+			.btn-dw-primary:hover, .btn-dw-primary:focus, .btn-dw-primary:active {
+				background-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		border-width: 4px;
+	    		padding: 3px 10px;
+	    		border-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		color: #FFF;
+			}
+
+			.btn-dw-secondary:hover, .btn-dw-secondary:focus, .btn-dw-secondary:active {
+				background-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		border-width: 2px;
+	    		color: #FFF;
+				border-color: #FFF;
+			}
+
+			.btn-dw-cart:hover, .btn-dw-cart:focus, .btn-dw-cart:active {
+				background-color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+	    		border-width: 4px;
+	    		padding: 3px 10px;
+	    		border-color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+	    		color: #FFF;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.ButtonDesign == "border-sharp" || GeneralSettings.Navigation.ButtonDesign == "border-round")
+	    {
+	    	CssString += @"
+	    	.btn-dw-primary, .btn-dw-secondary, .btn-dw-cart {
+	    		background-color: transparent;
+			}
+
+			.btn-dw-primary {
+				border-width: 4px;
+				padding: 3px 15px;
+	    		color: " + GetString("Item.Area.ColorsPrimary") + @";
+			}
+
+			.btn-dw-secondary {
+				border-width: 2px;
+				padding: 5px 15px;
+	    		color: " + GetString("Item.Area.ColorsHeadmenuBackgroundColor") + @";
+			}
+
+			.btn-dw-cart {
+				border-width: 4px;
+				padding: 3px 15px;
+	    		color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+			}
+
+			.btn-dw-primary:hover, .btn-dw-primary:focus, .btn-dw-primary:active {
+	    		background-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		border-width: 4px;
+	    		color: #FFF;
+	    		padding: 3px 15px;
+				border-color: " + GetString("Item.Area.ColorsPrimary") + @";
+			}
+
+			.btn-dw-secondary:hover, .btn-dw-secondary:focus, .btn-dw-secondary:active {
+	    		background-color: " + GetString("Item.Area.ColorsPrimary") + @";
+	    		border-width: 2px;
+	    		color: #FFF;
+	    		padding: 5px 15px;
+				border-color: #FFF;
+			}
+
+			.btn-dw-cart:hover, .btn-dw-cart:focus, .btn-dw-cart:active {
+	    		background-color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+	    		border-width: 4px;
+	    		color: #FFF;
+	    		padding: 3px 15px;
+				border-color: " + GetString("Item.Area.EcommerceCartButtonColor") + @";
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.ButtonDesign == "border-sharp")
+	    {
+	    	CssString += @"
+	    	.btn-dw-primary, .btn-dw-secondary, .btn-dw-cart, .btn-dw-primary:hover, .btn-dw-primary:focus, .btn-dw-primary:active, .btn-dw-secondary:hover, .btn-dw-secondary:focus, .btn-dw-secondary:active, .btn-dw-cart:hover, .btn-dw-cart:focus, .btn-dw-cart:active {
+				border-radius: 0px !important;
+			}";
+	    }
+
+	    if (GeneralSettings.Navigation.ButtonDesign == "border-round")
+	    {
+	    	CssString += @"
+	    	.btn-dw-primary, .btn-dw-secondary, .btn-dw-cart, .btn-dw-primary:hover, .btn-dw-primary:focus, .btn-dw-primary:active, .btn-dw-secondary:hover, .btn-dw-secondary:focus, .btn-dw-secondary:active, .btn-dw-cart:hover, .btn-dw-cart:focus, .btn-dw-cart:active {
+				border-radius: 200px !important;
+			}";
+	    }
+
+
+	    //Headings custom settings
+	    if (GeneralSettings.Headings.Mode == "underline")
+	    {
+	    	CssString += @"
+	    	.dw-section-title {
+				border-bottom: 2px solid;
+	    	}";
+	    }
+
+	    if (GeneralSettings.Headings.Mode == "boxed" || GeneralSettings.Headings.Mode == "boxed-line")
+	    {	
+	    	CssString += @"
+	    	.dw-section-title span {
+	    		background-color: " + GetString("Item.Area.HeadingsColor") + @";
+				display: inline-block;
+				padding: 8px 16px;
+				color: #FFF;
+	    	}";
+
+	    	if (string.IsNullOrWhiteSpace(GetString("Item.Area.HeadingsColor")))
+	    	{
+	    		CssString += @"
+		    	.dw-section-title {
+					background-color: " + GetString("Item.Area.Primary") + @";
+		    	}";
+	    	}
+	    }
+
+	    if (GeneralSettings.Headings.Mode == "boxed-line")
+	    {
+	    	CssString += @"
+	    	.dw-section-title span {
+	    		margin-bottom: 2px;
+	    	}
+
+	    	.dw-section-title {
+				border-bottom: 2px solid " + GetString("Item.Area.HeadingsColor") + @";
+	    	}";
+
+	    	if (string.IsNullOrWhiteSpace(GetString("Item.Area.HeadingsColor")))
+	    	{
+	    		CssString += @"
+		    	.dw-section-title {
+					border-bottom: 2px solid " + GetString("Item.Area.Primary") + @";
+		    	}";
+	    	}
+	    }
+
+	    if (GeneralSettings.Headings.Mode == "outline")
+	    {	
+	    	CssString += @"
+	    	.dw-section-title {
+	    		color: #FFF;
+				text-shadow:
+				-1px -1px 0 " + GetString("Item.Area.HeadingsColor") + @",  
+				1px -1px 0 " + GetString("Item.Area.HeadingsColor") + @",
+				-1px 1px 0 " + GetString("Item.Area.HeadingsColor") + @",
+				1px 1px 0 " + GetString("Item.Area.HeadingsColor") + @";
+			}";
+
+			if (string.IsNullOrWhiteSpace(GetString("Item.Area.HeadingsColor")))
+	    	{
+	    		CssString += @"
+		    	.dw-section-title {
+					text-shadow:
+					-1px -1px 0 #1A1A1A,  
+					1px -1px 0 #1A1A1A,
+					-1px 1px 0 #1A1A1A,
+					1px 1px 0 #1A1A1A;	
+		    	}";
+	    	}
+	    }
+
+		return CssString;
+	}
+
+	private string ClearBackground() {
+		string CssString = "";
+
+    	CssString += @"
+    	.dw-navbar-button > a {
+    		background-color: rgba(0, 0, 0, 0.0) !important;
+    	}
+
+    	.dw-navbar-button > a:hover, dw-navbar-button > a:active, dw-navbar-button > a:focus, .active > a {
+    		background-color: rgba(0, 0, 0, 0.0) !important;
+    	}";
+
+	    return CssString;
+	}
+
+	private string NavbarPosition(bool margin=false, int specialpadding=6, int extramargin=0) {
+		int LogoHeight = 0;
+		string CssString = "";
+		int Centerpos = 0;
+
+		if (GeneralSettings.Header.Mode != "solid"){
+			if (!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo")))
+			{	
+				LogoHeight = ImageHeight();
+			}
+			else 
+			{
+				LogoHeight = 38;
+			}
+		}
+		else
+		{	
+			if (!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo")))
+			{	
+				LogoHeight = 18;
+			}
+			else 
+			{
+				LogoHeight = 28;
+			}
+		}	
+
+		if (margin == false)
+		{	
+			Centerpos = (LogoHeight/2) + 6;
+
+			CssString += @"
+	    	.dw-navbar-button > a, .navbar-wp.affix .navbar-nav > li > a {
+    			padding: " + Centerpos + @"px " + (specialpadding+4) + @"px " + Centerpos + @"px " + (specialpadding+4) + @"px !important;
+    			margin: " + extramargin + @"px " + extramargin + @"px !important;
+			}";
+		}
+		else 
+		{	
+			Centerpos = ((LogoHeight/2)+6)-(specialpadding+extramargin);
+
+			CssString += @"
+	    	.dw-navbar-button > a, .navbar-wp.affix .navbar-nav > li > a {
+    			padding: " + specialpadding + @"px " + (specialpadding+4) + @"px " + specialpadding + @"px " + (specialpadding+4) + @"px !important;
+    			margin: " + Centerpos + @"px 4px " + Centerpos + @"px 4px !important;
+			}";
+		}
+
+		return CssString;
+	}
+
+	private int ImageHeight ()
+	{
+		int LogoHeight = 0;
+
+		if (!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo")))
+		{	
+			string imageUrl = "http://" + HttpContext.Current.Request.Url.Authority + GetString("Item.Area.GeneralLogo");
+
+			WebRequest request = WebRequest.Create(imageUrl);
+			WebResponse response = request.GetResponse();
+			Image image = Image.FromStream(response.GetResponseStream());
+
+			LogoHeight = image.Height;
+		}
+		else 
+		{
+			LogoHeight = 38;
+		}
+
+		return LogoHeight;
+	}
+}
+
+
+
+@{
+	InitGeneralSettings();
+}

@@ -1,0 +1,27 @@
+﻿<h2>Customer Center - My favorites</h2>
+<!--@Ecom:CustomerCenter.Menu-->
+<!--@LoopStart(FavoriteList)-->
+	<!--@EmptyLoopStart-->No products added to favorites list...<!--@EmptyLoopEnd-->
+	<!--@HeaderStart-->
+	<table cellpadding="4" cellspacing="0" border="0" width="100%">
+	<colgroup>
+		<col />
+		<col width="80px" align="right" />
+		<col width="120px" align="right" />
+	</colgroup>		
+	<!--@HeaderEnd-->
+	<tr>
+		<td><a href="<!--@Ecom:Product.Link.Clean-->"><!--@Ecom:Product.Name--></a></td>
+		<td>
+			<form id="<!--@Ecom:Product.ID-->" method="get" name="<!--@Ecom:Product.ID-->">
+				<!--@Ecom:Product.Form.Clean-->
+				<input type="text" name="quantity" id="quantity" value="1" />
+				<a href="javascript:document.getElementById('<!--@Ecom:Product.ID-->').submit();">Add to basket</a>
+			</form>
+		</td>
+		<td><a href="<!--@Ecom:Product.RemoveFromFavorites-->">Remove from favorites</a></td>
+	</tr>
+	<!--@FooterStart-->
+	</table>
+	<!--@FooterEnd-->
+<!--@LoopEnd(FavoriteList)-->

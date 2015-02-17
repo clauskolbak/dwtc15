@@ -1,0 +1,822 @@
+﻿<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<items>
+  <item category="Settings" name="Dwsimple website settings" systemName="DwsimpleWebsiteSettings" description="" icon="/Admin/Images/Ribbon/Icons/Small/preferences.png" largeIcon="/Admin/Images/Ribbon/Icons/preferences.png" includeInUrlIndex="False" pageDefaultView="item" fieldForTitle="" title="" inherits="">
+    <fields>
+      <field name="Primary color" systemName="ColorsPrimary" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#FFFFFF">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Secondary color" systemName="ColorsHeadmenuBackgroundColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#FFFFFF">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Footer color" systemName="ColorsFooterColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#232323">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="#232323, #1A1A1A, #4D4D4D, #6E6E6E,  #9C9C9C, #C2C2C2" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Logo" systemName="GeneralLogo" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.FileEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.FileEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Base directory" value="/Images" /><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Extensions" value="jpg,png,gif" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Logo text" systemName="GeneralLogoText" description="Only in use when no image is chosen." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Font family" systemName="FontFamily" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="Open Sans">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Open Sans" value="Open+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontOpenSans.jpg" />
+            <option name="Cabin" value="Cabin" icon="Templates/Designs/Dwsimple/images/FontImages/FontCabin.jpg" />
+            <option name="Belleza" value="Belleza" icon="Templates/Designs/Dwsimple/images/FontImages/FontBelleza.jpg" />
+            <option name="Lora" value="Lora" icon="Templates/Designs/Dwsimple/images/FontImages/FontLora.jpg" />
+            <option name="Candal" value="Candal" icon="Templates/Designs/Dwsimple/images/FontImages/FontCandal.jpg" />
+            <option name="Righteous" value="Righteous" icon="Templates/Designs/Dwsimple/images/FontImages/FontRighteous.jpg" />
+            <option name="Oswald" value="Oswald" icon="Templates/Designs/Dwsimple/images/FontImages/FontOswald.jpg" />
+            <option name="Bevan" value="Bevan" icon="Templates/Designs/Dwsimple/images/FontImages/FontBevan.jpg" />
+            <option name="Abril Fatface" value="Abril+Fatface" icon="Templates/Designs/Dwsimple/images/FontImages/FontAbrilFatface.jpg" />
+            <option name="Lobster" value="Lobster" icon="Templates/Designs/Dwsimple/images/FontImages/FontLobster.jpg" />
+            <option name="Doppio One" value="Doppio+One" icon="Templates/Designs/Dwsimple/images/FontImages/FontDoppioOne.jpg" />
+            <option name="Oleo Script" value="Oleo+Script" icon="Templates/Designs/Dwsimple/images/FontImages/FontOleoScript.jpg" />
+            <option name="Pacifico" value="Pacifico" icon="Templates/Designs/Dwsimple/images/FontImages/FontPacifico.jpg" />
+            <option name="Permanent Marker" value="Permanent+Marker" icon="Templates/Designs/Dwsimple/images/FontImages/FontPermanentMarker.jpg" />
+            <option name="Sacramento" value="Sacramento" icon="Templates/Designs/Dwsimple/images/FontImages/FontSacramento.jpg" />
+            <option name="Changa One" value="Changa+One" icon="Templates/Designs/Dwsimple/images/FontImages/FontChangaOne.jpg" />
+            <option name="Damion" value="Damion" icon="Templates/Designs/Dwsimple/images/FontImages/FontDamion.jpg" />
+            <option name="Indie Flower" value="Indie+Flower" icon="Templates/Designs/Dwsimple/images/FontImages/FontIndieFlower.jpg" />
+            <option name="Syncopate" value="Syncopate" icon="Templates/Designs/Dwsimple/images/FontImages/FontSyncopate.jpg" />
+            <option name="Custom font" value="custom" icon="Templates/Designs/Dwsimple/images/FontImages/custom.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Google font name" systemName="GoogleFontLink" description="Important! The name should be exactly like on Google fonts. Capital first letters." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Logo font color" systemName="LogoFontColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#1A1A1A">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="#1A1A1A, #ffffff, #CCCCCC, #FF0000, #189700, #0A1D97, #FFCC00" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Mode" systemName="LayoutMode" description="Fluid is full-width, boxed shows the background on the sides of the page" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="boxed">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="4" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Boxed" value="boxed" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutBoxed.jpg" />
+            <option name="Fluid" value="fluid" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutFullWidth.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Site shadow" systemName="BackgroundSiteShadow" description="Only in use in boxed layout" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Round corners" systemName="LayoutRoundCorners" description="On images. Does not affect ecommerce" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Position" systemName="NavigationPosition" description="Specifies if the navigation items should be left or right aligned" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="right">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="4" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Left" value="left" icon="Templates/Designs/Dwsimple/images/itemtypes/LeftMenu.jpg" />
+            <option name="Right" value="right" icon="Templates/Designs/Dwsimple/images/itemtypes/RightMenu.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Sticky" systemName="NavigationSticky" description="Specifies if the navigation will stick to the top when the page is scrolled" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Header mode" systemName="HeaderLayoutMode" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="solid">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="3" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="6" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Solid navbar" value="solid" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutSolidNavbar.jpg" />
+            <option name="Cover (Transparent)" value="cover" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutScreensCover.jpg" />
+            <option name="Only mobile navigation" value="mobile" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutSolidMobile.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Show header" systemName="HeaderShow" description="Show the little header line on top of the navigation bar." type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="True">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Header Image" systemName="HeaderLayoutImage" description="Image for use on all subpages. Remember to use the Carousel or Banner item-type as the first item on the frontpage in cover and mobile mode.&#xA;&#xA;Images for fluid width should be at least 1920px wide." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.FileEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.FileEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Base directory" value="/Images" /><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Extensions" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Navbar selection mode" systemName="NavigationSelectionMode" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="background">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="6" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Background" value="background" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavBackground.jpg" />
+            <option name="Background+Arrow" value="arrow" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavArrow.jpg" />
+            <option name="Boxed" value="boxed" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavBoxed.jpg" />
+            <option name="Border" value="border" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavBorder.jpg" />
+            <option name="Underlined" value="underline" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavUnderline.jpg" />
+            <option name="Font color" value="font" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavFont.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Navbar selection weight" systemName="SelectionWeight" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="3">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="3" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Ultra-light" value="1" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavUltraThin.jpg" />
+            <option name="Light" value="2" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavThin.jpg" />
+            <option name="Normal" value="3" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavNormal.jpg" />
+            <option name="Strong" value="5" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavStrong.jpg" />
+            <option name="Heavy" value="8" icon="Templates/Designs/Dwsimple/images/itemtypes/LayoutNavHeavy.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Navbar font color" systemName="NavbarFontColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#FFFFFF">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="" /></Parameters></editorConfuguration>
+        </editor>
+        <validators>
+          <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
+        </validators>
+      </field>
+      <field name="Navbar UPPERCASE" systemName="NavigationUppercase" description="Full capitals" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Breadcrumb mode" systemName="NavigationBreadcrumbLayout" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="background">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="3" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Light" value="light" icon="" />
+            <option name="Normal" value="normal" icon="" />
+            <option name="Large" value="large" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="Navbar background mode" systemName="NavigationNavbarBackground" description="For the header navigation (When the header is in Cover or Mobile mode, this primarily changes the sticky navigation)" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="color">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="2" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Color" value="color" icon="" />
+            <option name="Colorline" value="colorline" icon="" />
+            <option name="Neutral" value="neutral" icon="" />
+            <option name="Transparant" value="transparent" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="Breadcrumb align" systemName="NavigationBreadcrumbAlign" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="right">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="2" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Left" value="left" icon="Templates/Designs/Dwsimple/images/itemtypes/Left.jpg" />
+            <option name="Right" value="right" icon="Templates/Designs/Dwsimple/images/itemtypes/Right.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Left navigation mode" systemName="NavigationLeftNavigationMode" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="light">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Light" value="light" icon="Templates/Designs/Dwsimple/images/itemtypes/LeftNavLight.jpg" />
+            <option name="Light + color-line" value="light-color" icon="Templates/Designs/Dwsimple/images/itemtypes/LeftNavLightColor.jpg" />
+            <option name="Line seperated" value="lines" icon="Templates/Designs/Dwsimple/images/itemtypes/LeftNavLines.jpg" />
+            <option name="Boxed" value="boxed" icon="Templates/Designs/Dwsimple/images/itemtypes/LeftNavBoxed.jpg" />
+            <option name="Bordered" value="border" icon="Templates/Designs/Dwsimple/images/itemtypes/LeftNavBorder.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Button design" systemName="NavigationButtonDesign" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="light-rounded">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="6" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Light rounded" value="light-rounded" icon="Templates/Designs/Dwsimple/images/itemtypes/BtnLightRounded.jpg" />
+            <option name="Sharp corners" value="corners" icon="Templates/Designs/Dwsimple/images/itemtypes/BtnCorners.jpg" />
+            <option name="Round" value="round" icon="Templates/Designs/Dwsimple/images/itemtypes/BtnRound.jpg" />
+            <option name="Border" value="border" icon="Templates/Designs/Dwsimple/images/itemtypes/BtnBorder.jpg" />
+            <option name="Border + sharp corners" value="border-sharp" icon="Templates/Designs/Dwsimple/images/itemtypes/BtnBorderSharp.jpg" />
+            <option name="Border + round" value="border-round" icon="Templates/Designs/Dwsimple/images/itemtypes/BtnBorderRound.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Image" systemName="BackgroundImage" description="Only have an effect on boxed layout" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="mooning.png">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="3" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="4" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Dark fabric" value="slash_it.png" icon="Templates/Designs/Dwsimple/images/settings/body-bg-1.png" />
+            <option name="Magnetite fabric" value="grey_wash_wall.png" icon="Templates/Designs/Dwsimple/images/settings/body-bg-2.png" />
+            <option name="Grey fabric" value="mooning.png" icon="Templates/Designs/Dwsimple/images/settings/body-bg-3.png" />
+            <option name="Light grey fabric" value="squairy_light.png" icon="Templates/Designs/Dwsimple/images/settings/body-bg-4.png" />
+            <option name="Concrete 1" value="concrete1.jpg" icon="Templates/Designs/Dwsimple/images/settings/concrete1_ico.jpg" />
+            <option name="Concrete 2" value="concrete2.jpg" icon="Templates/Designs/Dwsimple/images/settings/concrete2_ico.jpg" />
+            <option name="Blue metal" value="bluemetal.jpg" icon="Templates/Designs/Dwsimple/images/settings/bluemetal_ico.jpg" />
+            <option name="Wood 1" value="wood1.jpg" icon="Templates/Designs/Dwsimple/images/settings/wood1_ico.jpg" />
+            <option name="Sawdust" value="woodsprincle.jpg" icon="Templates/Designs/Dwsimple/images/settings/woodsprincle_ico.jpg" />
+            <option name="Corc" value="corc-pattern.jpg" icon="Templates/Designs/Dwsimple/images/settings/corc-pattern_ico.jpg" />
+            <option name="Brickwall" value="brickwall2.jpg" icon="Templates/Designs/Dwsimple/images/settings/brickwall2_ico.jpg" />
+            <option name="None" value="none" icon="Templates/Designs/Dwsimple/images/itemtypes/customImage.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Custom image" systemName="BackgroundCustomImage" description="Only in use when Custom image is set to &quot;None&quot;" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.FileEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.FileEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Base directory" value="/Images" /><Parameter addin="Dynamicweb.Content.Items.Editors.FileEditor" name="Extensions" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Fixed" systemName="BackgroundFixed" description="" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Color" systemName="BackgroundColor" description="Only in use when Custom image is set to &quot;None&quot; and no custom image is chosen" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#CCCCCC">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="#030303, #1A1A1A, #4D4D4D, #6E6E6E,  #9C9C9C, #C2C2C2" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Gradient color" systemName="BackroundGradientColor" description="" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Gradient percentage" systemName="GradientPercentage" description="Be gentle and keep it below 33" type="System.Int32, mscorlib" defaultValueCulture="en-US" defaultValue="33">
+        <editor type="Dynamicweb.Content.Items.Editors.IntegerEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="H1 Font family" systemName="HeadingsHeadtitleFont" description="Keep it simple and use max one handwriting/script font on the site." type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="Open Sans">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="PT Sans" value="PT+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontPTSans.jpg" />
+            <option name="PT Mono" value="PT+Mono" icon="Templates/Designs/Dwsimple/images/FontImages/FontPTMono.jpg" />
+            <option name="Roboto" value="Roboto" icon="Templates/Designs/Dwsimple/images/FontImages/FontRoboto.jpg" />
+            <option name="Open Sans" value="Open+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontOpenSans.jpg" />
+            <option name="Ubuntu" value="Ubuntu" icon="Templates/Designs/Dwsimple/images/FontImages/FontUbuntu.jpg" />
+            <option name="Lato" value="Lato" icon="Templates/Designs/Dwsimple/images/FontImages/FontLato.jpg" />
+            <option name="Droid Sans" value="Droid+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontDroidSans.jpg" />
+            <option name="Droid Serif" value="Droid+Serif" icon="Templates/Designs/Dwsimple/images/FontImages/FontDroidSerif.jpg" />
+            <option name="Merriweather" value="Merriweather" icon="Templates/Designs/Dwsimple/images/FontImages/FontMerriweather.jpg" />
+            <option name="Vollkorn" value="Vollkorn" icon="Templates/Designs/Dwsimple/images/FontImages/FontVollkorn.jpg" />
+            <option name="Alegreya Sans" value="Alegreya+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontAlegreya.jpg" />
+            <option name="Quicksand" value="Quicksand" icon="Templates/Designs/Dwsimple/images/FontImages/FontQuickSand.jpg" />
+            <option name="Raleway" value="Raleway" icon="Templates/Designs/Dwsimple/images/FontImages/FontRaleway.jpg" />
+            <option name="Quatrocento Sans" value="Quatrocento+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontQuattrocentoSans.jpg" />
+            <option name="Cabin" value="Cabin" icon="Templates/Designs/Dwsimple/images/FontImages/FontCabin.jpg" />
+            <option name="Belleza" value="Belleza" icon="Templates/Designs/Dwsimple/images/FontImages/FontBelleza.jpg" />
+            <option name="Lora" value="Lora" icon="Templates/Designs/Dwsimple/images/FontImages/FontLora.jpg" />
+            <option name="Candal" value="Candal" icon="Templates/Designs/Dwsimple/images/FontImages/FontCandal.jpg" />
+            <option name="Righteous" value="Righteous" icon="Templates/Designs/Dwsimple/images/FontImages/FontRighteous.jpg" />
+            <option name="Oswald" value="Oswald" icon="Templates/Designs/Dwsimple/images/FontImages/FontOswald.jpg" />
+            <option name="Bevan" value="Bevan" icon="Templates/Designs/Dwsimple/images/FontImages/FontBevan.jpg" />
+            <option name="Abril Fatface" value="Abril+Fatface" icon="Templates/Designs/Dwsimple/images/FontImages/FontAbrilFatface.jpg" />
+            <option name="Lobster" value="Lobster" icon="Templates/Designs/Dwsimple/images/FontImages/FontLobster.jpg" />
+            <option name="Doppio One" value="Doppio+One" icon="Templates/Designs/Dwsimple/images/FontImages/FontDoppioOne.jpg" />
+            <option name="Oleo Script" value="Oleo+Script" icon="Templates/Designs/Dwsimple/images/FontImages/FontOleoScript.jpg" />
+            <option name="Pacifico" value="Pacifico" icon="Templates/Designs/Dwsimple/images/FontImages/FontPacifico.jpg" />
+            <option name="Damion" value="Damion" icon="Templates/Designs/Dwsimple/images/FontImages/FontDamion.jpg" />
+            <option name="Sacramento" value="Sacramento" icon="Templates/Designs/Dwsimple/images/FontImages/FontSacramento.jpg" />
+            <option name="Changa One" value="Changa+One" icon="Templates/Designs/Dwsimple/images/FontImages/FontChangaOne.jpg" />
+            <option name="Permanent Marker" value="Permanent+Marker" icon="Templates/Designs/Dwsimple/images/FontImages/FontPermanentMarker.jpg" />
+            <option name="Indie Flower" value="Indie+Flower" icon="Templates/Designs/Dwsimple/images/FontImages/FontIndieFlower.jpg" />
+            <option name="Syncopate" value="Syncopate" icon="Templates/Designs/Dwsimple/images/FontImages/FontSyncopate.jpg" />
+            <option name="Custom" value="custom" icon="Templates/Designs/Dwsimple/images/FontImages/custom.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="H1 Google font name" systemName="HeadingsGoogleFontLink" description="Important! The name should be exactly like on Google fonts. Capital first letters." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="H2 Font family" systemName="HeadingsH2_FontFamily" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="Open Sans">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="PT Sans" value="PT+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontPTSans.jpg" />
+            <option name="PT Mono" value="PT+Mono" icon="Templates/Designs/Dwsimple/images/FontImages/FontPTMono.jpg" />
+            <option name="Roboto" value="Roboto" icon="Templates/Designs/Dwsimple/images/FontImages/FontRoboto.jpg" />
+            <option name="Open Sans" value="Open+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontOpenSans.jpg" />
+            <option name="Ubuntu" value="Ubuntu" icon="Templates/Designs/Dwsimple/images/FontImages/FontUbuntu.jpg" />
+            <option name="Lato" value="Lato" icon="Templates/Designs/Dwsimple/images/FontImages/FontLato.jpg" />
+            <option name="Droid Sans" value="Droid+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontDroidSans.jpg" />
+            <option name="Droid Serif" value="Droid+Serif" icon="Templates/Designs/Dwsimple/images/FontImages/FontDroidSerif.jpg" />
+            <option name="Merriweather" value="Merriweather" icon="Templates/Designs/Dwsimple/images/FontImages/FontMerriweather.jpg" />
+            <option name="Vollkorn" value="Vollkorn" icon="Templates/Designs/Dwsimple/images/FontImages/FontVollkorn.jpg" />
+            <option name="Alegreya Sans" value="Alegreya+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontAlegreya.jpg" />
+            <option name="Quicksand" value="Quicksand" icon="Templates/Designs/Dwsimple/images/FontImages/FontQuickSand.jpg" />
+            <option name="Raleway" value="Raleway" icon="Templates/Designs/Dwsimple/images/FontImages/FontRaleway.jpg" />
+            <option name="Quatrocento Sans" value="Quatrocento+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontQuattrocentoSans.jpg" />
+            <option name="Cabin" value="Cabin" icon="Templates/Designs/Dwsimple/images/FontImages/FontCabin.jpg" />
+            <option name="Belleza" value="Belleza" icon="Templates/Designs/Dwsimple/images/FontImages/FontBelleza.jpg" />
+            <option name="Lora" value="Lora" icon="Templates/Designs/Dwsimple/images/FontImages/FontLora.jpg" />
+            <option name="Candal" value="Candal" icon="Templates/Designs/Dwsimple/images/FontImages/FontCandal.jpg" />
+            <option name="Righteous" value="Righteous" icon="Templates/Designs/Dwsimple/images/FontImages/FontRighteous.jpg" />
+            <option name="Oswald" value="Oswald" icon="Templates/Designs/Dwsimple/images/FontImages/FontOswald.jpg" />
+            <option name="Bevan" value="Bevan" icon="Templates/Designs/Dwsimple/images/FontImages/FontBevan.jpg" />
+            <option name="Abril Fatface" value="Abril+Fatface" icon="Templates/Designs/Dwsimple/images/FontImages/FontAbrilFatface.jpg" />
+            <option name="Lobster" value="Lobster" icon="Templates/Designs/Dwsimple/images/FontImages/FontLobster.jpg" />
+            <option name="Doppio One" value="Doppio+One" icon="Templates/Designs/Dwsimple/images/FontImages/FontDoppioOne.jpg" />
+            <option name="Oleo Script" value="Oleo+Script" icon="Templates/Designs/Dwsimple/images/FontImages/FontOleoScript.jpg" />
+            <option name="Pacifico" value="Pacifico" icon="Templates/Designs/Dwsimple/images/FontImages/FontPacifico.jpg" />
+            <option name="Damion" value="Damion" icon="Templates/Designs/Dwsimple/images/FontImages/FontDamion.jpg" />
+            <option name="Sacramento" value="Sacramento" icon="Templates/Designs/Dwsimple/images/FontImages/FontSacramento.jpg" />
+            <option name="Changa One" value="Changa+One" icon="Templates/Designs/Dwsimple/images/FontImages/FontChangaOne.jpg" />
+            <option name="Permanent Marker" value="Permanent+Marker" icon="Templates/Designs/Dwsimple/images/FontImages/FontPermanentMarker.jpg" />
+            <option name="Indie Flower" value="Indie+Flower" icon="Templates/Designs/Dwsimple/images/FontImages/FontIndieFlower.jpg" />
+            <option name="Syncopate" value="Syncopate" icon="Templates/Designs/Dwsimple/images/FontImages/FontSyncopate.jpg" />
+            <option name="Custom" value="custom" icon="Templates/Designs/Dwsimple/images/FontImages/custom.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="H2 Google font name" systemName="HeadingsH2_GoogleFontName" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Headings mode" systemName="AdvHeadingsMode" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="clean">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Clean" value="clean" icon="" />
+            <option name="Underlined" value="underline" icon="" />
+            <option name="Boxed" value="boxed" icon="" />
+            <option name="Boxed + line" value="boxed-line" icon="" />
+            <option name="Outline" value="outline" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="H1 Size" systemName="HeadingsHeadtitleSize" description="Default size is 28" type="System.Int32, mscorlib" defaultValueCulture="en-US" defaultValue="22">
+        <editor type="Dynamicweb.Content.Items.Editors.IntegerEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="H1 Weight" systemName="AdvHeadingsH1_Weight" description="Not all fonts exists in every weight. To avoid blurry text use only weights supported by the font." type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="normal">
+        <editor type="Dynamicweb.Content.Items.Editors.DropDownListEditor`1, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Normal" value="normal" icon="" />
+            <option name="Bold" value="bold" icon="" />
+            <option name="100" value="100" icon="" />
+            <option name="200" value="200" icon="" />
+            <option name="300" value="300" icon="" />
+            <option name="400" value="400" icon="" />
+            <option name="500" value="500" icon="" />
+            <option name="600" value="600" icon="" />
+            <option name="700" value="700" icon="" />
+            <option name="800" value="800" icon="" />
+            <option name="900" value="900" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="H1 Casing" systemName="HeadingsHeadtitleCasing" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="none">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="UPPERCASE" value="uppercase" icon="" />
+            <option name="lowercase" value="lowercase" icon="" />
+            <option name="None" value="none" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="H1 Lineheight" systemName="AdvHeadingsH1_Lineheight" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="1">
+        <editor type="Dynamicweb.Content.Items.Editors.DropDownListEditor`1, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="0.5" value="0.5" icon="" />
+            <option name="0.6" value="0.6" icon="" />
+            <option name="0.7" value="0.7" icon="" />
+            <option name="0.8" value="0.8" icon="" />
+            <option name="0.9" value="0.9" icon="" />
+            <option name="1" value="1" icon="" />
+            <option name="1.1" value="1.1" icon="" />
+            <option name="1.2" value="1.2" icon="" />
+            <option name="1.3" value="1.3" icon="" />
+            <option name="1.4" value="1.4" icon="" />
+            <option name="1.5" value="1.5" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="H1 Color" systemName="HeadingsColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#FFFFFF">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="#030303, #1A1A1A, #4D4D4D, #6E6E6E,  #9C9C9C, #C2C2C2,  #A40000, #1D6660, #008000, #003366, #EEB211" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="H1 Letterspacing" systemName="AdvHeadingsH1_Letterspacing" description="" type="System.Double, mscorlib" defaultValueCulture="en-US" defaultValue="0">
+        <editor type="Dynamicweb.Content.Items.Editors.DecimalEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="H2 Size" systemName="HeadingsH2_Size" description="Default size is 22" type="System.Int32, mscorlib" defaultValueCulture="en-US" defaultValue="18">
+        <editor type="Dynamicweb.Content.Items.Editors.IntegerEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="H2 Weight" systemName="AdvHeadingsH2_Weight" description="Not all fonts exists in every weight. To avoid blurry text use only weights supported by the font." type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="normal">
+        <editor type="Dynamicweb.Content.Items.Editors.DropDownListEditor`1, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Normal" value="normal" icon="" />
+            <option name="Bold" value="bold" icon="" />
+            <option name="100" value="100" icon="" />
+            <option name="200" value="200" icon="" />
+            <option name="300" value="300" icon="" />
+            <option name="400" value="400" icon="" />
+            <option name="500" value="500" icon="" />
+            <option name="600" value="600" icon="" />
+            <option name="700" value="700" icon="" />
+            <option name="800" value="800" icon="" />
+            <option name="900" value="900" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="H2 Casing" systemName="HeadingsH2_Casing" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="none">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="UPPERCASE" value="uppercase" icon="" />
+            <option name="lowercase" value="lowercase" icon="" />
+            <option name="None" value="none" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="H2 Lineheight" systemName="AdvHeadingsH2_Lineheight" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="1">
+        <editor type="Dynamicweb.Content.Items.Editors.DropDownListEditor`1, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="0.5" value="0.5" icon="" />
+            <option name="0.6" value="0.6" icon="" />
+            <option name="0.7" value="0.7" icon="" />
+            <option name="0.8" value="0.8" icon="" />
+            <option name="0.9" value="0.9" icon="" />
+            <option name="1" value="1" icon="" />
+            <option name="1.1" value="1.1" icon="" />
+            <option name="1.2" value="1.2" icon="" />
+            <option name="1.3" value="1.3" icon="" />
+            <option name="1.4" value="1.4" icon="" />
+            <option name="1.5" value="1.5" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="H2 Letterspacing" systemName="AdvHeadingsH2_Letterspacing" description="" type="System.Double, mscorlib" defaultValueCulture="en-US" defaultValue="0">
+        <editor type="Dynamicweb.Content.Items.Editors.DecimalEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="H2 Color" systemName="HeadingsH2_Color" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#030303">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="#030303, #1A1A1A, #4D4D4D, #6E6E6E,  #9C9C9C, #C2C2C2,  #A40000, #1D6660, #008000, #003366, #EEB211" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Font family" systemName="BodyFont" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="PT Sans">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="PT Sans" value="PT+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontPTSans.jpg" />
+            <option name="PT Mono" value="PT+Mono" icon="Templates/Designs/Dwsimple/images/FontImages/FontPTMono.jpg" />
+            <option name="Roboto" value="Roboto" icon="Templates/Designs/Dwsimple/images/FontImages/FontRoboto.jpg" />
+            <option name="Open Sans" value="Open+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontOpenSans.jpg" />
+            <option name="Ubuntu" value="Ubuntu" icon="Templates/Designs/Dwsimple/images/FontImages/FontUbuntu.jpg" />
+            <option name="Lato" value="Lato" icon="Templates/Designs/Dwsimple/images/FontImages/FontLato.jpg" />
+            <option name="Droid Sans" value="Droid+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontDroidSans.jpg" />
+            <option name="Droid Serif" value="Droid+Serif" icon="Templates/Designs/Dwsimple/images/FontImages/FontDroidSerif.jpg" />
+            <option name="Merriweather" value="Merriweather" icon="Templates/Designs/Dwsimple/images/FontImages/FontMerriweather.jpg" />
+            <option name="Vollkorn" value="Vollkorn" icon="Templates/Designs/Dwsimple/images/FontImages/FontVollkorn.jpg" />
+            <option name="Alegreya Sans" value="Alegreya+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontAlegreya.jpg" />
+            <option name="Quicksand&#x9; " value="Quicksand" icon="Templates/Designs/Dwsimple/images/FontImages/FontQuickSand.jpg" />
+            <option name="Raleway" value="Raleway" icon="Templates/Designs/Dwsimple/images/FontImages/FontRaleway.jpg" />
+            <option name="Quattrocento Sans" value="Quattrocento+Sans" icon="Templates/Designs/Dwsimple/images/FontImages/FontQuattrocentoSans.jpg" />
+            <option name="Custom" value="custom" icon="Templates/Designs/Dwsimple/images/FontImages/custom.jpg" />
+          </Static>
+        </options>
+      </field>
+      <field name="Google font name" systemName="BodyTextGoogleFontLink" description="Important! The name should be exactly like on Google fonts. Capital first letters." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Size" systemName="BodyFontSize" description="Keep the size between 13 and 16 for the best user experience" type="System.Int32, mscorlib" defaultValueCulture="en-US" defaultValue="13">
+        <editor type="Dynamicweb.Content.Items.Editors.IntegerEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Company name" systemName="FooterCompanyName" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Address" systemName="FooterAddress" description="Address shown in the footer" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.LongTextEditor, Dynamicweb">
+          <editorConfuguration><Parameters><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Rows" value="3" /><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Cols" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Phone" systemName="FooterPhone" description="Phone number shown in the footer" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Email" systemName="FooterEmail" description="Contact email shown in the footer" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.InputHTML5Editor, Dynamicweb">
+          <editorConfuguration><Parameters><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Type" value="email" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Pattern" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Placeholder" value="Specify email" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Size" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Min" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Max" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Step" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Autocomplete" value="False" /><Parameter addin="Dynamicweb.Content.Items.Editors.InputHTML5Editor" name="Required" value="False" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Newsletter sign up" systemName="FooterNewsletterSignUp" description="" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Show site map" systemName="FooterShowSitemap" description="Recomended. Helps google indexing the site." type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="True">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Webmaster link" systemName="WebmasterLinkCode" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.LongTextEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.LongTextEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Rows" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Cols" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Facebook account url" systemName="FacebookAccountName" description="The account will be used by the Facebook paragraph item-type." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Facebook comment admin" systemName="FacebookCommendAdmin" description="The Facebook profile id of the administrator. Gives the possibility to edit the comments given on the site." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Social links in the footer" systemName="SocialLinksInFooter" description="" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Social icons in the footer" systemName="SocialIconInFooter" description="Add social icons + links for the footer. Remember to enable Social links in the footer." type="System.Collections.Generic.IEnumerable`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.ItemListEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ItemListEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ItemListEditor" name="Item type" value="SocialLinks" /><Parameter addin="Dynamicweb.Content.Items.Editors.ItemListEditor" name="Sort by" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.ItemListEditor" name="Sort order" value="DESC" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Icon" value="Icon" icon="" />
+            <option name="Link" value="Link" icon="" />
+          </Static>
+        </options>
+      </field>
+      <field name="Analytics code" systemName="OtherAnalyticsCode" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.LongTextEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.LongTextEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Rows" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Cols" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Support email" systemName="OtherSupportEmail" description="" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="info@catillo.dk">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <validators>
+          <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
+        </validators>
+      </field>
+      <field name="Domain" systemName="OtherDomain" description="Full name: http://domainname.com Used to link images in the newsletter." type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Ecom enabled" systemName="EcomEnabled" description="Enable/disable ecom related components in the frontend (Cart, Customer center)." type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Price color" systemName="EcommercePriceColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#1A1A1A">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="#030303, #1A1A1A, #4D4D4D, #6E6E6E,  #9C9C9C, #C2C2C2,  #A40000, #1D6660, #008000, #003366, #EEB211" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Cart button color" systemName="EcommerceCartButtonColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#1A1A1A">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Discount sticker color" systemName="EcommerceDiscountStickerColor" description="" type="Dynamicweb.Rendering.Colors.Color, Dynamicweb" defaultValueCulture="en-US" defaultValue="#C21212">
+        <editor type="Dynamicweb.Content.Items.Editors.ColorEditor, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.ColorEditor"><Parameter addin="Dynamicweb.Content.Items.Editors.ColorEditor" name="Presets" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Customers also saw" systemName="CustomersAlsoSaw" description="Show list of up to 4 related products on the product page" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Products from category" systemName="ProductsFromCategory" description="Show list of up to 4 related products on the product page" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Your last seen products" systemName="YourLastSeenProducts" description="Show list of up to 4 related products on the product page" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Product list default" systemName="EcommerceProductListForm" description="This will be overwritten by a cookie when the user chooses different" type="System.String, mscorlib" defaultValueCulture="en-US" defaultValue="box">
+        <editor type="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1, Dynamicweb">
+          <editorConfuguration><Parameters addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="LabelPosition" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconPosition" value="5" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxWidth" value="0" /><Parameter addin="Dynamicweb.Content.Items.Editors.RadioButtonListEditor`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" name="IconMaxHeight" value="0" /></Parameters></editorConfuguration>
+        </editor>
+        <options sourceType="Static">
+          <Static>
+            <option name="Boxes" value="box" icon="" />
+            <option name="List" value="list" icon="" />
+          </Static>
+        </options>
+      </field>
+    </fields>
+    <rules>
+      <rule name="Allow in websites" type="Dynamicweb.Content.Items.Activation.AreaRestrictionRule, Dynamicweb" value="*" />
+      <rule name="" type="Dynamicweb.Content.Items.Activation.ModuleAttachmentRestrictionRule, Dynamicweb" value="Nothing" />
+      <rule name="Enable item type for" type="Dynamicweb.Content.Items.Activation.StructureRestrictionRule, Dynamicweb" value="Websites" />
+    </rules>
+    <layout>
+      <groups>
+        <group name="Colors" systemName="Colors" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="ColorsPrimary" />
+            <field systemName="ColorsHeadmenuBackgroundColor" />
+            <field systemName="ColorsFooterColor" />
+          </fields>
+        </group>
+        <group name="Logo" systemName="Logo" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="GeneralLogo" />
+            <field systemName="GeneralLogoText" />
+            <field systemName="FontFamily" />
+            <field systemName="GoogleFontLink" />
+            <field systemName="LogoFontColor" />
+          </fields>
+        </group>
+        <group name="Layout" systemName="Layout" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="LayoutMode" />
+            <field systemName="BackgroundSiteShadow" />
+            <field systemName="LayoutRoundCorners" />
+          </fields>
+        </group>
+        <group name="Navigation" systemName="Navigation" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="NavigationPosition" />
+            <field systemName="NavigationSticky" />
+          </fields>
+        </group>
+        <group name="Header layout" systemName="HeaderLayout" collapsibleState="Collapsed" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="HeaderLayoutMode" />
+            <field systemName="HeaderShow" />
+            <field systemName="HeaderLayoutImage" />
+          </fields>
+        </group>
+        <group name="Advanced navigation layout" systemName="Navigation_" collapsibleState="Collapsed" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="NavigationSelectionMode" />
+            <field systemName="SelectionWeight" />
+            <field systemName="NavbarFontColor" />
+            <field systemName="NavigationUppercase" />
+            <field systemName="NavigationBreadcrumbLayout" />
+            <field systemName="NavigationNavbarBackground" />
+            <field systemName="NavigationBreadcrumbAlign" />
+            <field systemName="NavigationLeftNavigationMode" />
+            <field systemName="NavigationButtonDesign" />
+          </fields>
+        </group>
+        <group name="Background" systemName="Background" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="BackgroundImage" />
+            <field systemName="BackgroundCustomImage" />
+            <field systemName="BackgroundFixed" />
+            <field systemName="BackgroundColor" />
+            <field systemName="BackroundGradientColor" />
+            <field systemName="GradientPercentage" />
+          </fields>
+        </group>
+        <group name="Headings" systemName="Headings" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="HeadingsHeadtitleFont" />
+            <field systemName="HeadingsGoogleFontLink" />
+            <field systemName="HeadingsH2_FontFamily" />
+            <field systemName="HeadingsH2_GoogleFontName" />
+          </fields>
+        </group>
+        <group name="Advanced headings" systemName="AdvancedHeadings" collapsibleState="Collapsed" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="AdvHeadingsMode" />
+            <field systemName="HeadingsHeadtitleSize" />
+            <field systemName="AdvHeadingsH1_Weight" />
+            <field systemName="HeadingsHeadtitleCasing" />
+            <field systemName="AdvHeadingsH1_Lineheight" />
+            <field systemName="HeadingsColor" />
+            <field systemName="AdvHeadingsH1_Letterspacing" />
+            <field systemName="HeadingsH2_Size" />
+            <field systemName="AdvHeadingsH2_Weight" />
+            <field systemName="HeadingsH2_Casing" />
+            <field systemName="AdvHeadingsH2_Lineheight" />
+            <field systemName="AdvHeadingsH2_Letterspacing" />
+            <field systemName="HeadingsH2_Color" />
+          </fields>
+        </group>
+        <group name="Body text" systemName="BodyText" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="BodyFont" />
+            <field systemName="BodyTextGoogleFontLink" />
+            <field systemName="BodyFontSize" />
+          </fields>
+        </group>
+        <group name="Footer" systemName="Footer" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="FooterCompanyName" />
+            <field systemName="FooterAddress" />
+            <field systemName="FooterPhone" />
+            <field systemName="FooterEmail" />
+            <field systemName="FooterNewsletterSignUp" />
+            <field systemName="FooterShowSitemap" />
+            <field systemName="WebmasterLinkCode" />
+          </fields>
+        </group>
+        <group name="Social" systemName="Social" collapsibleState="Collapsed" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="FacebookAccountName" />
+            <field systemName="FacebookCommendAdmin" />
+            <field systemName="SocialLinksInFooter" />
+            <field systemName="SocialIconInFooter" />
+          </fields>
+        </group>
+        <group name="Other" systemName="Other" collapsibleState="None" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="OtherAnalyticsCode" />
+            <field systemName="OtherSupportEmail" />
+            <field systemName="OtherDomain" />
+          </fields>
+        </group>
+        <group name="Ecommerce" systemName="Ecomerce" collapsibleState="Collapsed" visibilityField="" visibilityCondition="" visibilityConditionValueType="" visibilityConditionValue="">
+          <fields>
+            <field systemName="EcomEnabled" />
+            <field systemName="EcommercePriceColor" />
+            <field systemName="EcommerceCartButtonColor" />
+            <field systemName="EcommerceDiscountStickerColor" />
+            <field systemName="CustomersAlsoSaw" />
+            <field systemName="ProductsFromCategory" />
+            <field systemName="YourLastSeenProducts" />
+            <field systemName="EcommerceProductListForm" />
+          </fields>
+        </group>
+      </groups>
+    </layout>
+  </item>
+</items>

@@ -1,0 +1,7 @@
+﻿{
+	"items": [<!--@LoopStart(ItemPublisher:Items.List)-->
+		{
+		<!--@LoopStart(ItemPublisher:Item.Fields)-->	"<!--@ItemPublisher:Item.Field.Name-->": "<!--@ItemPublisher:Item.Field.Value.JSEncoded()-->"<!--@If Not(ItemPublisher:Item.Field.Last=True)-->,<!--@EndIf-->
+		<!--@LoopEnd(ItemPublisher:Item.Fields)-->}<!--@If Not(ItemPublisher:Item.Last=True)-->,<!--@EndIf-->
+	<!--@LoopEnd(ItemPublisher:Items.List)-->]
+}

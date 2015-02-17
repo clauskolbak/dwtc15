@@ -1,0 +1,43 @@
+@Include("../../../_wrap/WrapMethods.cshtml")
+
+
+@helper GetProductList(dynamic Loop, int Col=3)
+{
+	int Count = 0;
+
+	string Columns = WrapMethods.ColumnMaker(Col, "md");
+
+	foreach (var product in Loop){
+		var ImageList = product.GetLoop("ItemPublisher:Item.Images");
+		string Image = ImageList[0].GetString("ItemPublisher:Item.Images.Image");
+		string Url = product.GetString("ItemPublisher:Item.Url");
+		string Title = product.GetString("ItemPublisher:Item.Title");
+		string Description = product.GetString("ItemPublisher:Item.ProductInfo");
+
+		
+		<div class="@Columns col-sm-6">
+			<div class="w-box product">
+				<div class="figure">
+					<a href="@Url">
+						<img class="content-image img-responsive img-center" src="/Admin/Public/GetImage.ashx?image=@Image&width=370&height=260&compression=90&crop=0" alt=""></img>  
+					</a>  
+				</div>
+				<h2><a href="@Url">@Title</a></h2>
+				<p>@WrapMethods.Truncate(@Description, 60)</p>
+				<div class="w-footer">
+					<a href="@Url" class="btn btn-xs btn-dw-primary pull-right">@Translate("Read more", "Read more")</a>
+					<div class="row"><div class="col-md-12 col-sm-12 col-xs-12">&nbsp;</div></div>
+				</div>
+			</div>
+		</div>
+	
+		Count++;
+
+		if (Count == Col)
+		{
+			<div class="row"></div>
+			Count = 0;
+		}
+	}
+}
+	

@@ -1,0 +1,115 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">			
+		<h3 class="section-title">@GetGlobalValue("Global:Page.Name")</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="w-box">
+		<div class="col-md-12 col-sm-12 col-xs-12">	
+			<h2><i class="fa fa-user fa-4"></i>&nbsp; @GetString("UserManagement:User.Name")</h2>
+		
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Name", "Name"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Name")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Email", "Email"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Email")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Username", "Username"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.UserName")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Phone", "Phone"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Phone")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Address", "Address"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Address")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Address", "Address") 2:
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Address2")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Zip", "Zip"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Zip")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("City", "City"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.City")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Country", "Country"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Country")
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Company", "Company"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Company")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			
+			@if (!string.IsNullOrWhiteSpace(GetString("UserManagement:User.EditUrl"))) {
+				<div class="row">
+					<div class="col-md-3 col-sm-3 col-xs-12">
+						<a class="btn btn-two" href="/Default.aspx?id=8469">@Translate("Edit your profile", "Edit your profile")</a>
+					</div>
+				</div>
+				
+			}
+			
+			<div class="row">&nbsp;</div>
+		</div>
+	</div>
+</div>

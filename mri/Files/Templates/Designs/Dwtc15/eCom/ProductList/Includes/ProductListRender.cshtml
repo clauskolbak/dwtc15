@@ -1,0 +1,71 @@
+@Include("../../../_wrap/WrapMethods.cshtml")
+
+
+@helper GetProductList(dynamic Loop, int ColMD=3, int ColSM=3, int ColXS=1)
+{
+	int Count = 0;
+
+	string  ColumnsMD = WrapMethods.ColumnMaker(ColMD, "md");
+	string  ColumnsSM = WrapMethods.ColumnMaker(ColSM, "sm");
+	string  ColumnsXS = WrapMethods.ColumnMaker(ColXS, "xs");
+
+
+	foreach (LoopItem product in Loop){
+		string  Image = product.GetString("Ecom:Product.ImageSmall.Default.Clean");
+		string  GroupLink = product.GetString("Ecom:Product.LinkGroup.Clean");
+		string  Name = product.GetString("Ecom:Product.Name");
+		string  Description = product.GetString("Ecom:Product.ShortDescription");
+		string  Discount = product.GetString("Ecom:Product.Discount.Price");
+		string  Price = product.GetString("Ecom:Product.Price");
+
+		<div class="@ColumnsMD @ColumnsSM @ColumnsXS" name="productlist">
+			<div class="wp-block product" name="boxproduct">
+				<div class="" name="listproductright">
+                    <a href="@GroupLink" title="@Name">
+						<figure style="" name="productfigure">
+                        	<img alt="" src="/Admin/Public/Getimage.ashx?width=300&height=300&compression=85&Crop=5&image=@Image" class="img-responsive img-center">
+                   		</figure>
+                   	</a>
+                </div>
+                <div class="" name="extracolumn">
+                    <h2 class="product-title"><a href="@GroupLink">@Name</a></h2>
+                    <div style="" name="shortproductdescription">
+						<p>@WrapMethods.Truncate(product.GetString("Ecom:Product.ShortDescription"), 60)</p>
+					</div>
+					<div style="display: none !important" name="longproductdescription">
+						<p class="pull-left" style="text-align: left !important">@WrapMethods.Truncate(product.GetString("Ecom:Product.ShortDescription"), 180)</p>
+					</div>
+            	</div>
+                <div class="wp-block-footer" name="listproductleft">
+                    
+					@if (Discount != Price)
+					{	
+						<span class="price pull-left" style="padding: 0 0 0 0 !important; font-size: 16px !important" name="productprice"><strong>@Price</strong></span><span>&nbsp;&nbsp;</span>
+						<span name="productpricebr"></span>
+						<p class="price" style="margin-top: 0px !important; padding-top: 0px !important; color: #AAAAAA !important; font-size: 12px !important; position: absolute; text-decoration: line-through" name="productoldprice">@Price</p>
+					} 
+					else 
+					{
+						<span class="price pull-left" style="font-size: 16px !important" name="productprice"><strong>@Price</strong></span><span>&nbsp;&nbsp;</span>
+					}
+                    <div class="pull-right" name="productmorebr">
+						<a href="@GroupLink" class="btn btn-sm btn-dw-primary"><span>@Translate("Read more", "Read more")</span></a>
+					</div>
+                </div>
+                @if (Discount != Price)
+				{
+					<span class="ribbon base">@Translate("On sale!", "On sale!")</span>
+				}
+            </div>
+		</div>
+
+		Count++;
+
+		if (Count == ColMD)
+		{
+			<div class="row"></div>
+			Count = 0;
+		}
+	}
+}
+	

@@ -1,0 +1,35 @@
+<div class="w-section inverse">
+	<div class="w-box sign-in-wr bg-5">
+		<div class="form-body">
+			@GetValue("Form.Start")
+			@GetValue("Form.Hidden")
+			<div class="row">
+				@foreach (LoopItem i in GetLoop("Form.Fields")){
+					
+					var colmd = 6;
+					
+					if (i.GetString("Field.Type") == "Textarea") {
+						colmd = 12;
+					} 
+					
+					<div class="col-md-@colmd col-xs-12">
+						<div class="form-group">
+							<label for="@i.GetValue("Field.Name")">@i.GetValue("Field.Label")</label>
+							@i.GetString("Field.Control").Replace(" id", " class=\"form-control\" id")
+							@i.GetValue("Field.Description")
+						</div>
+					</div>
+				}
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+								 
+				</div>
+				<div class="col-md-6">
+					 <input class="btn btn-two pull-right" type="submit"></input>                        
+				</div>
+			</div>
+			@GetValue("Form.End")
+		</div>
+	</div>
+</div>

@@ -1,0 +1,196 @@
+@Title("Multi purpose paragraph")
+@Description("Default template for the multi paragraph")
+@{
+	init();
+}
+
+@NewRow()
+
+<div class="@ColumnClass()">
+
+@if (GetString("Item.Order") == "title-first" || GetString("Item.Order") == "")
+{
+		@RenderHeading()
+		@RenderImage()
+		@RenderSubHeading()
+		@RenderText()
+		@RenderButton()
+}
+
+@if (GetString("Item.Order") == "image-first")
+{
+		<p>&nbsp;</p>
+		@RenderImage()
+		@RenderHeading()
+		@RenderSubHeading()
+		@RenderText()
+		@RenderButton()
+}
+
+@if (GetString("Item.Order") == "title-sub-first")
+{
+		@RenderHeading()
+		@RenderSubHeading()
+		@RenderImage()
+		@RenderText()
+		@RenderButton()
+}
+</div>
+
+@helper RenderHeading()
+{
+	if (GetBoolean("Item.ShowHeading") != false){
+		if (!string.IsNullOrEmpty(GetString("Item.Heading")))
+		{
+			<h1 class="dw-section-title">
+				<span>
+					@GetString("Item.Heading")
+				</span>
+			</h1>
+		}
+	}
+}
+
+@helper RenderButton()
+{	
+	var Url = GetString("Item.Link");
+
+	if (!string.IsNullOrEmpty(Url))
+	{	
+		if (Url.Contains("http"))
+		{
+			<text>
+			<p class="pull-right" style="margin-bottom: 30px !important">
+				<a href="@GetString("Item.Link")" target="_blank" class="btn btn-dw-secondary pull-right">@GetString("Item.Linktext")</a>
+			</p>
+			</text>
+		}
+		else if (Url.Contains("/"))
+		{
+			<text>
+			<p class="pull-right" style="margin-bottom: 30px !important">
+				<a href="@GetString("Item.Link")" class="btn btn-dw-secondary pull-right" download>@GetString("Item.Linktext")</a>
+			</p>
+			</text>
+		}
+		else
+		{
+			<text>
+			<p class="pull-right" style="margin-bottom: 30px !important">
+				<a href="Default.aspx?ID=@GetString("Item.Link")" class="btn btn-dw-secondary pull-right">@GetString("Item.Linktext")</a>
+			</p>
+			</text>
+		}
+	}
+}
+
+@helper RenderSubHeading()
+{
+	if (!string.IsNullOrEmpty(GetString("Item.Subheading")))
+	{
+		<h2>
+			@GetString("Item.Subheading")
+		</h2>
+	}
+}
+
+@helper RenderText()
+{
+	if (!string.IsNullOrWhiteSpace(GetString("Item.Text"))){
+		<div class="figure">
+			@GetString("Item.Text")
+		</div>
+	}
+	@GetString("ParagraphModule")
+}
+
+@helper RenderImage()
+{
+	if (!string.IsNullOrEmpty(GetString("Item.Image")))
+	{
+		var image = System.Web.HttpContext.Current.Server.UrlEncode(GetString("Item.Image"));
+		
+		<!-- Choosing the smallest possible width that will work with responsive sizes -->
+		var optimizedwidth = 1280;
+		switch (GetString("Item.LayoutSettingsWidth")){
+			case "12":
+				optimizedwidth = 1280;
+				break;
+			case "9":
+				optimizedwidth = 960;
+				break;
+			case "6":
+				optimizedwidth = 722;
+				break;
+			case "3":
+				optimizedwidth = 722;
+				break;
+			case "8":
+				optimizedwidth = 960;
+				break;
+			case "4":
+				optimizedwidth = 722;
+				break;
+		}
+		
+		if (string.IsNullOrEmpty(GetString("Item.Link")))
+		{
+			<div class="img-responsive dw-std-image" style="@GetImageBorderCss()">
+				<img class="content-image img-responsive" src="/Admin/Public/GetImage.ashx?width=@optimizedwidth&height=500&Compression=75&image=@image" class="img-responsive" alt=""></img>
+			</div>
+		} else {
+			<a href="Default.aspx?ID=@GetString("Item.Link")">
+				<div class="img-responsive dw-std-image" style="@GetImageBorderCss()">
+					<img class="content-image img-responsive" src="/Admin/Public/GetImage.ashx?width=@optimizedwidth&height=500&Compression=75&image=@image" class="img-responsive" alt=""></img>
+				</div>
+			</a>
+		}
+	}
+}
+
+@functions {
+	private string GetImageBorderCss()
+	{
+		if (GetBoolean("Item.LayoutSettingsImageBorder"))
+		{
+			return "padding: 4px; border: 1px solid #e1e1e1; border-radius: 0px !important;";
+		}
+		else
+		{
+			return string.Empty;
+		}
+	}
+
+	private string ColumnClass()
+	{
+		if (GetBoolean("Item.LayoutSettingsHideOnMobile")){
+			return "col-md-" + GetString("Item.LayoutSettingsWidth") + " hidden-xs";
+		} else {
+			return "col-md-" + GetString("Item.LayoutSettingsWidth") + " col-xs-" + GetString("Item.LayoutSettingsWidthSmall");
+		}
+	}
+	
+	private string NewRow()
+	{
+		if (columns + columnsWritten > 12)
+		{
+			System.Web.HttpContext.Current.Items["currentColumns"] = columns;
+			return "</div><div class=\"row\">";
+		}
+		else
+		{
+			return string.Empty;
+		}
+		
+	}
+
+	private int columnsWritten { get; set; }
+	private int columns { get; set; }
+
+	private void init()
+	{
+		columnsWritten = Dynamicweb.Input.FormatInteger(System.Web.HttpContext.Current.Items["currentColumns"]);
+		columns = GetInteger("Item.LayoutSettingsWidth");
+		System.Web.HttpContext.Current.Items["currentColumns"] = columnsWritten + GetInteger("Item.LayoutSettingsWidth");
+	}
+}

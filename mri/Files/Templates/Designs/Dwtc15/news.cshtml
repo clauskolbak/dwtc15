@@ -1,0 +1,84 @@
+﻿@MasterPageFile("master.cshtml")
+@GetValue("Title(News page)")
+@GetValue("Description(News page with left navigation and content area 3+9)")
+
+@{
+	string siteurl = GetGlobalValue("Global:Request.Url").ToString();
+	string attributeValue = "";
+}
+
+
+@if(GetBoolean("Item.Page.LayoutShowBreadcrumb")){
+<div class="pg-opt pin">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+				@if (GeneralSettings.Navigation.BreadcrumbMode != "light")
+				{
+					<div class="dw-breadcrumb-title">@GetGlobalValue("Global:Page.Top.Name")</div>
+				}
+			</div>
+			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+				<ul class="breadcrumb dwnavigation dw-breadcrumb" id="breadcrumb" data-settings="template:breadcrumb.xslt">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Library</a></li>
+					<li class="active">Data</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+}
+
+<section class="slice white animate-hover-slide">
+	<div class="w-section">
+		<div class="container">
+			<div class="row">
+				@if(!GetBoolean("Item.Page.LayoutHideLeftMenu")) {
+				<div class="col-md-3 hidden-sm hidden-xs">
+					<div class="widget">
+						<h3 class="dw-section-title dw-section-title-small"><span>@GetGlobalValue("Global:Page.Name")</span></h3>
+						<text>&nbsp;</text>
+						<ul class="dw-categories dwnavigation" id="leftnavigation" data-settings="startlevel:1;endlevel:4;template:LeftNavigationEcom.xslt;">
+							<li><a href="#">Laptops <i> (20)</i></a></li>
+							<li><a href="#">Tablets <i> (8)</i></a></li>
+							<li><a href="#">Phones <i> (16)</i></a></li>
+							<li><a href="#">Mice <i> (82)</i></a></li>
+							<li><a href="#">Cameras <i> (33)</i></a></li>
+						</ul>
+					</div>
+				</div>
+				}
+				
+				<div class="col-md-9 col-sm-12 col-xs-12">
+					<div class="post-item">
+						@if (!string.IsNullOrWhiteSpace(GetString("Item.GeneralImage"))) {              					
+							attributeValue = GetString("Item.GeneralImage");
+							<div class="post-meta-top">
+                        		<div class="post-image">
+									<div class="img-responsive" style="background-image: url(/Admin/Public/GetImage.ashx?image=@attributeValue&width=1280&height=350&compression=90&crop=1);height:350px;background-position:bottom center">
+									</div>
+								</div>
+							</div>
+						}
+						<div class="post-content">
+							<h2 class="post-title">@GetValue("Item.Heading")</h2>
+							<span class="post-tags">@Translate("Written by", "Written by") @GetValue("Item.GeneralAuthor") - @GetValue("DwDateLong")</span>	
+							<div class="clearfix"></div>
+
+							<div class="post-desc">
+								<p>@GetValue("Item.Text")</p>
+							</div>
+							
+							@if (GetBoolean("Item.Page.FacebookLikeButton")){
+								<p>&nbsp;</p>
+								<iframe src="//www.facebook.com/plugins/like.php?href=@siteurl&amp;width=200&amp;layout=button_count&amp;action=recommend&amp;show_faces=true&amp;share=true&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>    	
+							}
+						</div>
+					</div>
+					
+					<div class="col-md-9" dwcontent="" id="modulecontent" title="For modules"></div>
+				</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,388 @@
+@Include("../ProductList/includes/ProductListRender.cshtml")
+
+@{
+	string image = "";
+	var grouplink = "";
+	string productname = "";
+	var pid = GetValue("Ecom:Product.ID");
+}
+
+<script type="text/javascript" language="javascript">
+	/* CLASSES */
+	function VariantGroup(id, name) { this.Id = id; this.Name = name; this.Options = []; }
+	function VariantOption(id, name) { this.Id = id; this.Name = name; }
+	function VariantCombination(id) { this.Id = id; }
+	function VariantSelector() { this.Groups = []; this.Combinations = []; }
+
+	/* FUNCTIONS */
+	function ByGroupOrder(varid) {
+		var vars = [];
+		for (g = 0; g < Selector.Groups.length; g++) {
+			for (o = 0; o < Selector.Groups[g].Options.length; o++) {
+				for (v = 0; v < varid.length; v++) {
+					if (Selector.Groups[g].Options[o].Id == varid[v]) {
+						vars.push(varid[v]);
+					}
+				}
+			}
+		}
+		return vars;
+	}
+
+
+	function PresetCombo(combono, value) {
+		document.getElementById('COMBO' + combono).value = value;
+		UpdateCombo(combono);
+	}
+
+
+	function CombinationExist(query) {
+		found = false;
+		for (ci = 0; ci < Selector.Combinations.length; ci++) {
+			combis = Selector.Combinations[ci].Id.split(".");
+			queryfoundincombination = true;
+			for (q = 0; q < query.length; q++) {
+				queryitemfoundincombination = false;
+				for (cs = 0; cs < combis.length; cs++) {
+					if (combis[cs] == query[q]) queryitemfoundincombination = true;
+				}
+				if (!queryitemfoundincombination) queryfoundincombination = false;
+			}
+			if (queryfoundincombination) found = true;
+		}
+		return found;
+	}
+
+
+	function FillCombo(combono) {
+
+		ClearCombo(combono);
+		
+		@{
+			var selectiontext = @Translate("Choose variant", "Choose variant");
+		}
+		
+		var op = document.createElement("option");
+		op.text = "@selectiontext";
+		op.value = "";
+		document.getElementById('COMBO' + combono).options.add(op);
+
+		for (i = 0; i < Selector.Groups[combono].Options.length; i++) {
+
+			option = Selector.Groups[combono].Options[i];
+			includeoption = true;
+
+			curcombination = [];
+			for (g = 0; g < combono; g++) 
+			{
+				curcombination.push(document.getElementById('COMBO' + g).value);
+			}
+			curcombination.push(option.Id);
+
+			includeoption = CombinationExist(curcombination);
+
+
+			if (includeoption) 
+			{
+				var op = document.createElement("option");
+				op.text = option.Name;
+				op.value = option.Id;
+				document.getElementById('COMBO' + combono).options.add(op);
+				document.getElementById('COMBO' + combono).disabled = false;
+			}
+
+		}
+	}
+
+	function ClearCombo(combono) {
+		while (document.getElementById('COMBO' + combono).options.length > 0) {
+			document.getElementById('COMBO' + combono).options[0] = null;
+		}
+		document.getElementById('COMBO' + combono).disabled = true;
+	}
+
+	function UpdateCombo(combono) {
+		if (combono < Selector.Groups.length - 1) {
+
+			if (document.getElementById('COMBO' + combono).value != "") FillCombo((combono + 1));
+
+			if (combono > -1) {
+				fromcombo = (document.getElementById('COMBO' + combono).value == "") ? combono + 1 : combono + 2;
+				for (c = fromcombo; c < Selector.Groups.length; c++) {
+					ClearCombo(c);
+				}
+			}
+		}
+		else 
+		{
+			if (!presetting && (document.getElementById('COMBO' + (Selector.Groups.length - 1)).value != "")) 
+			{
+				id = "";
+				for (c = 0; c < Selector.Groups.length; c++) {
+					id += (c == 0) ? document.getElementById('COMBO' + c).value : "." + document.getElementById('COMBO' + c).value;
+				}
+
+				document.location.href = Page + "&VariantID=" + id;
+
+				//Spinner
+				var opts = {
+				  lines: 9, // The number of lines to draw
+				  length: 0, // The length of each line
+				  width: 10, // The line thickness
+				  radius: 18, // The radius of the inner circle
+				  corners: 1, // Corner roundness (0..1)
+				  rotate: 0, // The rotation offset
+				  direction: 1, // 1: clockwise, -1: counterclockwise
+				  color: '#000', // #rgb or #rrggbb or array of colors
+				  speed: 1, // Rounds per second
+				  trail: 35, // Afterglow percentage
+				  shadow: false, // Whether to render a shadow
+				  hwaccel: false, // Whether to use hardware acceleration
+				  className: 'spinner', // The CSS class to assign to the spinner
+				  zIndex: 2e9, // The z-index (defaults to 2000000000)
+				  top: '50%', // Top position relative to parent
+				  left: '50%' // Left position relative to parent
+				};
+
+				var target = document.getElementById('productinfo');
+				var spinner = new Spinner(opts).spin(target);
+			}
+		}
+	}
+
+	function UpdateCart() {
+		document.getElementById('minipagecart').className = " dw-minicart-update";
+		document.getElementById('minipagecart-button').className = "btn btn-sm dw-minicart-update";
+	}
+</script>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<form name="@pid" id="@pid" method="post" action="/Default.aspx">
+		@GetValue("Ecom:Product.Form.Clean")
+		<div class="row product">
+			<div class="col-md-6 col-sm-12 col-xs-12">
+				<div class="product-gallery">
+					<!-- Discount sticker -->
+					@if (GetString("Ecom:Product.Discount.Price") != GetString("Ecom:Product.Price"))
+					{
+						<span class="ribbon base" style="right: 10px !important">@Translate("On sale!", "On sale!")</span>
+					}
+					
+					@{
+						image = System.Web.HttpContext.Current.Server.UrlEncode(GetString("Ecom:Product.ImageLarge.Default.Clean"));
+					}
+					
+					<div class="primary-image">
+						<a href="@image" class="fancybox" rel="group">
+							<img src="@image" class="img-responsive" alt="">
+						</a>
+					</div>
+					<div>&nbsp;</div>
+					<div class="row">
+						@foreach (LoopItem detail in GetLoop("Details"))
+						{
+							image = System.Web.HttpContext.Current.Server.UrlEncode(detail.GetString("Ecom:Product:Detail.Image.Clean"));
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<div class="thumbnail-images">
+									<a href="@image" class="fancybox" rel="group">
+										<img src="@image" alt="">
+									</a>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12 col-xs-12">
+				<div class="product-info" vocab="http://schema.org/" typeof="Product" id="productinfo">
+					<h1><span property="name">@GetString("Ecom:Product.Name")</span> @GetString("Ecom:Product.SelectedVariantComboName")</h1>
+
+					<span class="clearfix"></span>
+	
+					<p property="description" id="description">
+						@GetString("Ecom:Product.ShortDescription")
+					</p>
+	
+					<span class="clearfix"></span>
+					
+					<!-- DYNAMIC VARIANT OPTION -->
+					<div id="productvariants">
+						<!-- SELECTOR MAIN -->
+						@{
+							var pageid = GetValue("Ecom:Product:Page.ID");
+							var productid = GetValue("Ecom:Product.ID");
+						}
+				
+						<script type="text/javascript" language="javascript">
+							var presetting = true;
+							var VariantID = "@GetValue("Ecom:Product.SelectedVariantComboID")"; 
+							var VariantOptions = VariantID.split('.');
+							var Page = "/Default.aspx?ID=@pageid&ProductID=@productid";
+				
+							var Selector = new VariantSelector();
+						</script>
+				
+						<script type="text/javascript" language="javascript">
+						@foreach (LoopItem variantgroup in GetLoop("VariantGroups"))
+						{
+				
+							var variantgroupid = variantgroup.GetValue("Ecom:VariantGroup.ID");
+							var variantgroupname = variantgroup.GetString("Ecom:VariantGroup.Name");
+				
+							<text>group = new VariantGroup("@variantgroupid", "@variantgroupname");</text>
+							foreach (LoopItem variantoption in variantgroup.GetLoop("VariantOptions"))
+							{
+								var variantoptionid = variantoption.GetValue("Ecom:VariantOption.ID");
+								var variantoptionname = variantoption.GetString("Ecom:VariantOption.Name");
+								<text>group.Options.push(new VariantOption("@variantoptionid", "@variantoptionname"));</text>
+							}
+							<text>Selector.Groups.push(group);</text>
+						}
+						</script>
+				
+						<script type="text/javascript" language="javascript">
+							@foreach (LoopItem variantcomb in GetLoop("VariantCombinations"))
+								{
+						
+								var variantcombid = variantcomb.GetValue("Ecom:VariantCombination.VariantID");
+									<text>Selector.Combinations.push(new VariantCombination("@variantcombid"));</text>
+
+								}
+						</script>
+				
+						<script type="text/javascript" language="javascript">
+							for (g = 0; g < Selector.Groups.length; g++) {
+								document.write("<br><b>" + Selector.Groups[g].Name + "</b><br>");
+								document.write("<select id='COMBO" + g + "' style='width:40%' onchange=\"UpdateCombo(" + g + ");\">\n</select><br>\n");
+							}
+				
+							FillCombo(0);
+							for (vo = 0; vo < VariantOptions.length; vo++) {
+								PresetCombo(vo, VariantOptions[vo]);
+							}
+							presetting = false;
+						</script>
+					</div>
+					
+					<span property="offers" typeof="Offer">
+						<hr></hr>
+						<div class="row">
+							<span class="clearfix"></span>
+							<div class="product-short-info">
+								@if (!string.IsNullOrWhiteSpace(GetString("Ecom:Product:Stock.Text")))
+								{
+	
+								image = GetString("Ecom:Product:Stock.Image.Clean");
+	
+								<div class="col-md-6 col-xs-12">
+									<p><small>@Translate("Availability", "Availability"): <span property="availability">@GetString("Ecom:Product:Stock.Text")</span>: </small><img src="@image" alt="@GetString(" ecom:product:stock.text")" border="0" style="width:7px !important; height:7px !important" /></p>
+								</div>
+								<div class="col-md-6 col-xs-12">
+									<p><small>@Translate("Delivery", "Delivery"): @GetString("Ecom:Product:Stock.DeliveryText")&nbsp;@GetString("Ecom:Product:Stock.DeliveryUnit")</small></p>
+								</div>
+								}
+								<div class="col-md-6 col-xs-12">
+									<p><small>@Translate("Product number", "Product number"): <span property="identifier">@GetString("Ecom:Product.Number")</span></small></p>
+								</div>
+							</div>
+						</div>
+						<hr></hr>
+						<div class="row">
+							<div class="col-md-12 col-xs-12">
+								@{ var currency = GetString("Ecom:Product.Price.Currency.Code");
+								}
+	
+								<meta property="priceCurrency" content="@currency" />
+								<span class="price pull-left" style="font-size: 28px !important; margin-top:4px !important" property="price">
+									@GetString("Ecom:Product.Discount.Price")
+								</span>
+								@if (GetString("Ecom:Product.Discount.Price") != GetString("Ecom:Product.Price"))
+								{
+									<span>&nbsp;&nbsp;</span>
+									<span style="color: #AAAAAA !important; font-size: 18px !important; position: absolute; margin-top: 4px !important; text-decoration: line-through">
+										<strong>@GetString("Ecom:Product.Price")</strong>
+									</span>
+								}
+								<button type="submit" name="submit" onclick="UpdateCart();" class="btn btn-dw-cart pull-right"><strong>@Translate("Add to cart", "Add to cart")</strong></button>
+								<input type="number" name="Quantity" value="1" class="pull-right" style="width:60px; text-align:center; margin-right:15px !important; height:34px;">
+							</div>
+						</div>
+						<hr></hr>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<p>
+								@GetString("Ecom:Product.LongDescription")
+							</p>
+						</div>
+					</div>
+					<div class="row"><hr></hr></div>
+
+					<!-- RELATED PRODUCTS -->
+
+					@if (Pageview.Area.Item["CustomersAlsoSaw"].ToString() == "True"){
+						if (GetString("eCom:Related.CustomersWhoSawThisAlsoSaw.Count") != "0"){
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<h3 class="section-title">@Translate("Other costumers also saw", "Other costumers also saw")</h3>
+							</div>
+						</div>
+						<div class="row">
+							@{
+								var alsoproductgroup = GetLoop("eCom:Related.CustomersWhoSawThisAlsoSaw").OrderByDescending(g => g.GetString("Ecom:Product.LoopCounter")).Take(3).ToList();
+							}
+							
+							@GetProductList(alsoproductgroup, 3, 3, 1)
+						</div>
+						<div class="row"><hr></hr></div>
+						}
+					}
+					
+					@if (Pageview.Area.Item["YourLastSeenProducts"].ToString() == "True"){
+						if (GetString("eCom:Related.YouHaveSeenTheseProducts.Count") != "0"){
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<h3 class="section-title">@Translate("Recently viewed items", "Recently viewed items")</h3>
+							</div>
+						</div>
+						<div class="row">
+							@{
+								var recentproductgroup = GetLoop("eCom:Related.YouHaveSeenTheseProducts").OrderByDescending(g => g.GetString("Ecom:Product.LoopCounter")).Take(3).ToList();
+							}
+							
+							@GetProductList(recentproductgroup, 3, 3, 1)
+
+						</div>
+						<div class="row"><hr></hr></div>
+						}
+					}
+					
+					@if (Pageview.Area.Item["ProductsFromCategory"].ToString() == "True"){
+						if (GetString("eCom:Related.WhatAboutTheseProducts.Count") != "0"){
+						<div class="row">
+							<div class="col-md-12 col-sm-12 col-xs-12">
+								<h3 class="section-title">@Translate("Other great products in the same category", "Other great products in the same category")</h3>
+							</div>
+						</div>
+						<div class="row">
+							@{
+								var aboutproductgroup = GetLoop("eCom:Related.WhatAboutTheseProducts").OrderByDescending(g => g.GetString("Ecom:Product.LoopCounter")).Take(3).ToList();
+							}
+							
+							@GetProductList(aboutproductgroup, 3, 3, 1)
+						</div>
+						<div class="row"><hr></hr></div>
+						}
+					}
+					<div class="row"><div class="col-md-12 col-sm-12 col-xs-12">&nbsp</div></div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

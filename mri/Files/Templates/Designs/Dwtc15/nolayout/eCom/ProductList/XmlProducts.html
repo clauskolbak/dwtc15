@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<products><!--@LoopStart(Products)-->
+	<product>
+		<name><!--@Ecom:Product.Name--></name>
+		<link>http://<!--@Global:Request.Host-->/<!--@Ecom:Product.LinkGroup.Clean.HtmlEncoded()--></link>
+		<description><!--@If(Ecom:Product.ShortDescription<>'')--><!--@Ecom:Product.ShortDescription.HtmlEncoded()--><!--@Else--><!--@Ecom:Product.LongDescription.HtmlEncoded()--><!--@EndIf--></description>
+		<image>http://<!--@Global:Request.Host--><!--@Ecom:Product.ImageSmall.Default.Clean--></image>
+		<price><!--@Ecom:Product.Price--></price>
+		<id><!--@Ecom:Product.ID--></id>
+		<number><!--@Ecom:Product.ID--></number>
+	</product><!--@LoopEnd(Products)-->
+</products>

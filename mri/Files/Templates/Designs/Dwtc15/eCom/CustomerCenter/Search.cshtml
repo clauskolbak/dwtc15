@@ -1,0 +1,115 @@
+<div class="row">&nbsp;</div>
+<div class="row">
+	@GetValue("Ecom:CustomerCenter.Menu")
+	@GetValue("Ecom:CustomerCenter.SearchJavascript")
+	
+	@{
+		var pid = GetString("Ecom:CustomerCenter.PID");
+		var attrValue = "";
+	}
+	
+	<div class="w-box">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<!--<h2>Customer Center - Search</h2>-->
+			@GetString("Ecom:CustomerCenter.SearchForm.Begin")
+			<div class="form-body">
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Text", "Text")
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						@{ attrValue = "CCFilterFreetext" + pid; }
+						<input type="text" class="form-control" name="@attrValue" value="@GetString("Ecom:CustomerCenter.Search.Freetext")" />
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						@{ attrValue = "CCFilterProductID" + pid; }
+						<select class="form-control" name="@attrValue">
+							<option value="">@Translate("Any product", "Any product")</option>
+							@GetString("Ecom:CustomerCenter.Search.Products")
+						</select>
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<strong>@Translate("Date interval", "Date interval")</strong>
+						<hr></hr>
+					</div>
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("From", "From")
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						@{ attrValue = "CCFilterFromMonth" + pid; }
+						<select class="form-control" name="@attrValue">
+							<option value="">@Translate("Any month", "Any month")</option>
+							@GetString("Ecom:CustomerCenter.Search.MonthNames.From")
+						</select>
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						@{ attrValue = "CCFilterFromYear" + pid; }
+						<select class="form-control" name="@attrValue">
+							<option value="">@Translate("Any year", "Any year")</option>
+							@GetString("Ecom:CustomerCenter.Search.Years.From")
+						</select>
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("To", "To")
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						@{ attrValue = "CCFilterToMonth" + pid; }
+						<select class="form-control" name="@attrValue">
+							<option value="">@Translate("Any month", "Any month")</option>
+							@GetString("Ecom:CustomerCenter.Search.MonthNames.To")
+						</select>
+					</div>
+					<div class="col-md-5 col-sm-5 col-xs-12">
+						@{ attrValue = "CCFilterToYear" + pid; }
+						<select class="form-control" name="@attrValue">
+							<option value="">@Translate("Any year", "Any year")</option>
+							@GetString("Ecom:CustomerCenter.Search.Years.To")
+						</select>		
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<strong>@Translate("Order amount", "Order amount")</strong>
+						<hr></hr>
+					</div>
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("From", "From")
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@{ attrValue = "CCFilterFromAmount" + pid; }
+						<input class="form-control" type="text" name="@attrValue" onkeypress="return numbersOnly(this, event);" value="@GetString("Ecom:CustomerCenter.Search.FromAmount")" />
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("To", "To")
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@{ attrValue = "CCFilterToAmount" + pid; }
+						<input class="form-control" type="text" name="@attrValue" onkeypress="return numbersOnly(this, event);" value="@GetString("Ecom:CustomerCenter.Search.ToAmount")" />
+					</div> 
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="pull-right">
+							<!--<input class="btn btn-three" type="button" onclick="javascript: CustomerCenterClearSearch();" value="Clear" />&nbsp;-->
+							<input class="btn btn-two" type="button" onclick="javascript: CustomerCenterPerformSearch();" value="@Translate("Search", "Search")" />
+						</div>
+					</div>
+					@GetString("Ecom:CustomerCenter.SearchForm.End")
+				</div>
+				<div class="row">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+</div>

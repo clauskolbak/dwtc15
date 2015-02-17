@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+	<channel>
+		<title>Dynamicweb Product RSS Feed</title>
+		<link>http://www.dynamicweb-cms.com</link>
+		<description>A description of your content</description>
+		<!--@LoopStart(Products)--><item>
+			<title><!--@Ecom:Product.Name--></title>
+			<link>http://<!--@Global:Request.Host-->/<!--@Ecom:Product.LinkGroup.Clean.HtmlEncoded()--></link>
+			<description><!--@If(Ecom:Product.ShortDescription<>'')--><!--@Ecom:Product.ShortDescription.HtmlEncoded()--><!--@Else--><!--@Ecom:Product.LongDescription.HtmlEncoded()--><!--@EndIf--></description>
+			<g:image_link>http://<!--@Global:Request.Host--><!--@Ecom:Product.ImageSmall.Default.Clean--></g:image_link>
+			<g:price><!--@Ecom:Product.Price--></g:price>
+			<g:condition>new</g:condition>
+			<g:id><!--@Ecom:Product.ID--></g:id>
+		</item><!--@LoopEnd(Products)-->
+	</channel>
+</rss>

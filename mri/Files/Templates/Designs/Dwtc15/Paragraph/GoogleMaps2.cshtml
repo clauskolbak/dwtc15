@@ -1,0 +1,95 @@
+﻿@Title("Google Maps")
+@Description("Default template for maps")
+
+@{
+	init();
+}
+
+@NewRow()
+<div class="@ColumnClass()">
+	<div vocab="http://schema.org/" typeof="Place">
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+		<script type="text/javascript">
+			function initialize() {
+				var myLatlng = new google.maps.LatLng(@GetValue("Item.Latitude"), @GetValue("Item.Longitude"));
+				var mapOptions = {
+					zoom: 10,
+					scrollwheel: false,
+					draggable: false,
+					center: myLatlng,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				}
+				var map = new google.maps.Map(document.getElementById('mapCanvas'), mapOptions);
+
+				var marker = new google.maps.Marker({
+					position: myLatlng,
+					map: map,
+					animation: google.maps.Animation.DROP,
+					title: '@Translate("Find us", "Find us")'
+				});
+
+				var contentString = '<div class="info-window-content"><h2><span property="name">@System.Web.HttpUtility.JavaScriptStringEncode(GetString("Item.Title"))</span></h2>'+
+									'<p>@GetString("Item.ShortInformation")</p></div>';
+
+				var infowindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.open(map,marker);
+				});
+			}
+
+			google.maps.event.addDomListener(window, 'load', initialize);
+
+		</script>
+		<section class="slice no-padding" vocab="http://schema.org/">
+			<h1>@Translate("Find us", "Find us")</h1>
+			<div id="mapCanvas" class="map-canvas no-margin content-image" style="height: 476px !important"></div>
+			<div property="geo" typeof="GeoCoordinates">
+				<meta property="latitude" content="@GetValue("Item.Latitude")" />
+				<meta property="longitude" content="@GetValue("Item.Longitude")" />
+			</div>
+			<p>&nbsp;</p>
+		</section>
+	</div>
+</div>
+
+
+@functions {
+	private string ColumnClass()
+	{
+		if (GetBoolean("Item.LayoutSettingsHideOnMobile"))
+		{
+			return "col-md-" + GetString("Item.LayoutSettingsWidth") + " hidden-xs";
+		}
+		else
+		{
+			return "col-md-" + GetString("Item.LayoutSettingsWidth") + " col-xs-" + GetString("Item.LayoutSettingsWidthSmall");
+		}
+	}
+
+	private string NewRow()
+	{
+		if (columns + columnsWritten > 12)
+		{
+			System.Web.HttpContext.Current.Items["currentColumns"] = columns;
+			return "</div><div class=\"row\">";
+		}
+		else
+		{
+			return string.Empty;
+		}
+
+	}
+
+	private int columnsWritten { get; set; }
+	private int columns { get; set; }
+
+	private void init()
+	{
+		columnsWritten = Dynamicweb.Input.FormatInteger(System.Web.HttpContext.Current.Items["currentColumns"]);
+		columns = GetInteger("Item.LayoutSettingsWidth");
+		System.Web.HttpContext.Current.Items["currentColumns"] = columnsWritten + GetInteger("Item.LayoutSettingsWidth");
+	}
+}

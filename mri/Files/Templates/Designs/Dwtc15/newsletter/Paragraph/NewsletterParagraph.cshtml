@@ -1,0 +1,124 @@
+@using System.Text.RegularExpressions
+
+@{
+    string sitelink = Pageview.Area.Item["OtherDomain"].ToString();
+    
+    string image = sitelink + "/Admin/Public/GetImage.ashx?width=570&height=220&crop=0&image=" + GetString("Item.Image");
+    string link = GetString("Item.Link");
+    
+    string btncolor = Pageview.Area.Item["ColorsPrimary"].ToString();
+    string headcolor = Pageview.Area.Item["ColorsHeadmenuBackgroundColor"].ToString();
+    string bgcolor = GetString("Item.Background");
+    string textcolor = "";
+	
+    if (bgcolor == "none"){
+	bgcolor = "#ffffff";
+	textcolor = "#1C1C1C";
+    } else {
+	textcolor = getContrastYIQ(bgcolor);
+    }
+}
+
+<!-- One Column -->
+<table width="580"  class="deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="@bgcolor">
+	<tr>
+		<td width="100%" style="padding:10px 0px 0px 5px">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" class="deviceWidth">
+			    <tr>
+				<td style="font-size: 13px; color: @textcolor; font-weight: normal; text-align: left; line-height: 24px; vertical-align: top; padding:0px 15px 5px 5px" bgcolor="@bgcolor">		    
+				@if (!string.IsNullOrWhiteSpace(GetString("Item.Image"))) {
+				      <img  src="@image" width="100%" alt="" border="0" class="imageResponsive imagecorner" />
+				}
+				@if (!string.IsNullOrWhiteSpace(link)) {
+				      <a href="@link" style="text-decoration: none"><h1 style="color: @textcolor !important; line-height: 1 !important; font-size: 22px !important">@GetString("Item.Heading")</h1></a>
+				} else {
+				      <p style="text-decoration: none; font-size: 22px"><h1 style="color: @textcolor !important">@GetString("Item.Heading")</h1></p>		
+				}
+				<span style="text-decoration: none; font-size: 12px; line-height: 1.5">@StripHtmlTagByCharArray(GetString("Item.Text"))</span>
+					
+				@if (!string.IsNullOrWhiteSpace(GetString("Item.Linktext"))) {
+					<table>
+						<tr>
+							<td>
+								<div style="height:15px">&nbsp;</div><!-- spacer -->
+							</td>					
+						</tr>
+						<tr>
+							<td align="center" width="120" height="22px" bgcolor="@btncolor" style="-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; color: #ffffff; display: block;">
+								<a href="@link" style="font-size:14px; font-weight: bold; text-decoration: none; line-height:24px; width:100%; display:inline-block">
+								<span style="color: #ffffff;">
+									@GetString("Item.Linktext")
+								</span>
+								</a>
+							</td>
+						</tr>
+					</table>
+				}
+				</td>
+			    </tr>                         
+			</table>
+		</td>
+	</tr>
+</table><!-- End One Column -->
+
+<div style="height:15px">&nbsp;</div><!-- spacer -->
+
+
+@functions {
+	public static string StripHtmlTagByCharArray(string htmlString)
+	{
+		char[] array = new char[htmlString.Length];
+		int arrayIndex = 0;
+		bool inside = false;
+	
+		for (int i = 0; i < htmlString.Length; i++)
+		{
+			char let = htmlString[i];
+			if (let == '<')
+			{
+			    inside = true;
+			    continue;
+			}
+			if (let == '>')
+			{
+			    inside = false;
+			    continue;
+			}
+			if (!inside)
+			{
+			    array[arrayIndex] = let;
+			    arrayIndex++;
+			}
+		}
+		return new string(array, 0, arrayIndex);
+	}
+}
+
+<!--Color contrast checker-->
+@functions {
+	private string getContrastYIQ(string hexcolor)
+	{
+		if (hexcolor != "")
+		{
+			hexcolor = Regex.Replace(hexcolor, "[^0-9a-zA-Z]+", "");
+
+			int r = Convert.ToByte(hexcolor.Substring(0, 2), 16);
+			int g = Convert.ToByte(hexcolor.Substring(2, 2), 16);
+			int b = Convert.ToByte(hexcolor.Substring(4, 2), 16);
+			int yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+			if (yiq >= 128)
+			{
+				return "#272727";
+			}
+			else
+			{
+				return "#eee";
+			}
+		}
+		else
+		{
+			return "black";
+		}
+	}
+}

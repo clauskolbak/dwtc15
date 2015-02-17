@@ -1,0 +1,34 @@
+﻿
+<h2><!--@Translate(editAccountPermissions, "Edit account permissions")--></h2>
+<br />
+<!--@UserManagement:User.EditUserAccountPermissions.FormStart-->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <colgroup>
+        <col width="100px" align="left" />
+        <col width="100px" align="left" />    
+    </colgroup>
+    <thead>
+        <tr>
+            <td><b>Permission name</b></td>                        
+            <td></td>            
+        </tr>
+    </thead>
+    <tbody>        				            
+        <!--@LoopStart(UserManagement:User.AccountUser.AccountPermissions)-->
+        <tr>
+            <td><!--@UserManagement:User.AccountUser.AccountPermission.Name--></td>
+            <td>
+                <input type="checkbox" id="<!--@UserManagement:User.AccountUser.AccountPermission.Name-->" name="<!--@UserManagement:User.AccountUser.AccountPermission.Name-->"
+                    <!--@If Defined(UserManagement:User.AccountUser.AccountPermission.Allowed)-->checked="checked"<!--@EndIf(UserManagement:User.AccountUser.AccountPermission.Allowed)--> />
+            </td>
+        </tr>                                                
+        <!--@LoopEnd(UserManagement:User.AccountUser.AccountPermissions)-->            
+    </tbody>
+</table>
+<br />
+<input type="submit" id="submitter" value="<!--@Translate(updateuser, "Update permissions")-->" />
+<!--@UserManagement:User.EditUserAccountPermissions.FormEnd-->
+<br />
+<!--@If Defined(UserManagement:User.AccountUsers.DetailUrl)-->
+	<a href="<!--@UserManagement:User.AccountUsers.DetailUrl-->">Back to account users list</a>
+<!--@EndIf(UserManagement:User.AccountUsers.DetailUrl)-->

@@ -1,0 +1,20 @@
+﻿@Include("includes/GalleryList.cshtml")
+
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">			
+		<h3 class="dw-section-title"><span>@GetGlobalValue("Global:Page.Name")</span></h3>
+	</div>
+</div>
+<div class="w-section inverse work g4">
+	<div class="row">
+		<div id="uw-box inverse">
+			
+			@GetImageList(GetLoop("Images"), 4, true)
+
+			<div class="gap"></div>
+		</div>
+	</div>	
+</div>
+<div class="row">&nbsp;</div>
+

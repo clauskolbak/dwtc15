@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="col-md-6">
+		<!--@If Defined(Server:Request.ecomquery)-->
+		<h3 class="section-title"><!--@Server:Request.ecomquery--></h3>
+		<!--@EndIf-->
+		<!--@If Not Defined(Server:Request.ecomquery)-->
+		<h3 class="section-title"><!--@Ecom:ProductList:Page.GroupName--></h3>
+		<!--@EndIf-->
+	</div>
+	<div class="col-md-6">
+		<span class="pull-right">Showing page <!--@Ecom:ProductList.CurrentPage--> of <!--@Ecom:ProductList.TotalPages--> (<!--@Ecom:ProductList.PageProdCnt--> products)</span>
+	</div>
+</div>
+
+<div class="row">
+	<!--@LoopStart(Products)-->
+	<div class="col-md-3 col-sm-6">
+		<div class="w-box product">
+			<a href="<!--@Ecom:Product.LinkGroup.Clean-->">
+				<figure style="min-height: 150px; min-width: 150px; background: url('/Admin/Public/Getimage.ashx?width=150&height=150&compression=99&Crop=5&image=<!--@Ecom:Product.ImageSmall.Default.Clean-->') no-repeat 0 0; background-position: center;">
+				</figure>
+			</a>
+			<h2 style="min-height:44px;"><a href="<!--@Ecom:Product.LinkGroup.Clean-->"><!--@Ecom:Product.Name--></a></h2>
+			<p><!--Ecom:Product.ShortDescription--></p>
+			<div class="w-footer">
+				<span class="price pull-left"><!--@Ecom:Product.Price--></span>
+				<a href="<!--@Ecom:Product.LinkGroup.Clean-->&cartcmd=add" class="btn btn-xs btn-two pull-right">Add to cart</a>
+			</div>
+		</div>
+	</div>
+	<!--DwTemplateTags-->
+	<!--@If(Products.LoopMod4='0')-->
+</div>
+<div class="row">
+	<!--@EndIf-->
+	<!--@LoopEnd(Products)-->
+</div>
+
+<hr>
+<span class="shop-page-info pull-left">Showing page <!--@Ecom:ProductList.CurrentPage--> of <!--@Ecom:ProductList.TotalPages--> (<!--@Ecom:ProductList.PageProdCnt--> products)</span>
+<ul class="pagination pull-right">
+	<!--@If Defined(Ecom:ProductList.PrevPage.Clean)-->
+	<li><a href="<!--@Ecom:ProductList.PrevPage.Clean-->">&laquo;</a></li>
+	<!--@EndIf-->
+	<!--@LoopStart(Ecom:ProductList.Pages)-->
+	<li>
+		<a href="<!--@Ecom:ProductList.Pages.Page.Url-->">
+			<!--@If Defined(Ecom:ProductList.Pages.Page.IsCurrent)-->
+			<strong><!--@Ecom:ProductList.Pages.Page.Number--></strong>
+			<!--@Else-->
+			<!--@Ecom:ProductList.Pages.Page.Number-->
+			<!--@EndIf-->
+		</a>
+	</li>
+	<!--@LoopEnd(Ecom:ProductList.Pages)-->
+	<!--@If Defined(Ecom:ProductList.NextPage.Clean)-->
+	<li><a href="<!--@Ecom:ProductList.NextPage.Clean-->">&raquo;</a></li>
+	<!--@EndIf-->
+</ul>

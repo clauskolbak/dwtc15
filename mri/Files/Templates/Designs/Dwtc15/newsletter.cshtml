@@ -1,0 +1,303 @@
+@using System.Web
+
+@{
+		string sitelink = GetString("Item.Area.OtherDomain");
+
+		string attrValue = GetString("");
+		string logofontfamily = "";
+		string h1fontfamily = "";
+		string h2fontfamily = "";
+		string bodyfontfamily = "";
+	
+		string logoimage = sitelink + "/Admin/Public/GetImage.ashx?width=160&image=" + GetString("Item.Area.GeneralLogo");
+		string logotext = GetString("Item.Area.GeneralLogoText");
+		string headcolor = GetString("Item.Area.ColorsHeadmenuBackgroundColor");
+		
+		string layoutwidth = "600px";
+}
+
+
+
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+@if (string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo"))) {
+	if (GetString("Item.Area.FontFamily") == "custom") {
+		logofontfamily = GetString("Item.Area.GoogleFontLink");
+		attrValue = HttpContext.Current.Server.UrlEncode(GetString("Item.Area.GoogleFontLink"));
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+	} else {
+		logofontfamily = GetString("Item.Area.FontFamily");
+		attrValue = HttpContext.Current.Server.UrlEncode(GetString("Item.Area.FontFamily"));
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+	}
+}
+
+@if (GetString("Item.Area.BodyFont") == "custom") {
+	bodyfontfamily = GetString("Item.Area.BodyTextGoogleFontLink");
+	attrValue = HttpContext.Current.Server.UrlEncode(bodyfontfamily) + ":300,400";
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+} else {
+	bodyfontfamily = GetString("Item.Area.BodyFont");
+	attrValue = HttpContext.Current.Server.UrlEncode(bodyfontfamily) + ":300,400";
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+}
+
+@if (GetString("Item.Area.HeadingsHeadtitleFont") == "custom") {
+		h1fontfamily = GetString("Item.Area.HeadingsGoogleFontLink");
+		attrValue = HttpContext.Current.Server.UrlEncode(h1fontfamily) + ":100,200,300,400,500,600,700,800,900";
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+} else {
+		h1fontfamily = GetString("Item.Area.HeadingsHeadtitleFont");
+		attrValue = HttpContext.Current.Server.UrlEncode(h1fontfamily) + ":100,200,300,400,500,600,700,800,900";
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+}
+
+@if (GetString("Item.Area.HeadingsH2_FontFamily") == "custom") {
+		h2fontfamily = GetString("Item.Area.HeadingsH2_GoogleFontName");
+		attrValue = HttpContext.Current.Server.UrlEncode(h2fontfamily) + ":100,200,300,400,500,600,700,800,900";
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+} else {
+		h2fontfamily = GetString("Item.Area.HeadingsH2_FontFamily");
+		attrValue = HttpContext.Current.Server.UrlEncode(h2fontfamily) + ":100,200,300,400,500,600,700,800,900";
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=@attrValue">
+}
+
+<style type="text/css">
+		.ReadMsgBody {width: 100%; background-color: #ffffff;}
+		.ExternalClass {width: 100%; background-color: #ffffff;}
+		body	 {width: 100%; background-color: #ffffff; margin:0; padding:0; -webkit-font-smoothing: antialiased; font-family: Georgia, Times, serif}
+		table {border-collapse: collapse;}
+		
+		@@media screen { 
+				@@font-face {
+						font-family: @logofontfamily;
+						font-style: normal;
+						font-weight: 400;
+				}
+		}
+		
+		@@media only screen and (max-width: 640px)  {
+				body[yahoo] .deviceWidth {width:420px !important; padding:0 10px 10px 10px !important;}
+				body[yahoo] .lineWidth {width:460px !important; padding:0 10px 10px 10px !important;}
+				body[yahoo] .center {text-align: center !important;}
+				body[yahoo] .imageResponsive {width:420px !important; height:237px !important; padding:0 0 0 0;}	
+		}
+			
+		@@media only screen and (max-width: 479px) {
+				body[yahoo] .deviceWidth {width:260px !important; padding:0 10px 10px 10px !important;}
+				body[yahoo] .lineWidth {width:300px !important; padding:0 10px 10px 10px !important;}
+				body[yahoo] .center {text-align: center !important;}
+				body[yahoo] .imageResponsive {width:275px !important; height:155px !important; padding:0 0 0 0;}	
+		}
+
+</style>
+
+<style type="text/css">
+
+		body {
+			font-family: @bodyfontfamily !important;
+		}
+		
+		h1 {
+			font-family: @h1fontfamily, Helvetica, sans-serif !important;
+			
+			@{
+				attrValue = GetString("Item.Area.HeadingsHeadtitleCasing");
+			}
+			text-transform: @attrValue;
+
+			@if (!string.IsNullOrWhiteSpace(GetString("Item.Area.AdvHeadingsH1_Weight"))) {
+					attrValue = GetString("Item.Area.AdvHeadingsH1_Weight");
+				} else {
+					attrValue = "normal";
+				}
+			}
+			font-weight: @attrValue !important;
+
+			@{
+				attrValue = GetString("Item.Area.AdvHeadingsH1_Letterspacing") + "px";
+			}
+			letter-spacing: @attrValue !important;
+		}
+		
+		h2, h3, h4, h5, h6 {
+			font-family: @h2fontfamily, Helvetica, sans-serif !important;
+
+			@{
+				attrValue = GetString("Item.Area.HeadingsH2_Casing");
+			}
+			text-transform: @attrValue !important;
+
+			@if (!string.IsNullOrWhiteSpace(GetString("Item.Area.AdvHeadingsH2_Weight"))) {
+					attrValue = GetString("Item.Area.AdvHeadingsH2_Weight");
+				} else {
+					attrValue = "normal";
+				}
+			}
+			font-weight: @attrValue !important;
+
+			@{
+				attrValue = GetString("Item.Area.AdvHeadingsH2_Letterspacing") + "px";
+			}
+			letter-spacing: @attrValue !important;
+		}
+</style>
+
+@if (GetBoolean("Item.Area.LayoutRoundCorners"))
+{
+		<style type="text/css">
+				.imagecorner {
+					border-radius: 6px;
+					-webkit-border-radius: 6px;
+					-moz-border-radius: 6px;
+				}
+		</style>
+}
+
+
+<title>@GetValue("DwPageName")</title>
+                                                                                                                                                                                                                                                                                                                                                                                                        
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" yahoo="fix" style="font-family: Georgia, Times, serif; font-size: 12px;">
+
+<!-- Wrapper -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+				<td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+				
+						<!-- Start Header-->
+						<table width="580" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+								<tr>
+										<td width="100%" bgcolor="#ffffff">
+				
+												<!-- Logo -->
+												<table border="0" cellpadding="0" cellspacing="0" align="left" class="deviceWidth">
+													<tr>
+														<td width="100%" style="padding:10px 0px" class="center">
+																<a href="@sitelink" style="text-decoration: none !important">
+																	@if(!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo"))) {
+																		<img src="@logoimage" alt="" border="0" />
+																	} else {
+																			if (@GetString("Item.Area.FontFamily") == "custom")
+																			{
+																				attrValue = GetString("Item.Area.GoogleFontLink");
+																			}
+																			else
+																			{
+																				attrValue = GetString("Item.Area.FontFamily");
+																			}
+																			var fontcolor = GetString("Item.Area.LogoFontColor");
+																			
+																			<span style="font-family:@attrValue, Helvetica, sans-serif !important; font-size: 22px; text-decoration: none !important; color: @fontcolor !important; font-weight: normal">@logotext &nbsp;</span>	
+																	}
+																</a>
+														</td>
+													</tr>
+												</table><!-- End Logo -->
+												
+												<!-- Nav -->
+												<table border="0" cellpadding="0" cellspacing="0" align="right" class="deviceWidth">
+														<tr>
+																<td width="100%" class="center" style="font-size: 13px; font-weight: light; text-align: right; line-height: 20px; vertical-align: middle; padding:10px 0px">
+																		<div class="nav navbar-nav dwnavigation" id="topnavigation" data-settings="endlevel:1;template:newsletter_list.xslt;expandmode:all;"></div>
+																</td>
+														</tr>			
+												</table>
+												<!-- End Nav -->
+										</td>
+								</tr>
+						</table><!-- End Header -->
+						
+						<!-- Start Site color line -->
+						@if (!string.IsNullOrWhiteSpace(headcolor)){
+							<table width="@layoutwidth" border="0" cellpadding="0" cellspacing="0" align="center" class="lineWidth">
+								<tr>
+									<td border="0" cellpadding="0" cellspacing="0" align="left" width="100%" height="8px" bgcolor="@headcolor">
+										
+									</td>
+								</tr>
+							</table>
+						}
+						<!-- End Site color line -->
+						
+						<div style="height:15px">&nbsp;</div><!-- spacer -->
+						
+						
+						<!-- Content (Paragraphs) -->
+						@GetString("DwContent")
+			
+						
+						<div style="height:15px">&nbsp;</div><!-- spacer -->
+			
+						<!-- Start Footer -->
+						<table width="@layoutwidth" border="0" cellpadding="0" cellspacing="0" align="center" class="lineWidth">
+								<tr>
+										@{
+											var bgcolor = GetString("Item.Area.ColorsFooterColor");
+										}
+										<td bgcolor="@bgcolor" style="padding:5px 0">
+												<table width="580" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+														<tr>
+															<td style="padding:5px 5px">                    
+																		<table width="45%" cellpadding="0" cellspacing="0"  border="0" align="left" class="deviceWidth">
+																				<tr>
+																						<td valign="top" style="font-size: 11px; color: #f1f1f1; color:#999; padding-bottom:20px" class="center">
+																								@Translate("You are receiving this email because", "You are receiving this email because")<br/>
+																								@Translate("you subscribed via", "you subscribed via") <a href="@sitelink" style="color:#999;text-decoration:underline;">@Translate("our website", "our website")</a><br/>
+																								<br/><br/>
+																								@Translate("Unsubscribe", "Unsubscribe")? <a href="" style="color:#999;text-decoration:underline;">@Translate("click here", "click here")</a> @Translate("and we won't bug you again", "and we won't bug you again").
+																								<div style="height:15px">&nbsp;</div><!-- spacer -->
+																						</td>
+																				</tr>
+																		</table>
+														
+																		<table width="40%" cellpadding="0" cellspacing="0"  border="0" align="right" class="deviceWidth">
+																				<tr>
+																						<td valign="top" style="font-size: 11px; color: #f1f1f1; color:#999; padding-bottom:20px; vertical-align: top; text-align:right" class="center">
+																								<a href="@sitelink" style="text-decoration: none !important">
+																										@if(!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo"))) {
+																											<img src="@logoimage" alt="" border="0" />
+																										} else {
+																												if (@GetString("Item.Area.FontFamily") == "custom")
+																												{
+																													attrValue = GetString("Item.Area.GoogleFontLink");
+																												}
+																												else
+																												{
+																													attrValue = GetString("Item.Area.FontFamily");
+																												}
+																												var fontcolor = GetString("Item.Area.LogoFontColor");
+																											<span style="font-family:@attrValue; font-size: 22px; text-decoration: none !important; color: @fontcolor !important; font-weight: normal">@logotext</span>
+																										}
+																								</a><br/><br/>
+																								<span style="text-decoration: none; color: #848484; font-weight: normal">
+																										@GetString("Item.Area.FooterCompanyName")<br/>
+																										@GetString("Item.Area.FooterAddress")<br/>
+																										@GetString("Item.Area.FooterPhone")<br/>
+																										@GetString("Item.Area.FooterEmail")
+																								</span>
+																						</td>
+																				</tr>
+																		</table>   
+													
+																</td>
+														</tr>
+														<tr>
+																<td style="padding:5px 5px">
+																	<hr style="border-style: solid none; border-top: 1px; border-color: #444"></hr>
+																</td>
+														</tr>
+												</table>                                                              		
+										</td>
+								</tr>
+						</table><!-- End Footer -->			
+				</td>
+		</tr>
+</table> <!-- End Wrapper -->
+
+</body>
+</html>

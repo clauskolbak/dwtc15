@@ -1,0 +1,194 @@
+<script>
+	function updateCart() {
+		var form = document.getElementById('ordersubmit');
+		form.submit();
+	}
+	function reset() {
+		var form = document.getElementById('ordersubmit');
+		form.reset();
+	}
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="shipping" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">@Translate("Change shipping and payment method", "Change shipping and payment method")</h4>
+			</div>
+			<div class="modal-body">
+				<h3><i class="fa fa-truck"></i> @Translate("Delivery", "Delivery")</h3>
+				@foreach (LoopItem shipping in GetLoop("Shippingmethods")){
+				<label for="EcomCartShippingmethodID_@shipping.GetString("Ecom:Cart.Shippingmethod.ID")">
+					@if (!string.IsNullOrWhiteSpace(shipping.GetString("Ecom:Cart.Shippingmethod.IsSelected"))){
+						<input type="radio" name="EcomCartShippingmethodID" id="EcomCartShippingmethodID_@shipping.GetString("Ecom:Cart.Shippingmethod.ID")" value="@shipping.GetString("Ecom:Cart.Shippingmethod.ID")" checked="checked" /><text>&nbsp;</text>
+					}
+					@if (string.IsNullOrWhiteSpace(shipping.GetString("Ecom:Cart.Shippingmethod.IsSelected"))){
+					<input type="radio" name="EcomCartShippingmethodID" id="EcomCartShippingmethodID_@shipping.GetString("Ecom:Cart.Shippingmethod.ID")" value="@shipping.GetString("Ecom:Cart.Shippingmethod.ID")" /><text>&nbsp;</text>
+					}
+					@shipping.GetString("Ecom:Cart.Shippingmethod.Name")
+					@if (string.IsNullOrWhiteSpace(shipping.GetString("Ecom:Cart.ShippingMethod.Price.IsZero"))){
+						shipping.GetString("Ecom:Cart.ShippingMethod.Price");
+					}
+				</label><br />
+				}
+
+				<h3><i class="fa fa-credit-card"></i> @Translate("Payment", "Payment")</h3>
+				@foreach (LoopItem payment in GetLoop("Paymethods")){
+				<label for="EcomCartPaymethodID_@payment.GetString("Ecom:Cart.Paymethod.ID")">
+					@if (!string.IsNullOrWhiteSpace(payment.GetString("Ecom:Cart.Paymethod.IsSelected"))) {
+						<input type="radio" name="EcomCartPaymethodID" id="EcomCartPaymethodID_@payment.GetString("Ecom:Cart.Paymethod.ID")" value="@payment.GetString("Ecom:Cart.Paymethod.ID")" checked="checked" /><text>&nbsp;</text>
+					}
+					@if (string.IsNullOrWhiteSpace(payment.GetString("Ecom:Cart.Paymethod.IsSelected"))) {
+						<input type="radio" name="EcomCartPaymethodID" id="EcomCartPaymethodID_@payment.GetString("Ecom:Cart.Paymethod.ID")" value="@payment.GetString("Ecom:Cart.Paymethod.ID")" /><text>&nbsp;</text>
+					}
+					@payment.GetString("Ecom:Cart.Paymethod.Name")
+					@if (string.IsNullOrWhiteSpace(payment.GetString("Ecom:Cart.Paymethod.Price.IsZero"))) {
+						payment.GetString("Ecom:Cart.Paymethod.Price");
+					}
+				</label><br />
+				}
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-dw-secondary" onclick="reset();" data-dismiss="modal">@Translate("Cancel", "Cancel")</button>
+				<button type="button" class="btn btn-dw-primary" onclick="updateCart();">@Translate("Save changes", "Save changes")</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@if (string.IsNullOrWhiteSpace(GetString("Ecom:Order.IsEmpty"))){
+<form name="ordersubmit" id="ordersubmit" method="post">
+	
+	<div class="row">
+		<div class="col-md-9">
+			<h3>
+				<strong>1. @Translate("Show cart", "Show cart") </strong><small>&nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></small>&nbsp;&nbsp;
+				<small>2. @Translate("Checkout", "Checkout") &nbsp;&nbsp;</small>
+			</h3>
+		</div>
+		<!--
+		<div class="col-md-3">
+			<p class="pull-right">
+				<button type="submit" name="@GetString("CartV2.NextStepButtonName")" id="@GetString("CartV2.NextStepButtonName")" class="btn btn-two">Proceed to checkout</button>
+			</p>
+		</div>
+		-->
+	</div>
+	
+
+	<section class="slice bg-3">
+		<div class="w-section inverse">
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-cart table-responsive">
+						<thead>
+							<tr class="table-header">
+								<th></th>
+								<th>@Translate("Product name", "Product name")</th>
+								<th>@Translate("Price", "Price")</th>
+								<th class="text-center" width="50px">@Translate("Quantity", "Quantity")</th>
+								<th width="100px"></th>
+								<th class="text-right">@Translate("Total", "Total")</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (LoopItem orderline in GetLoop("OrderLines")){
+								<tr>
+									<td><img src="/Admin/Public/GetImage.ashx?width=50&image=@orderline.GetString("Ecom:Product.ImageLarge.Clean")&Compression=99" class="img-center" alt=""></td>
+									<td>
+										<a href="@orderline.GetString("Ecom:Order:OrderLine.ProductLink")">
+											@orderline.GetString("Ecom:Order:OrderLine.ProductName")
+										</a><br />
+										<small>@orderline.GetString("Ecom:Order:OrderLine.ProductVariantText")</small>
+									</td>
+									<td>@orderline.GetString("Ecom:Order:OrderLine.UnitPrice")</td>
+									<td class="text-center">
+										@orderline.GetString("Ecom:Order:OrderLine.Quantity") 
+										<!--
+										<input type="number" name="cant" value="Ecom:Order:OrderLine.Quantity" style="width:60px; text-align:center; margin-right:5px; height:34px;">
+										-->
+									</td>
+									<td class="text-left">
+										@if (!string.IsNullOrWhiteSpace(orderline.GetString("Ecom:Order:OrderLine.IsProduct"))) {
+										<a href="@orderline.GetString("Ecom:Order:OrderLine.IncrementLink")" title=""><i class="fa fa-plus"></i></a><text>&nbsp;</text>
+										<a href="@orderline.GetString("Ecom:Order:OrderLine.DecrementLink")" title=""><i class="fa fa-minus"></i></a><text>&nbsp;</text>
+										<a href="@orderline.GetString("Ecom:Order:OrderLine.DeleteLink")" title=""><i class="fa fa-trash-o"></i></a>
+										}
+									</td>
+									<td class="text-right">@orderline.GetString("Ecom:Order:OrderLine.TotalPrice")</td>
+								</tr>
+								foreach (LoopItem bomitem in orderline.GetLoop("BOMItems"))
+								{
+								<tr>
+									<td></td>
+									<td><small>&nbsp;&nbsp;&nbsp;@bomitem.GetString("Ecom:Order:OrderLine.ProductName")</small></td>
+									<td><small>@bomitem.GetString("Ecom:Order:OrderLine.UnitPrice")</small></td>
+									<td class="text-center"><small>@bomitem.GetString("Ecom:Order:OrderLine.Quantity")</small></td>
+									<td></td>
+									<td class="text-right"><small>@bomitem.GetString("Ecom:Order:OrderLine.TotalPrice")</small></td>
+								</tr>
+								}
+							}
+							<tr>
+								<td></td>
+								<td></td>
+								
+								
+								<td colspan="3">
+									<i class="fa fa-credit-card"></i>&nbsp; @GetString("Ecom:Order.PaymentMethod")
+									<button type="button" class="btn btn-link btn-xs" style="padding: 0 0 0 16px" data-toggle="modal" data-target="#shipping">
+										@Translate("Change", "Change")
+									</button>
+								</td>
+								<td class="text-right">@GetString("Ecom:Order.PaymentFee")</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td colspan="3">
+									<i class="fa fa-truck"></i>&nbsp; @GetString("Ecom:Order.ShippingMethod")
+									<button type="button" class="btn btn-link btn-xs" style="padding: -1px 0 0 16px" data-toggle="modal" data-target="#shipping">
+										@Translate("Change", "Change")
+									</button>
+								</td>
+								<td class="text-right">@GetString("Ecom:Order.ShippingFee")</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td colspan="3"><strong>@Translate("Total", "Total")</strong></td>
+								<td class="text-right"><strong>@GetString("Ecom:Order.OrderLines.Total.PriceWithVAT")</strong></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<!--
+					<div class="input-group" style="margin-bottom:20px;">
+						<input type="text" class="form-control" placeholder="@Translate("Enter voucher code", "Enter voucher code")" name="EcomOrderVoucherCode" id="EcomOrderVoucherCode" value="@GetString("Ecom:Order.Customer.VoucherCode")">
+						<span class="input-group-btn">
+							<button class="btn btn-two" type="submit">@Translate("Apply voucher", "Apply voucher")</button>
+						</span>
+					</div>
+					-->
+				</div>
+				<div class="col-md-8">
+					<p class="pull-right">
+						<a class="btn btn-link" href="@GetString("Ecom:Cart.EmptyCartLink")"><i class="fa fa-trash"></i>@Translate("Empty Cart", "Empty Cart")</a>
+						<button type="submit" name="@GetString("CartV2.NextStepButtonName")" id="@GetString("CartV2.NextStepButtonName")" class="btn btn-dw-primary">@Translate("Proceed to checkout", "Proceed to checkout")</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</form>
+} else {
+<div class="row">
+	<div class="col-md-12"><h2>@Translate("Cart is empty...", "Cart is empty...")</h2>
+	</div>
+</div>
+}

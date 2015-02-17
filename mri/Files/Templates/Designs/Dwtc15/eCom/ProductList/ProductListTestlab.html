@@ -1,0 +1,230 @@
+<script>
+
+	function testit() {
+		var data = buildrequest(
+				document.getElementById("groupid").value,
+				document.getElementById("ecomquery").value,
+				document.getElementById("pagesize").value,
+				document.getElementById("pagenum").value
+			);
+
+		ajaxSendRequest(data, 8413, dataloaded);
+	}
+
+	function buildrequest(groupid, eqcomquery, pagesize, pagenum) {
+		var data = "";
+		if (groupid.length > 0) {
+			data += "&groupid=" + encodeURI(groupid);
+		}
+		if (eqcomquery.length > 0) {
+			data += "&ecomquery=" + encodeURI(eqcomquery);
+		}
+		if (pagesize.length > 0) {
+			data += "&pagesize=" + encodeURI(pagesize);
+		}
+		if (pagenum.length > 0) {
+			data += "&pagenum=" + encodeURI(pagenum);
+		}
+		return data;
+	}
+
+	function dataloaded() {
+		var xmlhttp = arguments[0].target;
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			//alert(xmlhttp.responseText);
+			try {
+				var productlist = JSON.parse(xmlhttp.responseText);
+			} catch (e) {
+				alert("No products returned...");
+				document.getElementById("jsonoutput").innerHTML = "";
+			}
+
+
+			document.getElementById("jsonoutput").innerHTML = "Number of products: " + productlist.numberofproducts + "<br>";
+			var template = document.getElementById("jsontemplate").innerHTML;
+			for (var i = 0; i < productlist.products.length; i++) {
+				var product = productlist.products[i];
+
+				//var producthtml = template.replace(/@name/g, product.name).replace(/@price/g, product.price).replace(/@link/g, product.link).replace(/@description/g, product.description).replace(/@image/g, product.image).replace(/@id/g, product.id);
+				var producthtml = merge(product, template);
+				document.getElementById("jsonoutput").innerHTML += producthtml;
+				if (i % 4 == 3) {
+					document.getElementById("jsonoutput").innerHTML += "</div><div class=\"row\">";
+				}
+			}
+		}
+	}
+
+	function addtocart(productid) {
+		var data = "&cartcmd=add";
+		data += "&ProductID=" + productid;
+		data += "&Redirect=false";
+
+		ajaxSendRequest(data, 8466, cartupdated);
+	}
+
+	function cartupdated() {
+		var xmlhttp = arguments[0].target;
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			//alert(xmlhttp.responseText);
+			try {
+				var cart = JSON.parse(xmlhttp.responseText);
+			} catch (e) {
+				alert("No cart present...");
+				document.getElementById("jsoncart").innerHTML = "";
+			}
+
+			document.getElementById("minipagecart").innerHTML = "<i class=\"fa fa-shopping-cart\"></i> " + cart.numberofproducts + " <span class=\"amount\">" + cart.totalprice + "</span>";
+			var carthtml = document.getElementById("jsoncarttemplate").innerHTML;
+			//carthtml = carthtml.replace(/@numberofproducts/g, cart.numberofproducts).replace(/@paymentmethod/g, cart.paymentmethod).replace(/@paymentfee/g, cart.paymentfee).replace(/@shippingmethod/g, cart.shippingmethod).replace(/@shippingfee/g, cart.shippingfee).replace(/@totalprice/g, cart.totalprice);
+			carthtml = merge(cart, carthtml)
+			var orderlinetemplate = document.getElementById("jsoncarttemplateitem").innerHTML;
+			var orderlinehtml = "";
+			for (var i = 0; i < cart.orderlines.length; i++) {
+				var orderline = cart.orderlines[i];
+				//orderlinehtml += orderlinetemplate.replace(/@name/g, orderline.name).replace(/@totalprice/g, orderline.totalprice).replace(/@link/g, orderline.link).replace(/@description/g, orderline.description).replace(/@image/g, orderline.image).replace(/@id/g, orderline.id).replace(/@unitprice/g, orderline.unitprice).replace(/@quantity/g, orderline.quantity);
+				orderlinehtml += merge(orderline, orderlinetemplate);
+
+			}
+			carthtml = carthtml.replace("<tr><td id=\"orderlines\"></td></tr>", orderlinehtml);
+			document.getElementById("jsoncart").innerHTML = carthtml;
+			document.getElementById("minicart").innerHTML = carthtml;
+		}
+	}
+
+	function merge(obj, template) {
+		for (var property in obj) {
+			if (obj[property] != "object") {
+				template = template.replace(new RegExp("@" + property, "g"), obj[property])
+			} 			
+		}
+		return template;
+	}
+
+	function ajaxSendRequest(data, pageid, callbackHandler) {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = callbackHandler;
+		var url = "Default.aspx?ID=" + pageid + data;
+		document.getElementById("jsonurl").innerHTML = url;
+		document.getElementById("jsonurl").href = url;
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send(data);
+	}
+
+</script>
+
+<div class="row">
+	<div class="col-md-6">
+		<h3 class="section-title">JSon test page</h3>
+	</div>
+	<div class="col-md-6">
+		<h3 class="section-title" id="jsoncarttitle">JSon cart</h3>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<form role="form">
+			<div class="form-group">
+				<label for="exampleInputEmail1">GroupID</label>
+				<input type="text" class="form-control" id="groupid" placeholder="Enter groupid, i.e. group5">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputPassword1">Query</label>
+				<input type="text" class="form-control" id="ecomquery" placeholder="Enter search term">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputFile">Products per page</label>
+				<input type="number" id="pagesize">
+				<p class="help-block">Number of products per page retrieved</p>
+			</div>
+			<div class="form-group">
+				<label for="exampleInputFile">Page</label>
+				<input type="number" id="pagenum">
+				<p class="help-block">Page number to show, i.e 2</p>
+			</div>
+		</form>
+		<button type="submit" class="btn btn-primary" onclick="testit(); return false;">Search using json</button>
+	</div>
+	<div class="col-md-6" id="jsoncart">
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<a href="" id="jsonurl" target="_blank"></a>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12" id="jsonoutput">
+	</div>
+</div>
+
+<script type="text/html-template" id="jsontemplate">
+	<div class="col-md-3 col-sm-6">
+		<div class="w-box product">
+			<a href="@link">
+				<figure style="min-height: 150px; min-width: 150px; background: url('/Admin/Public/Getimage.ashx?width=150&height=150&compression=99&Crop=5&image=@image') no-repeat 0 0; background-position: center;">
+				</figure>
+			</a>
+			<h2 style="min-height:66px;"><a href="@link">@name</a></h2>
+			<p></p>
+			<div class="w-footer">
+				<span class="price pull-left">@price</span>
+				<a href="@link&cartcmd=add" class="btn btn-xs btn-two pull-right">Add to cart</a>
+				<a href="javascript:addtocart('@id');" class="btn btn-xs btn-two pull-right">Add to Json cart</a>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/html-template" id="jsoncarttemplate">
+	<div class="dropdown-cart">
+		<span class="cart-items">You have <strong>@numberofproducts</strong> items in your cart</span>
+		<table class="table table-cart">
+			<tbody>
+				<tr>
+					<th colspan="2">Product</th>
+					<th class="text-center">Qty</th>
+					<th>Total</th>
+				</tr>
+
+				<tr><td id="orderlines"></td></tr>
+
+				<tr>
+					<td class="text-center"><i class="fa fa-credit-card"></i></td>
+					<td>@paymentmethod</td>
+					<td class="text-center"></td>
+					<td>@paymentfee</td>
+				</tr>
+				<tr>
+					<td class="text-center"><i class="fa fa-truck"></i></td>
+					<td>@shippingmethod</td>
+					<td class="text-center"></td>
+					<td>@shippingfee</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<div class="col-md-6">
+				<a href="Default.aspx?ID=<!--@DwAreaCartPageID-->" class="btn btn-xs btn-three pull-left">Edit cart</a><span class="pull-left">&nbsp;</span>
+				<a href="javascript:confirmation('<!--@Global:Pageview.Url.Raw-->&amp;cartcmd=emptycart','Do you want to empty your basket?');" class="pull-left">Empty basket</a>
+			</div>
+			<div class="col-md-6">
+				<form action="/Default.aspx?ID=<!--@DwAreaCartPageID-->" method="post">
+					<input type="submit" name="CartV2.GotoStep1" id="CartV2.GotoStep1" value="Proceed to checkout" class="btn btn-xs btn-two pull-right" />
+				</form>
+				<span class="clearfix"></span>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/html-template" id="jsoncarttemplateitem">
+	<tr>
+		<td><img src="/Admin/Public/GetImage.ashx?width=50&image=@image&Compression=99" class="img-center" alt=""></td>
+		<td><a href="@link">@name</a></td>
+		<td class="text-center">@quantity</td>
+		<td><nobr>@totalprice</nobr></td>
+	</tr>
+</script>

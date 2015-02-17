@@ -1,0 +1,220 @@
+
+<form name="<!--@Ecom:Product.ID-->" id="<!--@Ecom:Product.ID-->" method="get" action="/Default.aspx">
+	<!--@Ecom:Product.Form.Clean-->
+	<div class="row product">
+		<div class="col-md-6">
+			<div class="product-gallery">
+				<div class="primary-image">
+					<a href="<!--@Ecom:Product.ImageLarge.Default.Clean-->" class="theater" rel="group">
+						<img src="<!--@Ecom:Product.ImageMedium.Default.Clean-->" class="img-responsive" alt="">
+					</a>
+				</div>
+				<div>&nbsp;</div>
+				<!--@LoopStart(Details)-->
+				<div class="thumbnail-images">
+					<a href="<!--@Ecom:Product:Detail.Image.Clean-->" class="theater" rel="group">
+						<img src="/admin/public/getimage.aspx?width=130&amp;height=40&amp;image=<!--@Ecom:Product:Detail.Image.Clean-->" alt="">
+					</a>
+				</div>
+				<!--@LoopEnd(Details)-->
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="product-info">
+				<h3><!--@Ecom:Product.Name--> <!--@Ecom:Product.SelectedVariantComboName--></h3>
+				<span class="star-rating pull-left">
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star-half-empty"></i>
+					<i class="fa fa-star-o"></i>
+				</span>
+				<span class="review-rating pull-left" style="margin-left:15px;">
+					<a href="">Read all 23 reviews</a> or
+					<a href="">Share you oppinion</a>
+
+				</span>
+				<span class="clearfix"></span>
+
+				<p>
+					<!--@Ecom:Product.ShortDescription-->
+				</p>
+				<span class="clearfix"></span>
+				<!--@LoopStart(VariantCombinations)-->
+				<!--@HeaderStart-->
+				<div id="productvariants">
+					<select id="<!--@Ecom:VariantGroup.ID-->" name="<!--@Ecom:VariantGroup.Name-->" onchange="setVariant(this.options[this.selectedIndex].value);">
+						<option>Select variant</option>
+						<!--@HeaderEnd-->
+						<option value="/<!--@Ecom:VariantCombination.LinkGroup.Clean-->"
+							<!--@If Defined(Ecom:VariantCombination.Selected)--> selected="selected"<!--@EndIf(Ecom:VariantCombination.Selected)-->>
+							<!--@Ecom:VariantCombination.VariantText-->
+						</option>
+						<!--@FooterStart-->
+					</select>
+				</div>
+				<br />
+				<!--@FooterEnd-->
+				<!--@LoopEnd(VariantCombinations)-->
+
+				<span class="clearfix"></span>
+				<span class="price">
+					<strong><!--@Ecom:Product.Discount.Price--></strong>
+				</span>
+				<input type="number" name="Quantity" value="1" style="width:60px; text-align:center; margin-right:5px; height:34px;">
+				<button type="submit" name="submit" class="btn btn-two">Add to cart</button>
+
+				<div class="product-short-info">
+					<p><strong>Shipping</strong>: Free</p>
+					<p><strong>Category</strong>: Apple</p>
+					<!--@If Defined(Ecom:Product:Stock.Text)-->
+					<p><strong>Availability</strong>: <!--@Ecom:Product:Stock.Text-->: <img src="<!--@Ecom:Product:Stock.Image.Clean-->" alt="<!--@Ecom:Product:Stock.Text-->" border="0" /></p>
+					<p><strong>Delivery:</strong> <!--@Ecom:Product:Stock.DeliveryText-->&nbsp;<!--@Ecom:Product:Stock.DeliveryUnit--></p>
+					<!--@EndIf-->
+					<p><strong>Product number</strong>: <!--@Ecom:Product.Number--></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget">
+				<div class="tabs">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#one" data-toggle="tab"><i class="icon-star"></i> Description</a></li>
+						<li><a href="#two" data-toggle="tab">Related products</a></li>
+						<li><a href="#three" data-toggle="tab">Reviews (3)</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="one">
+							<p>
+								<!--@Ecom:Product.LongDescription-->
+							</p>
+						</div>
+						<div class="tab-pane" id="two">
+							<div class="widget widget-highlight">
+								<!--@LoopStart(ProductRelatedGroups)-->
+								<!--@EmptyLoopStart-->No related products...<!--@EmptyLoopEnd-->
+								<b><!--@Ecom:Product:RelatedGroup.Name--></b>
+								<!--@LoopStart(RelatedProducts)-->
+								<!--@EmptyLoopStart-->No related products...<!--@EmptyLoopEnd-->
+								<!--@HeaderStart-->
+								<ul class="featured">
+									<!--@HeaderEnd-->
+									<li>
+										<!--@If Defined(Ecom:Product.ImageSmall.Default.Clean)-->
+										<a href="<!--@Ecom:Product.Link.Clean.PID-->&amp;groupid=<!--@Server:Request.groupid-->" title="<!--@Ecom:Product.Name-->" class="GroupLink">
+											<figure style="min-height: 70px; min-width: 70px; background: url('/Admin/Public/Getimage.ashx?width=70&height=70&compression=99&Crop=5&image=<!--@Ecom:Product.ImageSmall.Default.Clean-->') no-repeat 0 0; background-position: center;" class="pull-left">
+											</figure>
+										</a>
+										<!--@EndIf(Ecom:Product.ImageSmall.Default.Clean)-->
+										<p>
+											<a href="<!--@Ecom:Product.Link.Clean.PID-->&amp;groupid=<!--@Server:Request.groupid-->" title="<!--@Ecom:Product.Name-->"><!--@Ecom:Product.Name--></a>
+											<br />
+											<span class="price"><!--@Ecom:Product.Price--></span>
+											<br />
+											<a href="<!--@Ecom:Product.Link.Clean.PID-->&cartcmd=add" class="btn btn-two">Add to cart</a>
+										</p>
+									</li>
+									<!--@FooterStart-->
+								</ul>
+								<span class="clearfix"></span>
+								<!--@FooterEnd-->
+								<!--@LoopEnd(RelatedProducts)-->
+								<!--@LoopEnd(ProductRelatedGroups)-->
+							</div>
+						</div>
+						<div class="tab-pane" id="three">
+							<div class="comments-wr">
+								<div class="comment">
+									<img src="images/prv/team-img-3.jpg" alt="">
+									<p>
+										<span class="comment-author"><a href="">Alexa Smith</a></span>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat.
+									</p>
+								</div>
+								<div class="comment">
+									<img src="images/prv/team-img-2.jpg" alt="">
+									<p>
+										<span class="comment-author"><a href="">John Doe</a></span>
+										It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+										<br><br>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus.
+									</p>
+								</div>
+								<div class="comment">
+									<img src="images/prv/team-img-1.jpg" alt="">
+									<p>
+										<span class="comment-author"><a href="">Stephanie Mayer</a></span>
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna. Sed et quam lacus. Fusce condimentum eleifend enim a feugiat.
+									</p>
+								</div>
+							</div>
+							<p>
+								<a data-toggle="modal" href="#commentModal" class="btn btn-xs btn-three" title="Click to open modal form example"><i class="fa fa-comment-o"></i> Write a review</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+	<div id="commentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="commentModalLabel">Add your own review here</h4>
+				</div>
+				<div class="modal-body color-two">
+					<div class="sign-in-wr">
+						<form class="form-light">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>First name</label>
+										<input type="text" class="form-control" placeholder="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Last name</label>
+										<input type="text" class="form-control" placeholder="">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Email</label>
+										<input type="email" class="form-control" placeholder="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Website</label>
+										<input type="text" class="form-control" placeholder="">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label>Review</label>
+										<textarea class="form-control" placeholder="Write your review here" style="min-height:90px;"></textarea>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-two pull-right" type="submit">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>

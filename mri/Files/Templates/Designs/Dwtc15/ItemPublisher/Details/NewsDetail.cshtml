@@ -1,0 +1,26 @@
+<div class="w-section white inverse blog-grid">
+	<div class="col-md-9">
+		<div class="w-box blog-post">
+			<div class="figure">
+				@if (!string.IsNullOrWhiteSpace("Item.GeneralImage")){
+					var image = GetString("Item.GeneralImage")
+				
+					<div style="background-image: url(/Admin/Public/GetImage.ashx?image=@image&width=940&compression=90); height: 350px; background-position: bottom center">
+					</div>
+				}
+				<h2>@GetString("Item.Heading")</h2>
+				<ul class="meta-list">
+					<li>
+						<span>Written by</span>
+						<span class="bold">@GetString("Item.GeneralAuthor")</span>
+					</li>
+					<li>
+						<span>-</span>
+						<a href="#">@GetString("Item.Date.LongDate")</a>
+					</li>
+				</ul>
+				<p>@GetString("Item.Text")</p>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,51 @@
+﻿<!--@UserManagement:User.ManageAccountUsers.DeleteUser.Javascript-->
+<!--@UserManagement:User.ManageAccountUsers.AddNewUser.Javascript-->
+<!--@UserManagement:User.ManageAccountUsers.UpdateUser.Javascript-->
+
+<h2><!--@Translate(manageAddresses, "Manage account users")--></h2>
+<br />
+<!--@UserManagement:User.ManageAccountUsers.FormStart-->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <colgroup>
+        <col width="100px" align="left" />
+        <col width="100px" align="left" />
+        <col width="100px" align="left" />        
+        <col width="100px" align="left"/>
+    </colgroup>
+    <thead>
+        <tr>
+            <td><b>User name</b></td>            
+            <td><b>Name</b></td>
+            <td><b>Permissions</b></td>                        
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>        		
+		<!--@LoopStart(UserManagement:User.AccountUsers)-->
+		<tr>		    
+		    <td><!--@UserManagement:User.AccountUser.UserName--></td>
+            <td><!--@UserManagement:User.AccountUser.Name--></td>
+            <td>                
+                <table>                    
+                <!--@LoopStart(UserManagement:User.AccountUser.AccountPermissions)-->                                    
+                    <tr>
+                        <td><!--@UserManagement:User.AccountUser.AccountPermission.Name--></td>
+                    </tr>                    
+                <!--@LoopEnd(UserManagement:User.AccountUser.AccountPermissions)-->
+                </table>
+            </td>            
+			<td>                                
+                <input type="image" onclick="deleteUser('<!--@UserManagement:User.AccountUser.ID-->');" title="Remove" alt="Remove" src="/Admin/images/Ribbon/Icons/Small/DeleteDocument.png" style="vertical-align: middle;border:0px;float:left;" />                
+                <input type="image" onclick="updateUser('<!--@UserManagement:User.AccountUser.ID-->');" title="Edit permissions" alt="Edit permissions" src="/Admin/Images/Ribbon/Icons/Small/EditDocument.png" style="vertical-align: middle;border:0px;float:left;" />                
+            </td>
+        </tr>
+        <!--@LoopEnd(UserManagement:User.AccountUsers)-->                                
+    </tbody>
+</table>
+<br />
+<input type="submit" id="submitter" onclick="addNewUser();" value="<!--@Translate(adduser, "Add new user")-->" />
+<!--@UserManagement:User.ManageAccountUsers.FormEnd-->
+<br />
+<!--@If Defined(UserManagement:User.DetailUrl)-->
+	<a href="<!--@UserManagement:User.DetailUrl-->">Back to detail view</a>
+<!--@EndIf(UserManagement:User.DetailUrl)-->

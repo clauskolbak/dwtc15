@@ -1,0 +1,26 @@
+@GetValue(Title("Full width"))
+@GetValue(Description("Standard full width template with text, module and image"))
+
+<!-- 3 Small Images -->
+<table width="580" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" bgcolor="#202022">
+	<tr>
+		<td style="padding:10px 0 0 10px">
+			<table>
+				<tr>
+					<td valign="top" style="padding:0 10px 10px 0">
+						<img src="/Files/Templates/Designs/Dwsimple/images/NewProductSmall.png" alt="" border="0" align="left" />
+					</td>
+					<td valign="middle" style="padding:0 10px 10px 0">
+						<span style="text-decoration: none; font-size: 16px; color: #eee; font-weight: bold; font-family:PT Sans, Arial, sans-serif ">@GetValue("ParagraphText")</span>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	@GetValue("ParagraphModule")
+	<tr>
+		<td bgcolor="#bdcc50"><div style="height:6px">&nbsp;</div></td>
+	</tr>
+</table>
+<!-- End 3 Small Images -->
+<div style="height:15px">&nbsp;</div>

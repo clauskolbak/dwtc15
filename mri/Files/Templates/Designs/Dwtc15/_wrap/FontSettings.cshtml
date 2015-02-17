@@ -1,0 +1,155 @@
+@functions{
+	public class FontSettings
+	{
+		public class Logo 
+		{
+			public static string FontFamily { get; set; }
+			public static string Color { get; set; }
+		}
+
+		public class H1
+		{
+			public static string FontFamily { get; set; }
+			public static string FontSize { get; set; }
+			public static string FontWeight { get; set; }
+			public static string Color { get; set; }
+			public static string LineHeight { get; set; }
+			public static string Casing { get; set; }
+			public static string LetterSpacing { get; set; }
+		}
+
+		public class H2
+		{
+			public static string FontFamily { get; set; }
+			public static string FontSize { get; set; }
+			public static string FontWeight { get; set; }
+			public static string Color { get; set; }
+			public static string LineHeight { get; set; }
+			public static string Casing { get; set; }
+			public static string LetterSpacing { get; set; }
+		}
+	
+		public class Body
+		{
+			public static string FontFamily { get; set; }
+			public static string FontSize { get; set; }
+		}
+	}
+
+	private void InitFontSettings()
+	{
+		//LOGO
+		FontSettings.Logo.FontFamily = CustomFont(GetString("Item.Area.FontFamily"), GetString("Item.Area.GoogleFontLink"));
+		FontSettings.Logo.Color =  GetString("Item.Area.LogoFontColor");
+
+
+		//HEADINGS
+		FontSettings.H1.FontFamily = CustomFont(GetString("Item.Area.HeadingsHeadtitleFont"), GetString("Item.Area.HeadingsGoogleFontLink"));
+		FontSettings.H1.FontSize = GetString("Item.Area.HeadingsHeadtitleSize")+"px";
+		FontSettings.H1.FontWeight = CheckExistence(GetString("Item.Area.AdvHeadingsH1_Weight"), "normal");
+		FontSettings.H1.Color = GetString("Item.Area.HeadingsColor");
+		FontSettings.H1.LineHeight = CheckExistence(GetString("Item.Area.AdvHeadingsH1_Lineheight"), "1");
+        FontSettings.H1.Casing = GetString("Item.Area.HeadingsHeadtitleCasing");
+        FontSettings.H1.LetterSpacing = GetString("Item.Area.AdvHeadingsH1_Letterspacing") + "px";
+        
+        FontSettings.H2.FontFamily = CustomFont(GetString("Item.Area.HeadingsH2_FontFamily"), GetString("Item.Area.HeadingsH2_GoogleFontName"));
+        FontSettings.H2.FontSize = GetString("Item.Area.HeadingsH2_Size")+"px";
+        FontSettings.H2.Color = GetString("Item.Area.HeadingsH2_Color");
+        FontSettings.H2.LineHeight = CheckExistence(GetString("Item.Area.AdvHeadingsH2_Lineheight"), "1");
+        FontSettings.H2.Casing = GetString("Item.Area.HeadingsH2_Casing");
+        FontSettings.H2.FontWeight = CheckExistence(GetString("Item.Area.AdvHeadingsH2_Weight"), "normal");
+        FontSettings.H2.LetterSpacing = GetString("Item.Area.AdvHeadingsH2_Letterspacing") + "px";
+        
+
+		//BODY
+		FontSettings.Body.FontFamily = CustomFont(GetString("Item.Area.BodyFont"), GetString("Item.Area.BodyTextGoogleFontLink"));
+		FontSettings.Body.FontSize = GetString("Item.Area.BodyFontSize") + "px";
+	}
+
+	private string CustomFont (string firstfont, string secondfont)
+	{
+		if (firstfont == "custom")
+		{
+			return secondfont;
+		}
+		else
+		{
+			return firstfont;
+		}
+	}
+
+	private string CheckExistence (string stringitem, string defaultvalue)
+	{
+		if (!string.IsNullOrWhiteSpace(stringitem)) {
+            return stringitem;
+        } else {
+            return defaultvalue;
+        }
+	}
+}
+
+@{
+	InitFontSettings();
+}
+
+@helper GoogleFonts()
+{
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=@FontSettings.Logo.FontFamily:100,200,300,400,500,600,700,800,900"/>
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=@FontSettings.H1.FontFamily:100,200,300,400,500,600,700,800,900"/>
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=@FontSettings.H2.FontFamily:100,200,300,400,500,600,700,800,900"/>
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=@FontSettings.Body.FontFamily:100,200,300,400,500,600,700,800,900"/>
+}
+
+@helper FontStylesCSS() 
+{
+	<style type="text/css">
+		.dw-offsetmenu-logo {
+			font-family: @FontSettings.Logo.FontFamily;
+			font-size: 30px;
+			line-height: 1em;
+			color: @FontSettings.Logo.Color;
+		}
+
+        h1 {
+            font-family: @FontSettings.H1.FontFamily !important;
+            font-size: @FontSettings.H1.FontSize;
+            color: @FontSettings.H1.Color;
+            line-height: @FontSettings.H1.LineHeight;
+            text-transform: @FontSettings.H1.Casing;
+            font-weight: @FontSettings.H1.FontWeight;
+            letter-spacing: @FontSettings.H1.LetterSpacing !important;
+        }
+
+
+        h2, h3, h4, h5, h6 {
+            margin-top: 0.7em;
+            margin-bottom: 0.7em;
+
+            font-family: @FontSettings.H2.FontFamily !important;
+            font-size: @FontSettings.H2.FontSize;
+            color: @FontSettings.H2.Color;
+            line-height: @FontSettings.H2.LineHeight;
+            text-transform: @FontSettings.H2.Casing !important;
+            font-weight: @FontSettings.H2.FontWeight !important;
+            letter-spacing: @FontSettings.H2.LetterSpacing !important;
+        }
+
+        h4, h5, h6 {
+            font-size: 16px !important;
+        }
+
+        body {
+            font-family: @FontSettings.Body.FontFamily !important;
+            font-size: @FontSettings.Body.FontSize;
+        }
+
+        .navbar-wp .navbar-nav > li > a {
+            font-family: @FontSettings.Body.FontFamily !important;
+        }
+
+        .section-title {
+            margin-top: 0.7em;
+            margin-bottom: 0.7em;
+        }
+	</style>
+}

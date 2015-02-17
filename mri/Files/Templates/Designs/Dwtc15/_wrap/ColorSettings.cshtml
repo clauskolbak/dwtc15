@@ -1,0 +1,414 @@
+@functions{
+	public class ColorSettings
+	{
+		public class Color
+		{
+			public static string Primary { get; set; }
+			public static string Secondary { get; set; } // Not in use yet
+			public static string Navbar { get; set; }
+			public static string NavbarFont { get; set; }
+			public static string Footer { get; set; }
+			public static string FooterFont { get; set; }
+
+			public static string Sticker { get; set; }
+			public static string Price { get; set; }
+			public static string Cart { get; set; }
+		}
+	}
+
+	private void InitColorSettings()
+	{
+		ColorSettings.Color.Primary = GetString("Item.Area.ColorsPrimary");
+		ColorSettings.Color.Navbar = GetString("Item.Area.ColorsHeadmenuBackgroundColor");
+		ColorSettings.Color.NavbarFont = GetString("Item.Area.NavbarFontColor");
+
+		if (string.IsNullOrWhiteSpace(ColorSettings.Color.NavbarFont))
+		{
+			ColorSettings.Color.NavbarFont = WrapMethods.getContrastYIQ(ColorSettings.Color.Navbar);
+		} 
+
+		ColorSettings.Color.Footer = GetString("Item.Area.ColorsFooterColor");
+		ColorSettings.Color.FooterFont = WrapMethods.getContrastYIQ(ColorSettings.Color.Footer);
+
+		ColorSettings.Color.Sticker = GetString("Item.Area.EcommerceDiscountStickerColor");
+		ColorSettings.Color.Price = GetString("Item.Area.EcommercePriceColor");
+		ColorSettings.Color.Cart = GetString("Item.Area.EcommerceCartButtonColor");
+	}
+
+	public string GetColorSettings()
+	{
+		string CssString = @"
+		a:hover, a:focus, a:active {
+    		color: @Primary;
+    	}
+
+    	.navbar-wp, .navbar-wp.affix, .navbar-wp .navbar-nav > li > a {
+    		color: @NavbarFont;
+   	 	}
+
+   	 	.navbar-wp .navbar-nav > .active > a, .navbar-wp .navbar-nav > .active > a:hover, .navbar-wp .navbar-nav > .active > a:focus {
+    		color: @NavbarFont;
+    	}
+		
+	    .navbar-wp .navbar-nav > li > a:hover, .navbar-wp .navbar-nav > li > a:focus {
+	        border-top: 0px solid @Navbar;
+	        color: @NavbarFont;
+	    }
+
+	    .navbar-wp .navbar-nav > li > a span:after {
+		    background-color: @Primary;
+		}
+
+		.btn-dw-primary {
+		    color: #FFF;
+		    background-color: @Primary;
+		    border-color: @Primary;
+		}
+
+		.btn-dw-secondary {
+		    color: @NavbarFont;
+		    background-color: @Navbar;
+		    border-color: @Navbar;
+		}
+
+		.btn-dw-cart {
+		    color: #FFF;
+		    background-color: @Cart;
+		    border-color: @Cart;
+		}
+
+		.dw-section-title {
+    		border-color: @Navbar;
+		}
+
+		.dw-minicart-update {
+			color: #FFF !important;
+		    background-color: @Primary;
+		    transition: all 0.3s ease-in-out 0s;
+		}
+
+		.pagination > li > a, .pagination > li > a:hover, .pagination > li > a:focus, .pagination > li > a:active {
+			color: @Primary;
+		}
+
+	    .form-control:hover, .form-control:focus, .form-control:active  {
+	        border-color: @Primary !important;
+	    }
+
+	    .bg-2 {
+	        background: @Primary !important;
+	    }
+
+	    .blockquote-1:hover {
+	        border-color: @Primary !important;
+	    }
+
+	    .navbar-wp .navbar-nav > li > a.dropdown-form-toggle, .navbar-wp .navbar-nav > li > a.dropdown-form-toggle:hover, .navbar-wp .navbar-nav > li > a.dropdown-form-toggle:focus {
+	        color: @Primary;
+	    }
+
+	    .navbar-wp .navbar-nav > .open > a.dropdown-form-toggle, .navbar-wp .navbar-nav > .open > a.dropdown-form-toggle:hover, .navbar-wp .navbar-nav > .open > a.dropdown-form-toggle:focus {
+	        color: @Primary;
+	    }
+
+	    .navbar-wp .navbar-nav > li > a:hover, .navbar-wp .navbar-nav > li > a:focus {
+		    border: 0px solid @Primary;
+		}
+
+	    .navbar-wp .navbar-toggle:hover, .navbar-wp .navbar-toggle:focus {
+	        background-color: @Primary !important;
+	        border-color: @Primary !important;
+	    }
+
+	    .navbar-wp .dropdown-menu {
+	        border-top: 1px solid @Primary !important;
+	        border-bottom: 3px solid @Primary !important;
+	    }
+
+	    .navbar-wp .dropdown-menu > li > a:hover {
+	        background: @Primary !important;
+	        color: #fff;
+	    }
+
+	    .navbar-wp .dropdown-menu .active {
+	        background: @Primary !important;
+	        color: #fff;
+	    }
+
+	    .navbar-wp.navbar-contrasted .dropdown-menu > li > a:hover {
+	        background: @Primary !important;
+	    }
+
+	    .nav > ul > li > a:hover {
+	        color: @Primary;
+	    }
+
+	    .lw .w-box.w-box-inverse .thmb-img i {
+	        color: @Primary !important;
+	    }
+
+	    .w-box.w-box-inverse .thmb-img:hover i {
+	        background: @Primary !important;
+	    }
+
+	    .c-box {
+	        border: 1px solid @Primary !important;
+	    }
+
+	    .c-box .c-box-header {
+	        background: @Primary !important;
+	    }
+
+	    .w-section .aside-feature:hover .icon-feature, .w-section .aside-feature:hover h4 {
+	        color: @Primary !important;
+	    }
+
+	    .layer-slider-wrapper .title.title-base {
+	        background: @Primary !important;
+	    }
+
+	    .layer-slider-wrapper .subtitle {
+	        color: @Primary !important;
+	    }
+
+	    .layer-slider-wrapper .list-item {
+	        color: @Primary !important;
+	    }
+
+	    .box-element.box-element-bordered {
+	        border: 1px solid @Primary !important;
+	    }
+
+	    .carousel-2 .carousel-indicators .active {
+	        background-color: @Primary !important;
+	    }
+
+	    .carousel-2 .carousel-nav a {
+	        color: @Primary !important;
+	    }
+
+	    .carousel-2 .carousel-nav a:hover {
+	        background: @Primary !important;
+	    }
+
+	    .carousel-3 .carousel-nav a {
+	        color: @Primary !important;
+	    }
+
+	    .carousel-3 .carousel-nav a:hover {
+	        background: @Primary !important;
+	    }
+
+	    .like-button .button.liked i {
+	        color: @Primary !important;
+	    }
+
+	    ul.list-listings li.featured {
+	        border-color: @Primary !important;
+	    }
+
+	    ul.list-check li i {
+	        color: @Primary !important;
+	    }
+
+	    ul.dw-categories li a:hover, ul.dw-categories a:focus, ul.dw-categories a:active{
+	        color: @NavbarFont;
+	        background-color: @Primary;
+	        border-color: @Primary;
+	    }
+
+	    ul.categories li a:hover, ul.categories a:focus, ul.categories a:active{
+	        color: @NavbarFont;
+	        background-color: @Primary;
+	        border-color: @Primary;
+	    }
+
+	    .timeline .event:nth-child(2n):before {
+	        background-color: @Primary !important;
+	    }
+
+	    .timeline .event:nth-child(2n-1):before {
+	        background-color: @Primary !important;
+	    }
+
+	    #toTopHover {
+	        background-color: @Primary !important;
+	    }
+
+	    .tags-list li {
+	        border: 1px solid @Primary !important;
+	        color: @Primary !important;
+	    }
+
+	    .tags-list li:hover,
+	    a.open-panel {
+	        background-color: @Primary !important;
+	    }
+
+	    .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus,
+	    .panel-group .panel-heading a i,
+	    .tags-list li a {
+	        color: @NavbarFont !important;
+	    }
+
+	    .nav-pills > li > a:hover, .nav-pills > li > a:focus {
+	        color: @NavbarFont !important;
+	        background: none repeat scroll 0% 0% @Navbar !important;
+	    }
+
+	    footer {
+	        background: @Footer !important;
+	    }
+
+	    footer h4 {
+	    	color: @FooterFont !important;
+		}
+
+		footer a {
+	    	color: @FooterFont !important;
+		}
+
+		footer a:hover, footer a:focus, footer a:active {
+	    	color: @Primary !important;
+		}
+
+		footer p {
+	    	color: @FooterFont !important;
+		}
+
+		footer ul > li {
+	    	color: @FooterFont !important;
+		}
+
+
+	    /* Button colors */
+	    .btn-base {
+	        color: @NavbarFont !important;
+	        background-color: @Navbar !important;
+	        border: 1px solid @Navbar !important;
+	    }
+
+	    .btn-base:before {
+	        background-color: @Navbar !important;
+	    }
+
+	    .btn-base:hover:before, .btn-base:focus:before, .btn-base:active:before {
+	        color: @NavbarFont !important;
+	        background-color: @Primary !important;
+	        border-color: @Primary !important;
+	    }
+
+	    .btn-icon:before {
+	        transition: none !important;
+	    }
+
+	    .btn-base:hover, .btn-base:focus, .btn-base:active, .btn-base.active, .open .dropdown-toggle.btn-base {
+	        color: @NavbarFont !important;
+	        background-color: @Primary !important;
+	        border-color: @Primary !important;
+	    }
+
+	    .btn-two {
+	        color: @NavbarFont !important;
+	        border-color: @Navbar !important;
+	        background-color: @Navbar !important;
+	        border: 1px solid @Navbar !important;
+	    }
+
+	    .btn-two:hover, .btn-two:focus, .btn-two:active, .btn-two.active, .open .dropdown-toggle.btn-two {
+	        color: @NavbarFont !important;
+	        background-color: @Primary !important;
+	        border-color: @Primary !important;
+	    }
+
+	    .btn-primary {
+	        background-color:  @Primary !important;
+	        border-color:  @Primary !important;
+	    }
+
+	    .open .dropdown-toggle.btn-primary {
+	        background-color:  @Primary !important;
+	        border-color:  @Primary !important;
+	    }
+
+	    .btn-one:hover, .btn-one:focus, .btn-one:active, .btn-one.active, .open .dropdown-toggle.btn-one {
+	        color:  @Primary !important;
+	    }
+
+	    .btn-four {
+	        border: 2px solid @Primary!important;
+	        color: @Primary !important;
+	    }
+
+	    .btn-four:hover, .btn-four:focus, .btn-four:active, .btn-four.active, .open .dropdown-toggle.btn-four {
+	        background-color: #fff !important;
+	    }
+
+
+	    /* Dropdown-menu */
+	    .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+	        background: @Primary !important;
+	        color: #fff !important;
+	    }
+
+	    /* Ecom settings */
+	    .ribbon.base {
+	        background: @Sticker !important;
+	        color: #fff;
+	        border-right: 5px solid @Sticker !important;
+	    }
+
+	    .ribbon.base:before {
+	        border-top: 27px solid @Sticker !important;
+	    }
+
+	    .ribbon.base:after {
+	        border-bottom: 27px solid @Sticker !important;
+	    }
+
+	    .price {
+	        color: @Price !important;
+	    }
+
+	    .discount-sticker {
+	        background-color: @Sticker !important;
+	    }
+
+	    .bs-callout-primary {
+	        border-left-color: @Primary !important;
+	    }";
+
+	    return ParseCSSToString(CssString);
+	}
+
+	private string ParseCSSToString(string TheString) 
+	{	
+		TheString = TheString.Replace("@Primary", ColorSettings.Color.Primary);
+		TheString = TheString.Replace("@Scondary", ColorSettings.Color.Secondary);
+		TheString = TheString.Replace("@NavbarFont", ColorSettings.Color.NavbarFont);
+		TheString = TheString.Replace("@Navbar", ColorSettings.Color.Navbar);
+		TheString = TheString.Replace("@FooterFont", ColorSettings.Color.FooterFont);
+		TheString = TheString.Replace("@Footer", ColorSettings.Color.Footer);
+
+		TheString = TheString.Replace("@Sticker", ColorSettings.Color.Sticker);
+		TheString = TheString.Replace("@Price", ColorSettings.Color.Price);
+		TheString = TheString.Replace("@Cart", ColorSettings.Color.Cart);
+
+
+		System.Text.StringBuilder sb = new System.Text.StringBuilder();
+		
+		foreach(var item in TheString.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+		{
+		    sb.AppendLine(item);
+		}
+
+		return sb.ToString();
+	}
+}
+
+@{
+	InitColorSettings();
+}
+
+
+	

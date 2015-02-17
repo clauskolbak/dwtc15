@@ -1,0 +1,407 @@
+/* Adjustments and expansions of the original WebPixels Boomerang 2 Template */
+
+/* Expansions */
+.vertical-align-center {
+    position: relative; 
+    top: 50%; 
+}
+
+ul.top-menu>li ul.sub-menu {
+    display: none;
+    min-width: 160px;
+    position: absolute;
+    right: -1px;
+    z-index: 1500;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #fff;
+    border: 0;
+    opacity: 0;
+    -moz-opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    -moz-box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.175);
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+ul.top-menu>li:hover ul.sub-menu {
+    opacity: 1;
+    display: block;
+}
+
+ul.top-menu>li ul.sub-menu>li {
+    border-bottom: 1px solid #e0eded;
+}
+
+ul.top-menu>li ul.sub-menu>li:last-child {
+    border: 0;
+}
+
+ul.top-menu>li ul.sub-menu>li>a {
+    display: block;
+    padding: 6px 15px;
+    color: #333;
+}
+
+ul.top-menu>li ul.sub-menu>li:last-child {
+    border: 0;
+}
+
+ul.top-menu>li ul.sub-menu>li>a:hover {
+    background: #3498db;
+    color: #fff;
+}
+
+ul.top-menu>li ul.sub-menu>li>.language-active {
+    display: block;
+    padding: 6px 15px;
+    background: #f2f2f2;
+    color: #333;
+    cursor: default;
+}
+
+ul.top-menu>li.dropdown:hover .sub-menu {
+    display: block;
+}
+
+ul.dw-categories {
+    list-style: outside none none;
+    margin: 0px;
+    padding: 0px !important;
+    overflow: hidden;
+}
+
+ul.dw-categories > li {
+    position: relative;
+}
+
+ul.dw-categories > li > a:after {
+    font-family: "FontAwesome";
+    content: "";
+    position: relative;
+    top: 0px;
+    float: right;
+}
+
+ul.dw-categories > li > a {
+    display: block;
+    padding: 10px 15px;
+}
+
+ul.dw-categories > li > ul {
+    margin: 0px;
+    padding: 0px;
+    background: none repeat scroll 0% 0% #FCFCFC;
+}
+
+ul.dw-categories > li > ul > li > a {
+    display: block;
+    padding: 5px 25px;
+}
+
+ul.dw-categories > .list-open-active > a:after {
+    content: "\f107";
+}
+
+.btn-dw-secondary, .btn-dw-primary, .btn-dw-cart {
+    border-width: 1px;
+}
+
+.dw-section-title-small {
+    font-size: 18px;
+    margin-top: 0px;
+}
+
+.dw-offsetmenu-logo {
+    padding: 20px 16px;
+}
+
+.dw-minicart {
+
+}
+ 
+.dw-std-image {
+    margin-bottom: 20px;
+}
+
+.dw-table-title {
+    background-color: #FCFCFC;
+}
+
+/* Fix for the body */
+.body-wrap.body-boxed {
+    margin: 0px auto -20px !important;
+    padding: 0px;
+}
+
+.body-wrap {
+    margin: 0px;
+    padding: 0px;
+}
+
+/*
+.navbar-wp .navbar-nav > li > a {
+    padding: 28px 16px !important;
+}
+*/
+
+.navbar-toggle {
+    background-color: #F1F1F1;
+}
+
+.navbar-wp {
+    border-width: 0px 0px 0px !important;
+}
+
+.navbar-wp.affix .navbar-nav > li > a {
+    padding: 28px 16px !important;
+}
+
+/*
+.affix .navbar-nav {
+    margin: 0 0 0 0 !important;
+}
+*/
+
+/* Clear the special style for the headmenu */
+.navbar-wp .navbar-nav > li > a {
+    border-top: 0px solid transparent;
+}
+
+a:active {
+    background-color: none !important;
+}
+
+/* Fix for the wrapper */
+.body-wrap.body-boxed {
+    border: 0px !important;
+}
+
+/* Fix for missing text in carousel */
+.carousel-1 .description {
+    position: relative !important;
+}
+
+/* Fix for margin in logo */
+header .navbar-brand {
+    margin-top: 0px !important;
+}
+
+.navbar-wp .navbar-nav > li {
+    border: 0px;
+} 
+
+
+.navbar-wp .navbar-toggle {
+    margin-top: 7px !important;
+}
+
+/* top-header color correction */
+.top-header .top-header-menu > ul.menu > li > a {
+    color: #AAA;
+}
+
+/* Mobile nav fix */
+.navbar-wp .navbar-nav > li > a:after {
+    content: "";
+}
+
+/* Fix for top-header-menu */
+.top-header .top-header-menu > ul.top-menu > li {
+    border-right: none;
+}
+
+/* Adjustments on the product galleries */
+
+.w-box.product {
+    padding-top: 0px;
+}
+
+.footer a {
+    font-size: 14px !important;
+}
+
+.footer li {
+    font-size: 14px !important;
+}
+
+ul.categories {
+    font-size: 14px !important;
+}
+
+.pagination > li {
+    font-size: 14px !important;
+}
+
+.panel-body {
+    font-size: 14px !important;
+}
+
+.panel-title {
+    font-size: 14px !important;
+}
+
+.top-header .top-header-menu > ul.menu > li {
+    font-size: 14px !important;
+}
+
+/* The offcanvas menu styles */
+.nav-header {
+    font-weight: 600;
+}
+
+.nav-line {
+    padding: 0 16px 0 16px !important;
+    margin: 0 0 0 0 !important;
+}
+
+.nav-line-hr {
+    margin: 0 0 0 0;
+    border-color: #BBB;
+}
+
+.offcanvas-row {
+  margin-right: 0px !important;
+}
+.offcanvas-col {
+  padding-right: 0px !important;
+}
+
+
+/* Fix for the product list box */
+.wp-block.product p {
+    line-height: 1.5em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+
+/* Sticky menu */
+.affix {
+    -webkit-box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.32);
+    -moz-box-shadow:    0px 3px 3px 0px rgba(0, 0, 0, 0.32);
+    box-shadow:         0px 3px 3px 0px rgba(0, 0, 0, 0.32);
+    position: fixed !important;
+    top: 0px !important;
+}
+
+.navbar-wp.affix {
+    left: 0px !important;
+}
+
+.navbar-sticky {
+    width: 100%;
+}
+
+.header-cover .top-header {
+    z-index: 2200 !important;
+}
+
+/* Bullets */
+ol, ul {
+    list-style: inherit;
+    padding: 0px 25px;
+}
+
+.top-menu {
+    list-style: none;
+}
+
+/* Breadcrumb */
+.breadcrumb > li + li:before {
+    font-family: FontAwesome;
+    content: "\f105 ";
+}
+
+/* Fix for the burger-icon */
+.navbar-wp .navbar-toggle-aside-menu {
+    padding: 10px 10px 10px;
+}
+
+.navbar-toggle {
+    margin-bottom: -40px;
+}
+
+/* Fix for the list-menu */
+.list-active {
+    background-color: #D3D3D3;
+}
+
+.list-open-active {
+    background-color: #F2F2F2;
+}
+
+
+/* Other */
+.form-control:hover, .form-control:focus, .form-control:active  {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+section.slice {
+    padding: 30px 0px;
+}
+
+.animate-hover-slide .figure {
+    margin-top: 20px;
+}
+
+/* Ecom settings */
+.ribbon {
+    top: 15px !important;
+}
+
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+
+.bs-callout code {
+    border-radius: 3px;
+}
+
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+
+.circle {
+    background: #9C9C9C;
+    border-radius: 0.8em;
+    -moz-border-radius: 0.8em;
+    -webkit-border-radius: 0.8em;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.6em;
+    margin-right: 5px;
+    text-align: center;
+    width: 1.6em;
+}
+
+/* Breadcrumb */
+.dw-breadcrumb a, .pg-opt .breadcrumb {
+    color: #AAA !important;
+}
+
+.dw-breadcrumb a:hover, .dw-breadcrumb a:focus, .dw-breadcrumb a:active, .dw-breadcrumb .active a, .dw-breadcrumb .active {
+    color: #333 !important;
+    background-color: transparent;
+}

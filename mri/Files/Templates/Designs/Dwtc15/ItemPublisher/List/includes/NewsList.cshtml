@@ -1,0 +1,35 @@
+@Include("../../../_wrap/WrapMethods.cshtml")
+
+
+@helper GetNewsList(dynamic Loop, int Length=120)
+{
+	foreach (LoopItem newsitem in Loop){
+		string Image = newsitem.GetString("ItemPublisher:Item.GeneralImage");
+		string Url = newsitem.GetString("ItemPublisher:Item.Url");
+		string Title = newsitem.GetString("ItemPublisher:Item.Heading");
+		string Author = newsitem.GetString("ItemPublisher:Item.GeneralAuthor");
+		string Date = newsitem.GetString("ItemPublisher:Item.Date");
+		string Description = newsitem.GetString("ItemPublisher:Item.Text");
+
+		<li class="">
+			<div class="listing-image">
+				<a href="@Url">
+				<img src="/Admin/Public/GetImage.ashx?image=@Image&width=300&height=180&compression=75" class="content-image img-responsive" alt="" />
+				</a>
+			</div>
+			<div class="listing-body">
+				<h3><a href="@Url">@Title</a></h3>
+				<span class="list-item-info">
+					@Translate("Written by", "Written by") @Author @Translate("on", "on") @Date
+				</span>
+				<p>
+					@WrapMethods.Truncate(Description, Length)
+				</p>
+				<p>
+					<a href="@Url" class="pull-right btn btn btn-sm btn-dw-secondary">@Translate("Read more", "Read more")</a>&nbsp;
+				</p>
+			</div>
+		</li>
+	}
+}
+	

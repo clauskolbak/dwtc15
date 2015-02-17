@@ -1,0 +1,34 @@
+﻿<p>
+ Favorite list - [<!--@Ecom:Product.FavoriteList.Name-->] of type [<!--@Ecom:Product.FavoriteList.Type-->]
+</p>
+<p><!--@If Not Defined(Ecom:Product.FavoriteList.IsPublished)-->
+Favorite list "<!--@Ecom:Product.FavoriteList.Name-->" is not published yet
+<!--@EndIf(Ecom:Product.FavoriteList.IsPublished)-->
+</p>
+<br />
+  <!--@If Defined(Ecom:Product.FavoriteList.IsPublished)-->
+  <!--@LoopStart(FavoriteList)-->
+  <!--@EmptyLoopStart-->No products added to favorites list...<!--@EmptyLoopEnd-->
+
+	<!--@HeaderStart-->
+  <table cellpadding="4" cellspacing="0" border="0" width="100%">
+		<colgroup>
+		<col />
+		<col width="80px" align="right" />
+		<col width="120px" align="right" />
+	</colgroup>	
+	<!--@HeaderEnd-->
+	<tr>
+		<td><!--@Ecom:Product.Name--></td>
+		<td style="text-align: center"><!--@Ecom:CustomerCenter.FavoriteList.Product.Quantity--></td>
+		<td style="text-align: center"><!--@Ecom:Product.Price--></td>
+		<td> 
+		 		<!--@Ecom:Product.Form-->
+			<a href="javascript: void(0);" onclick="javascript:document.getElementById('<!--@Ecom:Product.ID-->').submit();">Add to basket</a>
+    </td>
+		</tr>
+	<!--@FooterStart-->
+	</table>
+	<!--@FooterEnd-->
+<!--@LoopEnd(FavoriteList)--></br> 
+<!--@EndIf(Ecom:Product.FavoriteList.IsPublished)-->

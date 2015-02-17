@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<rss version="2.0">
+	<channel>
+		<title>News RSS Feed</title>
+		<link>http://www.dynamicweb-cms.com</link>
+		<description>Press releases</description>
+		<!--@LoopStart(ItemPublisher:Items.List)--><item>
+				<title><!--@ItemPublisher:Item.Heading.HtmlEncoded()--></title>
+				<link>http://<!--@Global:Request.Host--><!--@ItemPublisher:Item.Url.HtmlEncoded()--></link>
+				<description><!--@ItemPublisher:Item.Text.HtmlEncoded()--></description>
+				<pubDate><!--@ItemPublisher:Item.Date--></pubDate>
+			</item><!--@LoopEnd(ItemPublisher:Items.List)-->
+	</channel>
+</rss>

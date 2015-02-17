@@ -1,0 +1,141 @@
+@MasterPageFile("master.cshtml")
+@Title("Product Gallery Page")
+@Description("Use this for pages in the product gallery")
+
+@{
+    string titlefont = "";
+    string subfont = "";
+    
+    if (GetString("Item.FontFamily") == "custom"){
+	titlefont = @GetString("Item.TitleCustomFontName");
+    } else {
+	titlefont = @GetString("Item.FontFamily");
+    }
+    
+    if (GetString("Item.SubFontFamily") == "custom"){
+	subfont = @GetString("Item.SubCustomFontName");
+    } else {
+	subfont = @GetString("Item.SubFontFamily");
+    }
+}
+
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=@titlefont">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=@subfont">
+
+@if(GetBoolean("Item.Page.LayoutShowBreadcrumb")) {
+<div class="pg-opt pin">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+				@if (GeneralSettings.Navigation.BreadcrumbMode != "light")
+				{
+					<div class="dw-breadcrumb-title">@GetGlobalValue("Global:Page.Top.Name")</div>
+				}
+			</div>
+			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+				<ul class="breadcrumb dwnavigation dw-breadcrumb" id="breadcrumb" data-settings="template:breadcrumb.xslt">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Library</a></li>
+					<li class="active">Data</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+}
+
+@{
+	string totalimages = "";
+
+	foreach (LoopItem i in GetLoop("Item.Images")){
+		totalimages = @i.GetString("Item.Images._total");
+	}
+}
+
+<section class="slice white animate-hover-slide">
+	<div class="w-section inverse shop">
+		<div class="container">
+			<div class="row">
+				@if(!GetBoolean("Item.Page.LayoutHideLeftMenu")) {
+				<div class="col-md-3 hidden-sm hidden-xs">
+					<div class="widget">
+						<h3 class="dw-section-title"><span>@GetGlobalValue("Global:Page.Top.Name")</span></h3>
+						<text>&nbsp;</text>
+						<ul class="dw-categories dwnavigation" id="leftnavigation" data-settings="startlevel:1;endlevel:4;template:LeftNavigationEcom.xslt;">
+							<li><a href="#">Laptops <i> (20)</i></a></li>
+							<li><a href="#">Tablets <i> (8)</i></a></li>
+							<li><a href="#">Phones <i> (16)</i></a></li>
+							<li><a href="#">Mice <i> (82)</i></a></li>
+							<li><a href="#">Cameras <i> (33)</i></a></li>
+						</ul>
+					</div>
+				</div>
+				}
+				<div class="col-md-9 col-sm-12 col-xs-12">
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+						@if (totalimages != ""){
+							<section id="homepageCarousel" class="carousel carousel-1 slide color-two-l" data-ride="carousel">
+							<div class="carousel-inner">
+							    
+							@{
+								var count = 0;
+								var focus = "active";
+							}
+							    
+							@foreach (LoopItem i in GetLoop("Item.Images")){
+								    
+								if (count > 0){
+								    focus = "";
+								}
+								
+								var image = i.GetString("Item.Images.Image");
+								var headFontSize = GetString("Item.FontSize")+"px";
+								var subFontSize = GetString("Item.SubFontSize")+"px";
+								var headFontColor = GetString("Item.FontColor");
+								var subFontColor = GetString("Item.SubFontColor");
+								
+								<div class="item item-dark @focus" style="background-image:url(/Admin/Public/GetImage.ashx?width=960&height=360&image=@image&crop=0);">  
+									<div class="figure">
+										<div class="description fluid-center">
+										    <span style="font-size: @headFontSize !important; color: @headFontColor !important; font-family: @titlefont !important; line-height: 50px;" class="title">@i.GetString("Item.Images.Title")</span>
+										    <span style="font-size: @subFontSize !important; color: @subFontColor !important; font-family: @subfont !important; line-height: 50px;" class="subtitle">@i.GetString("Item.Images.Text")</span>
+										</div>
+									</div>
+								</div>
+								
+								count++;
+							}
+							</div>
+							
+							<!-- Controls -->
+							<a class="left carousel-control" href="#homepageCarousel" data-slide="prev">
+							    <i class="fa fa-angle-left"></i>
+							</a>
+							<a class="right carousel-control" href="#homepageCarousel" data-slide="next">
+							    <i class="fa fa-angle-right"></i>
+							</a>     
+							</section>
+						} else {
+							foreach (LoopItem i in GetLoop("Item.Images")){
+								var image = i.GetString("Item.Images.Image");
+								
+								<div style="background-image: url(/Admin/Public/GetImage.ashx?image=@image&width=1280&height=360&compression=90&crop=0); height: 360px; background-position: bottom center"></div>
+							}
+						}	
+						</div>	
+					</div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="figure">
+								<h1>@GetString("Item.Title")</h1>
+								@GetString("Item.ProductInfo")
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>	
+

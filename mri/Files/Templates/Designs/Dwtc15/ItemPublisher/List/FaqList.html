@@ -1,0 +1,35 @@
+<section>
+	<div class="panel-group" id="accordionThree">
+		<!--@LoopStart(ItemPublisher:Items.List)-->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordionThree" href="#collapse3<!--@ItemPublisher:Items.List.LoopCounter-->">
+						<!--@ItemPublisher:Item.Question-->
+					</a>
+				</h4>
+			</div>
+			<div id="collapse3<!--@ItemPublisher:Items.List.LoopCounter-->" class="panel-collapse collapse">
+				<div class="panel-body">
+					<div class="row">
+						<!--@If Defined(ItemPublisher:Item.AnswerImage)-->
+						<div class="col-md-4">
+							<img src="/Admin/Public/GetImage.ashx?image=<!--@ItemPublisher:Item.AnswerImage-->&width=300&compression=90" alt="" class="img-responsive">
+						</div>
+						<div class="col-md-8">
+							<strong><!--@ItemPublisher:Item.AnswerHeading--></strong>
+							<!--@ItemPublisher:Item.AnswerText-->
+						</div>
+						<!--@Else-->
+						<div class="col-md-12">
+							<strong><!--@ItemPublisher:Item.AnswerHeading--></strong>
+							<!--@ItemPublisher:Item.AnswerText-->
+						</div>
+						<!--@EndIf-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--@LoopEnd(ItemPublisher:Items.List)-->
+	</div>
+</section>

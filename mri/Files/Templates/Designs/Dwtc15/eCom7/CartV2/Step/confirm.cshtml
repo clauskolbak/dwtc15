@@ -1,0 +1,145 @@
+<script>
+	function updateCart() {
+		var form = document.getElementById('ordersubmit');
+		form.submit();
+	}
+</script>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				<small>1. @Translate("Show cart", "Show cart") &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></small>&nbsp;&nbsp;
+				<small>2. @Translate("Customer information", "Customer information") &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;</small>
+				<strong>3. @Translate("Confirm order", "Confirm order")</strong><small> &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;</small>
+				<small>4. @Translate("Receipt", "Receipt")</small>
+			</h3>
+		</div>
+	</div>
+</div>
+
+<form name="ordersubmit" id="ordersubmit" method="post" class="form-light form-horizontal">
+	<section class="slice bg-3">
+		<div class="w-section inverse">
+			<div class="container">
+
+
+				@foreach (LoopItem errors in GetLoop("ValidationErrors")){
+					<div class="row">
+						<div class="col-md-12">
+							<div class="alert alert-danger" role="alert"><a href="javascript:document.getElementById('@errors.GetString("Ecom:Cart.ValidationError.FieldSystemName")').focus();"><b>@errors.GetString("Ecom:Cart.ValidationError.ErrorMessage")</b></a></div>
+						</div>
+					</div>
+				}
+
+				<div class="row">
+					<div class="col-md-3 col-sm-3 col-xs-12">
+						<h4>@Translate("Billing address", "Billing address") <button class="btn btn-xs btn-link" type="submit" name="@GetString("CartV2.PreviousStepButtonName")" id="@GetString("CartV2.PreviousStepButtonName")">@Translate("Edit", "Edit")</button></h4>
+						<div>@GetString("Ecom:Order.Customer.Company")</div>
+						<div>@GetString("Ecom:Order.Customer.Name")</div>
+						<div>@GetString("Ecom:Order.Customer.Address")</div>
+						<div>@GetString("Ecom:Order.Customer.Address2")</div>
+						<div>@GetString("Ecom:Order.Customer.Zip") @GetString("Ecom:Order.Customer.City") - @GetString("Ecom:Order.Customer.Country")</div>
+						<div>@GetString("Ecom:Order.Customer.Email")</div>
+						<div>@GetString("Ecom:Order.Customer.Phone")</div>
+
+						@if (!string.IsNullOrWhiteSpace(GetString("Ecom:Order.Delivery.Address"))) {
+							<h4>@Translate("Shipping address", "Shipping address") <button class="btn btn-xs btn-link" type="submit" name="@GetString("CartV2.PreviousStepButtonName")" id="@GetString("CartV2.PreviousStepButtonName")">@Translate("Edit", "Edit")</button></h4>
+							<div>@GetString("Ecom:Order.Delivery.Company")</div>
+							<div>@GetString("Ecom:Order.Delivery.Name")</div>
+							<div>@GetString("Ecom:Order.Delivery.Address")</div>
+							<div>@GetString("Ecom:Order.Delivery.Address2")</div>
+							<div>@GetString("Ecom:Order.Delivery.Zip") @GetString("Ecom:Order.Delivery.City") - @GetString("Ecom:Order.Delivery.Country")</div>
+							<div>@GetString("Ecom:Order.Delivery.Email")</div>
+							<div>@GetString("Ecom:Order.Delivery.Phone")</div>
+						}
+						<div>&nbsp;</div>
+					</div>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<table class="table table-cart table-responsive">
+							<tbody>
+								<tr>
+									<th></th>
+									<th>@Translate("Product name", "Product name")</th>
+									<th>@Translate("Price", "Price")</th>
+									<th class="text-center">@Translate("Quantity", "Quantity")</th>
+									<th></th>
+									<th class="text-right">@Translate("Total", "Total")</th>
+								</tr>
+								@foreach (LoopItem orderline in GetLoop("OrderLines")){
+									<tr>
+										<td><img src="/Admin/Public/GetImage.ashx?width=50&image=@orderline.GetString("Ecom:Product.ImageLarge.Clean")&Compression=99" class="img-center" alt=""></td>
+										<td>
+											<a href="@GetString("Ecom:Order:OrderLine.ProductLink")">
+												@orderline.GetString("Ecom:Order:OrderLine.ProductName")
+												@if (!string.IsNullOrWhiteSpace(orderline.GetString("Ecom:Order:OrderLine.ProductVariantText"))) {
+													orderline.GetString("Ecom:Order:OrderLine.ProductVariantText");
+												}
+											</a>
+										</td>
+										<td>@orderline.GetString("Ecom:Order:OrderLine.UnitPrice")</td>
+										<td class="text-center">
+											@orderline.GetString("Ecom:Order:OrderLine.Quantity")
+										</td>
+										<td class="text-center"></td>
+										<td class="text-right">@orderline.GetString("Ecom:Order:OrderLine.TotalPrice")</td>
+									</tr>
+									foreach (LoopItem bomitem in GetLoop("BOMItems")){
+									<tr>
+										<td></td>
+										<td><small>&nbsp;&nbsp;&nbsp;@bomitem.GetString("Ecom:Order:OrderLine.ProductName")</small></td>
+										<td><small>@bomitem.GetString("Ecom:Order:OrderLine.UnitPrice")</small></td>
+										<td class="text-center"><small>@bomitem.GetString("Ecom:Order:OrderLine.Quantity")</small></td>
+										<td></td>
+										<td class="text-right"><small>@bomitem.GetString("Ecom:Order:OrderLine.TotalPrice")</small></td>
+									</tr>
+									}
+								}
+								<tr>
+									<td></td>
+									<td></td>
+									<td colspan="3"><i class="fa fa-credit-card"></i> @GetString("Ecom:Order.PaymentMethod")</td>
+									<td class="text-right">@GetString("Ecom:Order.PaymentFee")</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td colspan="3">
+										<i class="fa fa-truck"></i> @GetString("Ecom:Order.ShippingMethod")
+									</td>
+									<td class="text-right">@GetString("Ecom:Order.ShippingFee")</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td colspan="3"><strong>@Translate("Total", "Total")</strong></td>
+									<td class="text-right"><strong>@GetString("Ecom:Order.OrderLines.Total.PriceWithVAT")</strong></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div class="row">
+							<div class="col-md-12">
+								<p class=" pull-right">
+									<label class="checkbox persistent"><input type="checkbox" id="EcomOrderCustomerAccepted" name="EcomOrderCustomerAccepted" value="1" /> @Translate("I accept the terms and conditions of this website.", "I accept the terms and conditions of this website.")</label>
+								</p>
+								<p>&nbsp;</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p class="pull-right">
+									<button class="btn btn-link" type="submit" name="@GetString("CartV2.PreviousStepButtonName")" id="@GetString("CartV2.PreviousStepButtonName")">@Translate("Back", "Back")</button>
+									<button class="btn btn-dw-primary" type="submit" name="@GetString("CartV2.NextStepButtonName")" id="@GetString("CartV2.NextStepButtonName")">@Translate("Place order", "Place order")</button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
+		</div>
+
+	</section>
+</form>

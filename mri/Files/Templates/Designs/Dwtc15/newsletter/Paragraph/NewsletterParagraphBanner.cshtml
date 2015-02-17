@@ -1,0 +1,92 @@
+@using System.Text.RegularExpressions
+
+@{
+	string link = GetString("Item.Link");
+	
+	string btncolor = Pageview.Area.Item["ColorsPrimary"].ToString();
+	string headcolor = Pageview.Area.Item["ColorsHeadmenuBackgroundColor"].ToString();
+	string bgcolor = GetString("Item.BackgoundColor");
+	string textcolor = "";
+	
+	if (string.IsNullOrWhiteSpace(GetString("Item.BackgoundColor"))){
+		bgcolor = "#1a1a1a";
+		textcolor = "#ffffff";
+	} else {
+		textcolor = getContrastYIQ(bgcolor);
+	}
+}
+
+<!-- One Column -->
+<table width="600"  class="lineWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="@bgcolor">
+	<tr>
+		<td width="100%">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" class="lineWidth">
+			    <tr>
+				<td style="vertical-align: center; " class="center" bgcolor="@bgcolor">
+				<div style="height:15px">&nbsp;</div><!-- spacer -->
+				@if (!string.IsNullOrWhiteSpace(link)) {
+				      <a href="@link" style="text-decoration: none; line-height: 0"><h2 style="color: @textcolor !important; font-size: 22px !important; text-align: center; padding: 0 10px 0 10px">@GetString("Item.Heading")</h2></a>
+				} else {
+				      <p style="text-decoration: none; line-height: 0;  font-size: 22px"><h2 style="color: @textcolor !important; text-align: center; padding: 0 10px 0 10px">@GetString("Item.Heading")</h2></p>		
+				}
+				<p style="text-decoration: none; font-size: 12px; line-height: 1; text-align: center; color: @textcolor !important; padding: 0 10px 0 10px">@GetString("Item.Subheading")</p>
+				
+					
+				@if (!string.IsNullOrWhiteSpace(GetString("Item.Linktext"))) {
+					<table align="center" class="center">
+						<tr>
+							<td>
+								<div style="height:15px">&nbsp;</div><!-- spacer -->
+							</td>					
+						</tr>
+						<tr>
+							<td align="center" width="120px" height="22px" bgcolor="@btncolor" style="-webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; color: #ffffff; display: block;">
+								<a href="@link" style="font-size:14px; font-weight: bold; text-decoration: none; line-height:24px; width:100%; display:inline-block">
+								<span style="color: #ffffff;">
+									@GetString("Item.Linktext")
+								</span>
+								</a>
+							</td>
+						</tr>
+					</table>
+				}
+				<div style="height:15px">&nbsp;</div><!-- spacer -->
+				</td>
+			    </tr>                         
+			</table>
+		</td>
+	</tr>
+</table><!-- End One Column -->
+
+<div style="height:15px">&nbsp;</div><!-- spacer -->
+
+
+<!-- Color contrast checker -->
+
+@functions {
+	private string getContrastYIQ(string hexcolor)
+	{
+		if (hexcolor != "")
+		{
+			hexcolor = Regex.Replace(hexcolor, "[^0-9a-zA-Z]+", "");
+
+			int r = Convert.ToByte(hexcolor.Substring(0, 2), 16);
+			int g = Convert.ToByte(hexcolor.Substring(2, 2), 16);
+			int b = Convert.ToByte(hexcolor.Substring(4, 2), 16);
+			int yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+			if (yiq >= 128)
+			{
+				return "#272727";
+			}
+			else
+			{
+				return "#eee";
+			}
+		}
+		else
+		{
+			return "black";
+		}
+	}
+}

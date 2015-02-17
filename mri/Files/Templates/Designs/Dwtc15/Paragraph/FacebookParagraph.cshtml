@@ -1,0 +1,55 @@
+@Title("Facebook paragraph")
+@Description("Default template for using Facebook on the site")
+
+@{
+    string facebookaccount = Pageview.Area.Item["FacebookAccountName"].ToString();
+    string siteurl = GetGlobalValue("Global:Request.Url").ToString();
+}
+
+@if (GetBoolean("Item.FacebookComments")) {
+    <!-- Facebook comment system -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/da_DK/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- End of Facebook comment system -->
+}
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <section class="slice bg-3">
+	@if (GetBoolean("Item.LikeButton")) {
+	    <div class="row">
+		<div class="@ColumnClass()">
+		    <iframe src="//www.facebook.com/plugins/like.php?href=@siteurl&amp;width=200&amp;layout=button_count&amp;action=recommend&amp;show_faces=true&amp;share=true&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>    
+		</div>
+	    </div>
+	}
+	@if (GetBoolean("Item.FacebookComments")) {
+	    <div class="row">
+		<div class="@ColumnClass()">
+		    <div class="fb-comments" data-href="@siteurl" data-width="100%" data-numposts="5" data-colorscheme="light"></div>
+		</div>
+	    </div>
+	    <div class="row">&nbsp;</div>
+	}
+	@if (GetBoolean("Item.FacebookProfileLikes")) {
+	    <div class="row">
+		<div class="@ColumnClass()">
+		    <iframe src="//www.facebook.com/plugins/likebox.php?href=@facebookaccount&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=true" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:290px;" allowTransparency="true"></iframe>
+		</div>
+	    </div>
+	}
+    </div>
+<!-- By some reason this div should be excluded </div> -->
+
+
+@functions {
+    private string ColumnClass()
+    {
+	    return "col-md-" + GetString("Item.Width") + " col-xs-12";
+    }
+}

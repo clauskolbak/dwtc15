@@ -1,0 +1,193 @@
+@Include("includes/ProductListRender.cshtml")
+
+
+@{
+	var grouplink = "/Default.aspx?ID=8399&GroupID=" + GetValue("Ecom:ProductList:Page.GroupID");
+}
+
+<script>
+	function getCookie(name){
+		var pattern = RegExp(name + "=.[^;]*")
+		matched = document.cookie.match(pattern)
+		
+		if (matched) {
+		    var cookie = matched[0].split('=')
+		    return cookie[1]
+		}
+		return false
+	}
+</script>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="row">
+		<div class="col-md-4 col-sm-4 col-xs-4">
+			@if (!string.IsNullOrWhiteSpace(GetString("Server:Request.ecomquery")))
+			{
+			<h3 class="dw-section-title"><span>Searchresult for '@GetString("Server:Request.ecomquery")'</span></h3>
+			}
+			@if (string.IsNullOrWhiteSpace(GetString("Server:Request.ecomquery")))
+			{
+			<h3 class="dw-section-title dw-section-title-small">
+				<span>
+					@if (!string.IsNullOrWhiteSpace(GetString("Ecom:ProductList:Page.GroupName")))
+					{
+						@GetString("Ecom:ProductList:Page.GroupName"); 
+					} else {
+						<text>@Translate("All products", "All products")</text>
+					}
+				</span>
+			</h3>
+			}
+		</div>
+		<div class="col-md-4 col-sm-4 col-xs-4 hidden-xs">
+			<div class="hidden-xs">
+				<span class="text-center" style="color: #AAAAAA !important; font-size: 14px !important">@Translate("Showing page", "Showing page") @GetValue("Ecom:ProductList.CurrentPage") @Translate("of", "of") @GetValue("Ecom:ProductList.TotalPages") (@GetValue("Ecom:ProductList.PageProdCnt") @Translate("products", "products"))</span>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-4 col-xs-4 pull-right">
+			<div class="btn-group pull-right hidden-xs" style="" id="viewbtns">
+				<button type="button" class="btn btn-xs btn-three" onclick="ListView()"><span class="glyphicon glyphicon-th-list"></span></button>
+				<button type="button" class="btn btn-xs btn-three" onclick="BoxView()"><span class="glyphicon glyphicon-th"></span></button>
+			</div>
+			<div class="pull-right">
+				<div class="btn-group">
+					<button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+						@Translate("Sort by", "Sort by") <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li><a onclick="SortProductsBy('Name')">@Translate("Default", "Default")</a></li>
+						<li class="divider"></li>
+						<li><a onclick="SortProductsBy('Price&SortOrder=Asc')" class="pill-left">@Translate("Price low-high", "Price low-high") </a></li>
+						<li><a onclick="SortProductsBy('Price&SortOrder=Desc')" class="pill-left">@Translate("Price high-low", "Price high-low") </a></li>
+					</ul>
+				</div>
+				<text>&nbsp;&nbsp;</text>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">&nbsp;</div>
+
+	<div class="row">
+		@GetProductList(GetLoop("Products"), 3) <!-- The columns are controled by the listview javascript -->
+	</div>
+
+	<hr> 
+	<span class="shop-page-info pull-left hidden-sm hidden-xs" style="color: #AAAAAA !important; font-size:14px !important">@Translate("Showing page", "Showing page") @GetValue("Ecom:ProductList.CurrentPage") @Translate("of", "of") @GetValue("Ecom:ProductList.TotalPages") (@GetValue("Ecom:ProductList.PageProdCnt") @Translate("products", "products"))</span>
+	<ul class="pagination pull-right">
+		@if (!string.IsNullOrWhiteSpace(GetString("Ecom:ProductList.PrevPage.Clean")))
+		{
+		<li><a href="@GetString("Ecom:ProductList.PrevPage.Clean")">&laquo;</a></li>
+		}
+		@foreach (LoopItem page in GetLoop("Ecom:ProductList.Pages"))
+		{
+		<li>
+			<a href="@page.GetString("Ecom:ProductList.Pages.Page.Url")">
+				@if (!string.IsNullOrWhiteSpace(page.GetString("Ecom:ProductList.Pages.Page.IsCurrent")))
+				{
+				<strong>@page.GetValue("Ecom:ProductList.Pages.Page.Number")</strong>
+				} else {
+				@page.GetValue("Ecom:ProductList.Pages.Page.Number");
+				}
+			</a>
+		</li>
+		}
+		@if (!string.IsNullOrWhiteSpace(GetString("Ecom:ProductList.NextPage.Clean")))
+		{
+		<li><a href="@GetString("Ecom:ProductList.NextPage.Clean")">&raquo;</a></li>
+		}
+	</ul>
+</div>
+<div class="row"><div class="col-md-12 col-sm-12 col-xs-12">&nbsp</div></div>
+
+<script>
+	function listviewCookietest() {
+		if (getCookie("productviewtype")) {
+			if (getCookie("productviewtype") == "box"){
+				BoxView();
+			} else {
+				ListView();
+			}
+		} 
+	}
+	
+	window.onresize = function () {
+		testscreensize();
+	}
+	
+	function testscreensize(){
+		if ($(this).width() < 768) {
+			BoxView();
+		} else {
+			listviewCookietest();
+		}
+	}
+		
+	function BoxView() {
+		var arr = new Array();
+		arr = document.getElementsByName("productlist");
+	    
+		for(var i = 0; i < arr.length; i++)
+		{
+			document.getElementsByName("productlist").item(i).className = "col-md-4 col-sm-4 col-xs-12";
+			document.getElementsByName("listproductright").item(i).className = "";
+			document.getElementsByName("extracolumn").item(i).className = "";
+			document.getElementsByName("boxproduct").item(i).className = "wp-block product";
+			document.getElementsByName("listproductleft").item(i).className = "wp-block-footer";
+
+			document.getElementsByName("shortproductdescription").item(i).style = "";
+		    document.getElementsByName("longproductdescription").item(i).style = "display: none !important; text-align: left !important";
+
+		    document.getElementsByName("productfigure").item(i).style = "border-bottom: 1px solid #E0EDED";
+		}
+		
+		document.cookie = "productviewtype=box"; 
+	}	
+		
+	function ListView() {
+		var arr = new Array();
+		arr = document.getElementsByName("productlist");
+	    
+		for(var i = 0; i < arr.length; i++)
+		{
+			document.getElementsByName("productlist").item(i).className = "col-md-12 col-sm-12 col-xs-12";
+			document.getElementsByName("listproductright").item(i).className = "col-md-4 col-sm-4 col-xs-12";
+			document.getElementsByName("extracolumn").item(i).className = "col-md-8 col-sm-8 col-xs-12";
+			document.getElementsByName("boxproduct").item(i).className = "wp-block product";
+			document.getElementsByName("listproductleft").item(i).className = "col-md-8 col-sm-8 col-xs-12";
+
+			document.getElementsByName("shortproductdescription").item(i).style = "display: none !important";
+		    document.getElementsByName("longproductdescription").item(i).style = "text-align: left !important";
+
+		    document.getElementsByName("productfigure").item(i).style = "border-bottom: none";
+		}
+		
+		document.cookie = "productviewtype=list"; 
+	}
+	
+	
+	function SortProductsBy(sortcode) {
+		var Page = "@grouplink";
+		
+		document.cookie = "sortby=" + sortcode; 
+		document.location.href = Page + "&SortBy=" + sortcode;
+	}
+</script>
+
+@if (Pageview.Area.Item["EcommerceProductListForm"].ToString() == "box"){
+	<script>
+		if (!getCookie("productviewtype")) {
+			BoxView();
+		} else {
+			listviewCookietest();
+		}
+	</script>
+} else {
+	<script>
+		if (!getCookie("productviewtype")) {
+			ListView();
+		} else {
+			listviewCookietest();
+		}
+	</script>
+}

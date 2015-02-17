@@ -1,0 +1,156 @@
+<div class="row">
+	<div class="w-box">
+		<div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3">
+			<div class="row">&nbsp;</div>
+			
+			@foreach (LoopItem error in GetLoop("FormValidationErrors"))
+			{
+				<div id="errormessages" class="alert alert-danger">
+					@Translate("Error in the input field", "Error in the input field") @error.GetString("UserManagement:User.FormValidationError.FieldNiceName"): <a href="javascript:document.getElementById('@error.GetString("UserManagement:User.FormValidationError.FieldName")').focus();" class="alert-link">@error.GetString("UserManagement:User.FormValidationError.Message")</a>
+				</div>
+			}
+		</div>
+		<div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3">                   
+            <div class="wp-block default user-form no-margin">
+                <div class="form-header">
+                    <h2>@GetGlobalValue("Global:Page.Name")</h2>
+                </div>
+                <div class="form-body">
+                	@GetValue("UserManagement:User.FormStart")
+						<fieldset class="no-padding">           
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Name", "Name"):</label>
+                                        <div class="input-group">
+  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
+                                        	@GetString("UserManagement:User.Name.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                        </div>
+                                    </div>               
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                              			<label class="control-label">@Translate("Username", "Username"):</label>
+                              			<div class="input-group">
+  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-user"></i></span>
+	                                        @GetString("UserManagement:User.UserName.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+	                                    </div>
+                                    </div>               
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                    	<label class="control-label">@Translate("New password", "New password"):</label>
+                                    	<div class="input-group">
+  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-lock"></i></span>
+	                                        @GetString("UserManagement:User.NewPassword.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+	                                    </div>
+                                    </div>               
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Confirm password", "Confirm password"):</label>
+                                        <div class="input-group">
+  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-lock"></i></span>
+                                        	@GetString("UserManagement:User.NewPasswordConfirm.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                        </div>
+                                    </div>               
+                                </div>
+                            </div>
+                        </section>
+                        <hr>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label class="control-label">@Translate("Email", "Email"):</label>
+                                            <div class="input-group">
+	  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-at"></i></i></span>
+	                                           	@GetString("UserManagement:User.Email.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+	                                        </div>
+                                        </div>  
+                                    </div>               
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Phone", "Phone"):</label>
+                                        <div class="input-group">
+  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-mobile"></i></span>
+                                       		@GetString("UserManagement:User.Phone.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                       	</div> 
+                                    </div>               
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Address", "Address"):</label>
+                                        <div class="input-group">
+  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-home"></i></span>
+                                        	@GetString("UserManagement:User.Address.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                        </div>
+                                    </div>               
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Address", "Address") 2:</label>
+                                        <div class="input-group">
+  											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-building"></i></span>
+                                        	@GetString("UserManagement:User.Address2.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                        </div>
+                                    </div>               
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Zip", "Zip"):</label>
+                                        @GetString("UserManagement:User.Zip.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                    </div>               
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("City", "City"):</label>
+                                        @GetString("UserManagement:User.City.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                    </div>               
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Country", "Country"):</label>
+                                        @GetString("UserManagement:User.Country.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                    </div>               
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="control-label">@Translate("Company", "Company"):</label>
+                                        @GetString("UserManagement:User.Company.Input").Replace("input ", "input class=\"form-control\" style=\"width: 100%\"")
+                                    </div>               
+                                </div>
+                            </div>
+                        </section>
+                	</fieldset>
+                	<hr>
+                	<fieldset>
+                		<section>
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12">
+                                    <input class="btn btn-two pull-right" type="submit" id="submitter" value="@Translate("Create new user", "Create new user")">
+                                </div>
+                            </div>
+                        </section>
+                	</fieldset>
+                </div>
+                <div class="form-footer">
+	                <p>@Translate("Already have an account", "Already have an account")? <a href="/login">@Translate("Click here to sign in", "Click here to sign in")</a></p>
+	            </div>	
+				@GetValue("UserManagement:User.FormEnd")
+			</div>
+			<div class="row">&nbsp;</div>
+		</div>
+	</div>
+</div>

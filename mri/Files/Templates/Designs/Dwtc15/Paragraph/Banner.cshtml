@@ -1,0 +1,52 @@
+@Title("Banner")
+@Description("Default template a site-banner")
+
+@Include("../_wrap/FluidBreakout.cshtml")
+
+
+@{
+    string rawstring = "";
+    string image = GetString("Item.Image");
+
+    string topstyle = "";
+
+    string textpos = "0px";
+}
+
+<!-- Fluid settings --> 
+@DivBreakout()
+
+
+<!-- The banner -->
+@if (!string.IsNullOrWhiteSpace(@image)){
+    if (GetBoolean("Item.ParalaxBackgroundImage")){
+		rawstring = "<section class=\"carousel carousel-1 slice fluid\" style=\"height: " + @GetString("Item.LayoutHeight") + "px !important; background: url('/Admin/Public/Getimage.ashx?width=1920&compression=75&Crop=5&image=" + @image + "') no-repeat fixed 0% 0%; background-attachment: fixed !important; background-size: cover !important \">";
+    } else {
+		rawstring = "<section class=\"carousel carousel-1 slice fluid\" style=\"height: " + @GetString("Item.LayoutHeight") + "px !important; background: url('/Admin/Public/Getimage.ashx?width=1920&compression=75&Crop=5&image=" + @image + "') no-repeat 0 0; background-position: center\">";
+    }
+    <text>@rawstring</text>
+} else  {
+    rawstring = "<section class=\"carousel carousel-1 slice fluid\" style=\"background-color: " + @GetString("Item.BackgroundColor") + "; height: " + @GetString("Item.LayoutHeight") + "px !important; \">";
+    <text>@rawstring</text>
+}
+
+@{
+	textpos = ((GetInteger("Item.LayoutHeight")/2)-60).ToString() + "px";
+}
+
+<div class="text-center" style="margin-top: @textpos" >
+    <h2><span class="title" style="font-size:32px !important; color: #fff !important">@GetString("Item.Title")</span></h2>
+	<p>
+	    <span class="subtitle" style="font-size:18px !important; color: #fff !important">@GetString("Item.HeadingsSubtitle")</span>
+	</p>
+	<span class="clearfix"></span>
+
+	@if (!string.IsNullOrWhiteSpace(@GetString("Item.Link"))){
+	    string link = @GetString("Item.Link");
+
+	    <a href="@link" class="btn btn-one mt-20" style="margin-top: 4px">@GetString("Item.LinkText")</a>
+	}
+</div>
+    
+<!-- Fluid settings -->    
+@DivBreakbackin()

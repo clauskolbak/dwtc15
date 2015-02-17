@@ -1,0 +1,12 @@
+@Include("includes/NewsList.cshtml")
+
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">			
+		<h3 class="dw-section-title"><span>@GetGlobalValue("Global:Page.Name")</span></h3>
+	</div>
+</div>
+<section class="slice bg-3">
+	<ul class="list-listings blog-list">
+		@GetNewsList(GetLoop("ItemPublisher:Items.List"), 260)
+	</ul>
+</section>

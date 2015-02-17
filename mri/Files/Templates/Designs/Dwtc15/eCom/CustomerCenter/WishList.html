@@ -1,0 +1,250 @@
+﻿<!--@Ecom:CustomerCenter.Menu-->
+<br />
+<!--@If Defined(Ecom:CustomerCenter.FavoriteList.HasAddContent)-->
+<!--@If Not Defined(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+    <form id="<!--@ParagraphID-->AddFavoriteListForm" name="<!--@ParagraphID-->AddFavoriteListForm" action="<!--@Ecom:CustomerCenter.FavoriteList.CreateFavoriteList-->" method="post">
+  <!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+
+  <!--@If Defined(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+    <form id="<!--@ParagraphID-->EditFavoriteListForm" name="<!--@ParagraphID-->EditFavoriteListForm" action="<!--@Ecom:CustomerCenter.FavoriteList.EditFavoriteList-->" method="post">
+  <!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+        <table cellpadding="0" cellspacing="0" border="0" style="margin-left: 10px;">
+          <tr>
+              <td width="100" style="height: 19px">
+                  List name
+              </td>
+              <td width="220" style="height: 19px">
+                  <!--@Ecom:CustomerCenter.FavoriteList.Name.Input-->
+              </td>
+          </tr>
+          <tr>
+              <td width="100" style="height: 19px">
+                  List description
+              </td>
+              <td width="220" style="height: 19px">
+                  <!--@Ecom:CustomerCenter.FavoriteList.Description.Input-->
+              </td>
+          </tr>
+          <tr>
+              <td width="100" style="height: 19px">
+                  List type
+              </td>
+              <td width="220" style="height: 19px">
+                  <!--@Ecom:CustomerCenter.FavoriteList.Type.Input-->
+              </td>
+          </tr>
+          <tr>
+            <td width="100" style="height: 19px">
+                Published to date
+            </td>
+            <td width="220" style="height: 19px">
+              <select name="CCFL_PublishedToDay">
+                <!--@Ecom:CustomerCenter.FavoriteList.PublishToDate.Days-->
+              </select>
+              &nbsp;
+              <select name="CCFL_PublishedToMonth">
+                <!--@Ecom:CustomerCenter.FavoriteList.PublishToDate.MonthNames-->
+              </select>
+              &nbsp;
+              <select name="CCFL_PublishedToYear">
+                <!--@Ecom:CustomerCenter.FavoriteList.PublishToDate.Years-->
+              </select>
+            </td>
+          </tr>
+           <tr>
+              <td width="100" style="height: 19px">
+                  Is list published ?
+              </td>
+              <td width="220" style="height: 19px">
+                  <!--@Ecom:CustomerCenter.FavoriteList.IsPublished.Input-->
+              </td>
+          </tr>
+           <tr>
+              <td width="100" style="height: 19px">
+                  Is list default ?
+              </td>
+              <td width="220" style="height: 19px">
+                  <!--@Ecom:CustomerCenter.FavoriteList.IsDefault.Input-->
+              </td>
+          </tr>
+           <tr>
+              <td colspan="2" align="right">
+                <!--@If Not Defined(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+                  <input id="Submit1" type="submit" value="Create list" />
+                <!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+                <!--@If Defined(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+                  <input id="Submit1" type="submit" value="Update list" />
+                <!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsEditMode)-->
+              </td>
+          </tr>
+        </table>
+    </form>
+<!--@EndIf(Ecom:CustomerCenter.FavoriteList.HasAddContent)-->
+
+<table cellpadding="4" cellspacing="0" border="0" width="100%">
+    <tr align="right">
+      <td>
+        <a href="<!--@Ecom:CustomerCenter.FavoriteList.AddURL-->">Add new list</a>&nbsp;&nbsp;
+        <a href="<!--@Ecom:CustomerCenter.FavoriteList.ShowAllFavoritesLists-->">Show  all my lists</a>
+      </td>
+    </tr>
+</table>
+
+<!--@If Defined(Ecom:CustomerCenter.FavoriteList.IsShowAllFavoritesLists)-->
+<p>You have <!--@Ecom:CustomerCenter.FavoriteList.WishListsCount--> wish lists. Click one of the wish list to see the product on the list</p>
+<!--@If Defined(Ecom:CustomerCenter.FavoriteList.WishListsCount > 0)-->
+<table cellpadding="4" cellspacing="0" border="0" width="100%" style="table-layout: fixed; border: none; border: 1px solid #92a4cd">
+ <colgroup>
+		<col width="120px">
+		<col width="60px"/>
+		<col width="80px"/>
+		<col width="100px"/>
+		<col width="100px"/>
+	</colgroup>	
+	<tr style="background-color: #eaf0ff;">
+		<th align="left" style="border-bottom: 1px solid #92a4cd;">Name</th>
+		<th align="left" style="border-bottom: 1px solid #92a4cd">Published</th>
+		<th align="left" style="border-bottom: 1px solid #92a4cd">Published to</th>
+		<th align="left" style="border-bottom: 1px solid #92a4cd">Products amount</th>
+		<th align="left" style="border-bottom: 1px solid #92a4cd">Edit/Remove</th>
+	</tr>	
+	<!--@HeaderEnd-->
+<!--@LoopStart(ListType)-->
+	<tr/>
+	  <td valign="top"><a href="<!--@Ecom:CustomerCenter.FavoriteList.Link.Clean-->"><!--@Ecom:CustomerCenter.FavoriteList.Name--></a></td>
+      <td valign="top"><!--@Ecom:CustomerCenter.FavoriteList.IsPublished--></td>
+	  <td valign="top"><!--@Ecom:CustomerCenter.FavoriteList.PublishToDate--></td>
+	  <td valign="top"><!--@Ecom:CustomerCenter.FavoriteList.ProductCount--></td>
+	  <td valign="top">
+          <a href="<!--@Ecom:CustomerCenter.FavoriteList.EditURL-->">Edit list</a>&nbsp;&nbsp;
+          <a href="<!--@Ecom:CustomerCenter.FavoriteList.RemoveURL-->">Remove list</a>
+      </td>
+	</tr>
+	<!--@FooterStart-->
+	</table>
+	<!--@FooterEnd-->
+<!--@LoopEnd(ListType)-->
+<!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsShowAllFavoritesLists)-->
+<!--@EndIf(Ecom:CustomerCenter.FavoriteList.WishListsCount)-->
+ 
+<!--@If Not Defined(Ecom:CustomerCenter.FavoriteList.IsShowAllFavoritesLists)-->     
+<!--@LoopStart(ListType)-->
+    <table>
+        <tr><td><h3><!--@Ecom:CustomerCenter.FavoriteList.Name--></h3></td></tr>
+        <!--@If Defined(Ecom:CustomerCenter.FavoriteList.IsPublished)-->
+        <tr><td>This list is published</td></tr>
+        <tr>
+          <td>
+            <a href="<!--@Ecom:CustomerCenter.FavoriteList.Unpublish-->">Unpublish</a>&nbsp;&nbsp;
+            <a href="<!--@Ecom:CustomerCenter.FavoriteList.EditURL-->">Edit list</a>
+          </td>
+        </tr>
+        <!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsPublished)-->
+        <!--@If Not Defined(Ecom:CustomerCenter.FavoriteList.IsPublished)-->
+        <tr><td>This list is not published yet</td></tr>
+        <tr>
+          <td>
+            <a href="<!--@Ecom:CustomerCenter.FavoriteList.Publish-->">Publish</a>&nbsp;&nbsp;
+            <a href="<!--@Ecom:CustomerCenter.FavoriteList.EditURL-->">Edit list</a>
+          </td>
+        </tr>
+        <!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsPublished)-->
+    </table></br>
+  <!--@LoopStart(ProductsList)-->
+	<!--@EmptyLoopStart-->No products added to favorites list...<!--@EmptyLoopEnd-->
+	</br>
+	<!--@HeaderStart-->
+	<table cellpadding="4" cellspacing="0" border="0" width="100%" style="table-layout: fixed; border: none; border: 1px solid #92a4cd">
+ <colgroup>
+		<col width="220px">
+		<col width="80px"/>
+		<col width="80px"/>
+		<col width="100px"/>
+	</colgroup>	
+	<tr style="background-color: #eaf0ff;">
+		<th style="border-bottom: 1px solid #92a4cd"></th>
+		<th align="left" style="border-bottom: 1px solid #92a4cd;">Quantity</th>
+		<th align="left" style="border-bottom: 1px solid #92a4cd">Price</th>
+		<th align="left" style="border-bottom: 1px solid #92a4cd">Add/Remove</th>
+	</tr>	
+	<!--@HeaderEnd-->
+	<tr/>
+	  <td  align="center" valign="top">
+      <table cellpadding="4" cellspacing="2">
+        <tr>
+          <td valign="top">
+              <!--@Ecom:Product.ImageSmall.Default-->
+          </td>
+          <td>
+        	 <h4><a href="<!--@Ecom:Product.Link.Clean-->"><!--@Ecom:Product.Name--></a></h4>
+        	 <!--@Ecom:Product.ShortDescription-->
+         </td>
+        </tr>
+      </table>
+    </td>
+		<td valign="top">
+              <!--@Ecom:CustomerCenter.FavoriteList.Product.Quantity-->&nbsp;
+             <a class="orderfunctions" href="<!--@Ecom:CustomerCenter.FavoriteList.Product.Quantity.IncrementLink-->"><img src="/Files/Images/Ecom/Grafik/basket-inc.gif" border="0"></a>&nbsp;
+	           <a class="orderfunctions" href="<!--@Ecom:CustomerCenter.FavoriteList.Product.Quantity.DecrementLink-->"><img src="/Files/Images/Ecom/Grafik/basket-dec.gif" border="0"></a>
+		</td>
+	  <td valign="top"><!--@Ecom:Product.Price--></td>
+		<td valign="top">
+			<!--@Ecom:Product.Form-->
+			<a href="javascript: void(0);" onclick="javascript:document.getElementById('<!--@Ecom:Product.ID-->').submit();">Add to cart</a>
+	    </br><a href="<!--@Ecom:Product.RemoveFromFavorites-->">Remove from list</a>
+	  </td>
+	</tr>
+	<!--@FooterStart-->
+	</table>
+	<!--@FooterEnd-->
+<!--@LoopEnd(ProductsList)-->
+<!--@LoopEnd(ListType)-->
+</br>
+  <form id="<!--@ParagraphID-->SendPageForm" name="<!--@ParagraphID-->SendPageForm" action="<!--@Ecom:CustomerCenter.FavoriteList.SendListURL-->" method="post">
+        <table cellpadding="0" cellspacing="0" border="0" style="margin-left: 5px;">
+          <tr>
+              <td colspan="2" width="380" >
+                  <span style="font-weight:bold;">Send wish list as e-mail:</span></br>
+                  Fill these fields in order to send the wish list as e-mail to your family and friends.Split email sby comma
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  Send to: 
+              </td>
+              <td >
+                  <!--@Ecom:CustomerCenter.FavoriteList.SendPage.SendTo.Input-->
+              </td>
+          </tr>
+          <tr>
+              <td>
+                 Subject:
+              </td>
+              <td>
+                  <!--@Ecom:CustomerCenter.FavoriteList.SendPage.Subject.Input-->
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  Sender name:
+              </td>
+              <td>
+                  <!--@Ecom:CustomerCenter.FavoriteList.SendPage.SenderName.Input-->
+              </td>
+          </tr>
+          <tr>
+            <td>
+                Sender email:
+            </td>
+            <td>
+                <!--@Ecom:CustomerCenter.FavoriteList.SendPage.SenderEmail.Input-->
+            </td>
+          </tr>
+          <tr>
+              <td colspan="2" align="right">
+                  <input id="Submit1" type="submit" value="Send list" />
+              </td>
+          </tr>
+        </table>
+    </form>
+ <!--@EndIf(Ecom:CustomerCenter.FavoriteList.IsShowAllFavoritesLists)-->

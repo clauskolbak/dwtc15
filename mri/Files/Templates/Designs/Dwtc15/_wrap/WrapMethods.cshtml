@@ -1,0 +1,111 @@
+@using System.Text.RegularExpressions
+@using System.Web
+
+
+@functions{
+	public class WrapMethods
+	{
+		//Gets the contrasting color
+		public static string getContrastYIQ(string hexcolor)
+	    {
+	        if (hexcolor != "")
+	        {
+	            hexcolor = Regex.Replace(hexcolor, "[^0-9a-zA-Z]+", "");
+
+	            int r = Convert.ToByte(hexcolor.Substring(0, 2), 16);
+	            int g = Convert.ToByte(hexcolor.Substring(2, 2), 16);
+	            int b = Convert.ToByte(hexcolor.Substring(4, 2), 16);
+	            int yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+	            if (yiq >= 128)
+	            {
+	                return "black";
+	            }
+	            else
+	            {
+	                return "white";
+	            }
+	        }
+	        else
+	        {
+	            return "black";
+	        }
+	    }
+
+
+	    //Truncate text
+	    public static string Truncate (string value, int count, bool strip=true)
+		{
+			if (strip == true){
+				value = StripHtmlTagByCharArray(value);
+			} 
+			
+			if (value.Length > count)
+			{
+			    value = value.Substring(0, count - 1) + "...";
+			}
+		    
+			return value;
+		}
+
+
+		//Strip text from HTML
+		public static string StripHtmlTagByCharArray(string htmlString)
+		{
+			char[] array = new char[htmlString.Length];
+			int arrayIndex = 0;
+			bool inside = false;
+		
+			for (int i = 0; i < htmlString.Length; i++)
+			{
+				char let = htmlString[i];
+				if (let == '<')
+				{
+				    inside = true;
+				    continue;
+				}
+				if (let == '>')
+				{
+				    inside = false;
+				    continue;
+				}
+				if (!inside)
+				{
+				    array[arrayIndex] = let;
+				    arrayIndex++;
+				}
+			}
+			return new string(array, 0, arrayIndex);
+		}
+
+		public static string ColumnMaker(int Col, string ScreenSize)
+		{
+			string Columns = "";	
+
+			switch (Col)
+			{
+				case 1:
+					Columns = "col-"+ScreenSize+"-12";
+				break;
+
+				case 2:
+					Columns = "col-"+ScreenSize+"-6";
+				break;
+
+				case 3:
+					Columns = "col-"+ScreenSize+"-4";
+				break;
+
+				case 4:
+					Columns = "col-"+ScreenSize+"-3";
+				break;
+
+				default:
+					Columns = "col-"+ScreenSize+"-3";
+				break;
+			}
+
+			return Columns;
+		}
+	}
+}

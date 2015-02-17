@@ -1,0 +1,76 @@
+﻿@MasterPageFile("master.cshtml")
+@GetValue("Title(Full width page)")
+@GetValue("Description(Use this page for full width pages with no left navigation.)")
+
+@{
+	string siteurl = GetGlobalValue("Global:Request.Url").ToString();
+}
+
+@if(GetBoolean("Item.Page.LayoutShowBreadcrumb")){
+<div class="pg-opt pin">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+				@if (GeneralSettings.Navigation.BreadcrumbMode != "light")
+				{
+					<div class="dw-breadcrumb-title">@GetGlobalValue("Global:Page.Top.Name")</div>
+				}
+			</div>
+			<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+				<ul class="breadcrumb dwnavigation dw-breadcrumb" id="breadcrumb" data-settings="template:breadcrumb.xslt">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Library</a></li>
+					<li class="active">Data</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+}
+
+<section class="slice white animate-hover-slide">
+	<div class="w-section inverse shop">
+		<div class="container">
+			<div class="row">
+				@if(!GetBoolean("Item.Page.LayoutHideLeftMenu")) {
+					<div class="col-md-3 hidden-sm hidden-xs">
+						<div class="widget">
+							<h3 class="dw-section-title dw-section-title-small"><span>@GetGlobalValue("Global:Page.Top.Name")</span></h3>
+							<text>&nbsp;</text>
+							<ul class="dw-categories dwnavigation" id="leftnavigation" data-settings="startlevel:1;endlevel:4;template:LeftNavigationEcom.xslt;">
+								<li><a href="#">Laptops <i> (20)</i></a></li>
+								<li><a href="#">Tablets <i> (8)</i></a></li>
+								<li><a href="#">Phones <i> (16)</i></a></li>
+							</ul>
+						</div>
+						<p>&nbsp;</p>
+					</div>
+				}
+
+				@{
+					var attributeValue = "col-md-9 col-sm-12 col-xs-12";
+					
+					if(GetBoolean("Item.Page.LayoutHideLeftMenu")) {
+						attributeValue = "col-md-12 col-sm-12 col-xm-12";
+					}
+				}
+
+				<div class="@attributeValue">
+					<div class="row dwcontent" id="maincontent" title="Content area">
+
+					</div>
+				</div>
+				
+				@if (GetBoolean("Item.Page.FacebookLikeButton")){
+					<div class="container">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="row">
+								<iframe src="//www.facebook.com/plugins/like.php?href=@siteurl&amp;width=200&amp;layout=button_count&amp;action=recommend&amp;show_faces=true&amp;share=true&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>    	
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</section>

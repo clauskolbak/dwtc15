@@ -1,0 +1,7 @@
+@Include("includes/NewsList.cshtml")
+
+<section class="slice bg-3">
+	<ul class="list-listings blog-list">
+		@GetNewsList(GetLoop("ItemPublisher:Items.List"), 120)
+	</ul>
+</section>

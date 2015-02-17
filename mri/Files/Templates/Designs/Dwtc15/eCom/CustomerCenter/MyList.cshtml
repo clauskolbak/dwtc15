@@ -1,0 +1,252 @@
+@{
+  string rawstring = "";
+}
+
+<div class="row">
+@GetString("Ecom:CustomerCenter.Menu")
+
+<div class="col-md-9 col-sm-9 col-xs-12">
+@if (GetString("Ecom:CustomerCenter.ProductList.Mode").Contains("edit") || GetString("Ecom:CustomerCenter.ProductList.Mode").Contains("create")) {
+    if (GetString("Ecom:CustomerCenter.ProductList.Mode").Contains("create")) {
+      rawstring = "<form id=\"" + @GetString("ParagraphID") + "AddListForm\" name=\"" + @GetString("ParagraphID") + "AddListForm\" action=\"" + @GetString("Ecom:CustomerCenter.List.CreateList") + "\" method=\"post\">";
+      <text>@rawstring</text>
+    }
+
+    if (GetString("Ecom:CustomerCenter.ProductList.Mode").Contains("edit")) {
+      rawstring = "<form id=\"" + @GetString("ParagraphID") + "EditListForm\" name=\"" + @GetString("ParagraphID") + "EditListForm\" action=\"" + @GetString("Ecom:CustomerCenter.List.EditList") + "\" method=\"post\">";
+      <text>@rawstring</text>
+    }
+        <table cellpadding="0" cellspacing="0" border="0" style="margin-left: 10px;">
+          <tr>
+              <td width="100" style="height: 19px">
+                List name
+              </td>
+              <td width="220" style="height: 19px">
+                @GetString("Ecom:CustomerCenter.List.Name.Input")
+              </td>
+          </tr>
+          <tr>
+              <td width="100" style="height: 19px">
+                List description
+              </td>
+              <td width="220" style="height: 19px">
+                @GetString("Ecom:CustomerCenter.List.Description.Input")
+              </td>
+          </tr>
+          <tr>
+              <td width="100" style="height: 19px">
+                  List type
+              </td>
+              <td width="220" style="height: 19px">
+                  @GetString("Ecom:CustomerCenter.List.Type.Input")
+              </td>
+          </tr>
+          <tr>
+            <td width="100" style="height: 19px">
+                Published to date
+            </td>
+            <td width="220" style="height: 19px">
+              <select name="CC_PublishedToDay">
+                @GetString("Ecom:CustomerCenter.List.PublishToDate.Days")
+              </select>
+              &nbsp;
+              <select name="CC_PublishedToMonth">
+                @GetString("Ecom:CustomerCenter.List.PublishToDate.MonthNames")
+              </select>
+              &nbsp;
+              <select name="CC_PublishedToYear">
+                @GetString("Ecom:CustomerCenter.List.PublishToDate.Years")
+              </select>
+            </td>
+          </tr>
+           <tr>
+              <td width="100" style="height: 19px">
+                Is list published ?
+              </td>
+              <td width="220" style="height: 19px">
+                @GetString("Ecom:CustomerCenter.List.IsPublished.Input")
+              </td>
+          </tr>
+           <tr>
+              <td width="100" style="height: 19px">
+                Is list default ?
+              </td>
+              <td width="220" style="height: 19px">
+                @GetString("Ecom:CustomerCenter.List.IsDefault.Input")
+              </td>
+          </tr>
+           <tr>
+              <td colspan="2" align="right">
+                @if (GetString("Ecom:CustomerCenter.ProductList.Mode").Contains("create")) {
+                  <input id="Submit1" type="submit" value="Create list" />
+                }
+                @if (GetString("Ecom:CustomerCenter.ProductList.Mode").Contains("edit")) {
+                  <input id="Submit1" type="submit" value="Update list" />
+                }
+              </td>
+          </tr>
+        </table>
+    rawstring = "</form>";
+    <text>@rawstring</text>
+}
+
+<table cellpadding="4" cellspacing="0" border="0" width="100%">
+    <tr align="right">
+      <td>
+        <a href="@GetString("Ecom:CustomerCenter.List.AddURL")">Add new list</a>&nbsp;&nbsp;
+      </td>
+    </tr>
+</table>
+
+@if (GetString("Ecom:CustomerCenter.ProductList.Mode").Contains("showAll")) {
+  <p>You have @GetString("Ecom:CustomerCenter.List.Count")  lists. Click one of the lists to see the products on the list.</p>
+    if (GetInteger("Ecom:CustomerCenter.List.Count") > 0) {
+    <table cellpadding="4" cellspacing="0" border="0" width="100%" style="table-layout: fixed; border: none; border: 1px solid #92a4cd">
+     <colgroup>
+        <col width="120px">
+        <col width="60px"/>
+        <col width="80px"/>
+        <col width="100px"/>
+        <col width="100px"/>
+      </colgroup>	
+      <tr style="background-color: #eaf0ff;">
+        <th align="left" style="border-bottom: 1px solid #92a4cd;">Name</th>
+        <th align="left" style="border-bottom: 1px solid #92a4cd">Published</th>
+        <th align="left" style="border-bottom: 1px solid #92a4cd">Published to</th>
+        <th align="left" style="border-bottom: 1px solid #92a4cd">Products amount</th>
+        <th align="left" style="border-bottom: 1px solid #92a4cd">Edit/Remove</th>
+      </tr>	
+        @foreach (LoopItem listitem in GetLoop("Lists")) {
+          <tr>
+            <td valign="top"><a href="@listitem.GetString("Ecom:CustomerCenter.List.Link.Clean")">@listitem.GetString("Ecom:CustomerCenter.List.Name")</a></td>
+              <td valign="top">@listitem.GetString("Ecom:CustomerCenter.List.IsPublished")</td>
+            <td valign="top">@listitem.GetString("Ecom:CustomerCenter.List.PublishToDate")</td>
+            <td valign="top">@listitem.GetString("Ecom:CustomerCenter.List.ProductCount")</td>
+            <td valign="top">
+                  <a href="@listitem.GetString("Ecom:CustomerCenter.List.EditURL")">Edit list</a>&nbsp;&nbsp;
+                  <a href="@listitem.GetString("Ecom:CustomerCenter.List.RemoveURL")">Remove list</a>
+              </td>
+          </tr>
+        }
+    </table>
+    }
+} else {
+      foreach (LoopItem listitem in GetLoop("Lists")) {
+        <table>
+            <tr><td><h3>@listitem.GetString("Ecom:CustomerCenter.List.Name")</h3></td></tr>
+            @if (!string.IsNullOrWhiteSpace(listitem.GetString("Ecom:CustomerCenter.List.IsPublished"))) {
+              <tr><td>This list is published</td></tr>
+              <tr>
+                <td>
+                  <a href="@listitem.GetString("Ecom:CustomerCenter.List.Unpublish")">Unpublish</a>&nbsp;&nbsp;
+                  <a href="@listitem.GetString("Ecom:CustomerCenter.List.EditURL")">Edit list</a>
+                </td>
+              </tr>
+            } else {
+              <tr><td>Your list is private. If you publish your list you are able to send the list to family and friends.</td></tr>
+              <tr>
+                <td>
+                  <a href="@listitem.GetString("Ecom:CustomerCenter.List.Publish")">Publish</a>&nbsp;&nbsp;
+                  <a href="@listitem.GetString("Ecom:CustomerCenter.List.EditURL")">Edit list</a>
+                </td>
+              </tr>
+            }
+        </table>
+        foreach (LoopItem product in listitem.GetLoop("LEcom:CustomerCenter.List.ProductsList")) {
+          <!-- No products in the list... -->
+          <table cellpadding="4" cellspacing="0" border="0" width="100%" style="table-layout: fixed; border: none; border: 1px solid #92a4cd">
+          <colgroup>
+             <col width="220px">
+             <col width="80px"/>
+             <col width="80px"/>
+             <col width="100px"/>
+           </colgroup>	
+           <tr style="background-color: #eaf0ff;">
+             <th style="border-bottom: 1px solid #92a4cd"></th>
+             <th align="left" style="border-bottom: 1px solid #92a4cd;">Quantity</th>
+             <th align="left" style="border-bottom: 1px solid #92a4cd">Price</th>
+             <th align="left" style="border-bottom: 1px solid #92a4cd">Add/Remove</th>
+           </tr>	
+           
+           <tr>
+                 <td  align="center" valign="top">
+                     <div style="width:100px;float:left;">
+                         @product.GetString("Ecom:Product.ImageSmall.Default")
+                     </div>
+                     <div style="width:180px;float:left;">
+                         <div style="width:180px;text-align:left;">
+                             <h4><a href="@product.GetString("Ecom:Product.Link.Clean")">@product.GetString("Ecom:Product.Name")</a></h4>
+                         </div>
+                         @product.GetString("Ecom:Product.ShortDescription")
+                     </div>
+                 </td>
+                 <td valign="top">
+                         @product.GetString("Ecom:CustomerCenter.List.Product.Quantity")&nbsp;
+                         <a class="orderfunctions" href="@product.GetString("Ecom:CustomerCenter.List.Product.Quantity.IncrementLink")"><img src="/Files/Templates/eCom7/CartV2/Step/basket-inc.gif" border="0"></a>&nbsp;
+                       <a class="orderfunctions" href="@product.GetString("Ecom:CustomerCenter.List.Product.Quantity.DecrementLink")"><img src="/Files/Templates/eCom7/CartV2/Step/basket-dec.gif" border="0"></a>
+                 </td>
+             <td valign="top">@product.GetString("Ecom:Product.Price")</td>
+             <td valign="top">
+               @product.GetString("Ecom:Product.Form")
+               <a href="javascript: void(0);" onclick="javascript:document.getElementById(@product.GetString("Ecom:Product.ID")).submit();">Add to cart</a>
+               <a href="@product.GetString("Ecom:Product.RemoveFromList")">Remove from list</a>
+             </td>
+           </tr>
+           </table>
+         }
+ 
+         if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.List.IsPublished"))) {
+          rawstring = "<form id=\"" + @GetString("ParagraphID") + "SendPageForm\" name=\"" + @GetString("ParagraphID") + "SendPageForm\" action=\"" + @GetString("Ecom:CustomerCenter.List.SendListURL") + "\" method=\"post\">";
+          <text>@rawstring</text>
+                 <table cellpadding="0" cellspacing="0" border="0" style="margin-left: 5px;">
+                   <tr>
+                       <td colspan="2" width="380">
+                           <span style="font-weight:bold;">Send list as e-mail:</span></br>
+                           Fill these fields in order to send the list as e-mail to your family and friends. Split emails by comma
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           Send to: 
+                       </td>
+                       <td >
+                           @GetString("Ecom:CustomerCenter.List.SendPage.SendTo.Input")
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                          Subject:
+                       </td>
+                       <td>
+                           @GetString("Ecom:CustomerCenter.List.SendPage.Subject.Input")
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           Sender name:
+                       </td>
+                       <td>
+                          @GetString("Ecom:CustomerCenter.List.SendPage.SenderName.Input")
+                       </td>
+                   </tr>
+                   <tr>
+                     <td>
+                         Sender email:
+                     </td>
+                     <td>
+                        @GetString("Ecom:CustomerCenter.List.SendPage.SenderEmail.Input")
+                     </td>
+                   </tr>
+                   <tr>
+                       <td colspan="2" align="right">
+                           <input id="Submit1" type="submit" value="Send list"></input>
+                       </td>
+                   </tr>
+                </table>
+            rawstring = "</form>";
+            <text>@rawstring</text>
+          }
+      }
+ }
+</div>
+</div>

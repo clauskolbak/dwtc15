@@ -1,0 +1,15 @@
+{
+  "pageid": "<!--@Global:Page.ID-->",
+  "numberofproducts": "<!--@Ecom:ProductList.PageProdCnt-->",
+  "pagenum": "<!--@Ecom:ProductList.CurrentPage-->",
+  "products": [
+      <!--@LoopStart(Products)--><!--@If(Products.LoopCounter>1)-->,<!--@EndIf-->{
+		"id": "<!--@Ecom:Product.ID.JSEncoded()-->",
+		"name": "<!--@Ecom:Product.Name.JSEncoded()-->",
+		"price": "<!--@Ecom:Product.Price.JSEncoded()-->",
+		"link": "<!--@Ecom:Product.LinkGroup.Clean.JSEncoded()-->",
+		"description": "<!--@Ecom:Product.ShortDescription.JSEncoded()-->",
+		"image": "<!--@Ecom:Product.ImageSmall.Default.Clean.JSEncoded()-->"
+	  }<!--@LoopEnd(Products)-->
+    ]
+}

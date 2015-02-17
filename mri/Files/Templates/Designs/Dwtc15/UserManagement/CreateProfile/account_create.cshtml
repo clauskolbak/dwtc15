@@ -1,0 +1,229 @@
+<div class="row">
+	<div class="w-box">
+		<div class="col-md-6 col-sm-6 col-xs-12">			
+			<!--<h2>Create new user or account</h2>-->
+			<div class="row">&nbsp;</div>
+			
+			@foreach (LoopItem error in GetLoop("FormValidationErrors"))
+			{
+				<div id="errormessages" class="alert alert-danger">
+					@Translate("Error in the input field", "Error in the input field") @error.GetString("UserManagement:User.FormValidationError.FieldNiceName"): <a href="javascript:document.getElementById('@error.GetString("UserManagement:User.FormValidationError.FieldName")').focus();" class="alert-link">@error.GetString("UserManagement:User.FormValidationError.Message")</a>
+				</div>
+			}
+
+			@GetValue("UserManagement:User.FormStart")  
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+						@Translate("Is account", "Is account"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.IsAccount.Input")            
+				        </div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">      
+						@Translate("Name", "Name"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Name.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Email", "Email"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Email.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate(Username, "Username"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.UserName.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("New password", "New password"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.NewPassword.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Confirm password", "Confirm password"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.NewPasswordConfirm.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Department", "Department"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Department.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Phone", "Phone"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Phone.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Private phone", "Private phone"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.PhonePrivate.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Business phone", "Business phone"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.PhoneBusiness.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Mobile phone", "Mobile phone"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.PhoneMobile.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Fax", "Fax"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Fax.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Address", "Address"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Address.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Address", "Address") 2:
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Address2.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Zip", "Zip"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Zip.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("City", "City"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.City.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Country", "Country"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Country.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Jobtitle", "Jobtitle"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.JobTitle.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Company", "Company"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Company.Input")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-2 col-xs-12">
+						@Translate("Profile picture", "Profile picture"):
+					</div>
+					<div class="col-md-10 col-sm-10 col-xs-12">
+						@GetString("UserManagement:User.Image.Uploader")
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>     	
+					@foreach (LoopItem group in GetLoop("UserManagement:User.CustomFields"))
+					{
+						<div class="row">
+							<div class="col-md-2 col-sm-2 col-xs-12">
+								@GetString("CustomField.Name"):
+							</div>
+							<div class="col-md-10 col-sm-10 col-xs-12">
+								@GetString("CustomField.Control")
+							</div>
+					}
+					</div>
+				</div>
+				<!--
+				@foreach (LoopItem group in GetLoop("SelectableGroups"))
+				{
+					GetValue("HeaderStart");
+						Translate("memberof", "Member of");
+					GetValue("HeaderEnd");
+						group.GetString("UserManagement:User.SelectableGroup.Input");
+						<label for="@group.GetString("UserManagement:User.SelectableGroup.InputName")">@group.GetString("UserManagement:User.SelectableGroup.Name")</label>
+					GetValue("FooterStart");
+					GetValue("FooterEnd");
+				}-->
+			
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<input class="btn btn-two pull-right" type="submit" id="submitter" value="@Translate("Create new user", "Create new user")">
+				</div>
+			</div>
+			@GetValue("UserManagement:User.FormEnd")
+			<div class="row">&nbsp;</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<div class="col-md-12 col-sm-12 col-xs-12">
+	@foreach (var group in GetLoop("Subgroups"))
+	{
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<a href="@group.GetString("Ecom:Group.Link.Clean")" title="@group.GetString("Ecom:Group.Name")" class="GroupLink">
+			<h2 class="section-title">
+				@group.GetString("Ecom:Group.Name")
+			</h2>
+			@if (!string.IsNullOrWhiteSpace(group.GetString("Ecom:Group.SmallImage")))
+			{
+				<img class="img-responsive" src="@group.GetString("Ecom:Group.SmallImage")" alt="@group.GetString("Ecom:Group.Name")" width="300" />
+			}
+			else 
+			{
+				<img class="img-responsive" src="x.gif" alt="@group.GetString("Ecom:Group.Name")" width="300" />
+			}
+			</a>
+
+			<a href="@group.GetString("Ecom:Group.Link.Clean")" class="btn btn-base">
+				@Translate("Show products", "Show products")
+			</a>
+			<p>&nbsp;</p>
+		</div>
+	}
+</div>

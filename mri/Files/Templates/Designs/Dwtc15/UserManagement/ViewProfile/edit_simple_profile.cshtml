@@ -1,0 +1,142 @@
+<div class="row">
+	<div class="col-md-12 col-sm-12 col-xs-12">			
+		<h3 class="section-title">@GetGlobalValue("Global:Page.Name")</h3>
+	</div>
+</div>
+<div class="row">
+	<div class="w-box">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<h2>@Translate("Edit user", "Edit user") @GetString("UserManagement:User.Name")</h2>
+			<div class="row">&nbsp;</div>
+			
+			@foreach (LoopItem error in GetLoop("FormValidationErrors"))
+			{
+				<div id="errormessages" class="alert alert-danger">
+					@Translate("Error in the input field", "Error in the input field") @error.GetString("UserManagement:User.FormValidationError.FieldNiceName"): <a href="javascript:document.getElementById('@error.GetString("UserManagement:User.FormValidationError.FieldName")').focus();" class="alert-link">@error.GetString("UserManagement:User.FormValidationError.Message")</a>
+				</div>
+			}
+			
+			@GetValue("UserManagement:User.FormStart")
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Name", "Name"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Name.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Email", "Email"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Email.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Username", "Username"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.UserName.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("New password", "New password"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.NewPassword.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Confirm password", "Confirm password"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.NewPasswordConfirm.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Phone", "Phone"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Phone.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Address", "Address"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Address.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Address", "Address") 2:
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Address2.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Zip", "Zip"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Zip.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("City", "City"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.City.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Country", "Country"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Country.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-3 col-sm-3 col-xs-12">
+					@Translate("Company", "Company"):
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					@GetString("UserManagement:User.Company.Input").Replace("input ", "input style=\"width: 100%\"")
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="pull-right">
+						@if (!string.IsNullOrWhiteSpace(GetString("UserManagement:User.DetailUrl"))) {
+							<a class="btn btn-three" href="/Default.aspx?id=8472")">@Translate("Back to detail view", "Back to detail view")</a><text>&nbsp;&nbsp;</text>
+						}
+						<input class="btn btn-two" type="submit" id="submitter" value="@Translate("Update user", "Update user")"><text>&nbsp;&nbsp;</text>
+						@GetValue("UserManagement:User.FormEnd")
+					</div>
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+		</div>
+	</div>
+</div>

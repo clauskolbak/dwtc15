@@ -1,0 +1,266 @@
+<script>
+	function updateCart() {
+		var form = document.getElementById('ordersubmit');
+		form.submit();
+	}
+
+	function showHideDelivery() {
+		var div = document.getElementById("deliveryInformation");
+		if (document.getElementById("enableDelivery").checked) {
+			document.getElementById("deliveryInformation").className = "hidden";
+		} else {
+			document.getElementById("deliveryInformation").className = "show";
+		}
+	}
+</script>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				<small>1. @Translate("Show cart", "Show cart") &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i></small>&nbsp;&nbsp;
+				<strong>2. @Translate("Customer information", "Customer information")</strong><small> &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;</small>
+				<small>3. @Translate("Confirm order", "Confirm order") &nbsp;&nbsp;<i class="fa fa-arrow-circle-right"></i>&nbsp;&nbsp;</small>
+				<small>4. @Translate("Receipt", "Receipt")</small>
+			</h3>
+		</div>
+	</div>
+</div>
+
+<form name="ordersubmit" id="ordersubmit" method="post" class="form-light form-horizontal">
+	<section class="slice bg-3">
+		<div class="w-section inverse">
+			<div class="container">
+				@foreach (LoopItem errors in GetLoop("ValidationErrors")){
+					@errors.GetValue("HeaderStart")
+					<div class="row">
+						<div class="col-md-12">
+							<h4>@Translate("Ooops!", "Ooops!")</h4>
+						</div>
+					</div>
+					@errors.GetValue("HeaderEnd")
+					<div class="row">
+						<div class="col-md-12">
+							<div class="alert alert-warning" role="alert"><a href="javascript:document.getElementById('@errors.GetString("Ecom:Cart.ValidationError.FieldSystemName")').focus();"><b>@errors.GetString("Ecom:Cart.ValidationError.ErrorMessage")</b></a></div>
+						</div>
+					</div>
+				}
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="w-section inverse">
+							<div class="w-box sign-in-wr bg-5">
+
+								<div class="form-header">
+									<h2>@Translate("Billing address", "Billing address")</h2>
+								</div>
+								<div class="form-body">
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderCustomerCompany">@Translate("Company", "Company")</label>
+										<div class="col-sm-9">
+											<input type="text" style="width: 100%" class="form-control" name="EcomOrderCustomerCompany" id="EcomOrderCustomerCompany" value="@GetString("Ecom:Order.Customer.Company")" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderCustomerName">@Translate("Name", "Name")</label>
+										<div class="col-sm-9">
+											<input type="text" style="width: 100%" class="form-control" name="EcomOrderCustomerName" id="EcomOrderCustomerName" value="@GetString("Ecom:Order.Customer.Name")" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderCustomerEmail">@Translate("Email", "Email")</label>
+										<div class="col-sm-9">
+											<input type="email" style="width: 100%" class="form-control" name="EcomOrderCustomerEmail" id="EcomOrderCustomerEmail" value="@GetString("Ecom:Order.Customer.Email")" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderCustomerAddress">@Translate("Address", "Address")</label>
+										<div class="col-sm-9">
+											<input type="text" style="width: 100%" class="form-control" name="EcomOrderCustomerAddress" id="EcomOrderCustomerAddress" value="@GetString("Ecom:Order.Customer.Address")" />
+										</div>
+									</div>
+									<!--
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderCustomerAddress2">@Translate("Address", "Address") 2
+									</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" name="EcomOrderCustomerAddress2" id="EcomOrderCustomerAddress2" value="@GetString("Ecom:Order.Customer.Address2")" />
+									</div>
+								</div>
+								-->
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="EcomOrderCustomerZip">@Translate("Zip code", "Zip code")/@Translate("City", "City")</label>
+									<div class="col-sm-3">
+										<input type="text" style="width: 100%" class="form-control" name="EcomOrderCustomerZip" id="EcomOrderCustomerZip" value="@GetString("Ecom:Order.Customer.Zip")" />
+									</div>
+									<div class="col-sm-6">
+										<input type="text" style="width: 100%" class="form-control" name="EcomOrderCustomerCity" id="EcomOrderCustomerCity" value="@GetString("Ecom:Order.Customer.City")" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="EcomOrderCustomerCountry">@Translate("Country", "Country")</label>
+									<div class="col-sm-9">
+										<select name="EcomOrderCustomerCountry" id="EcomOrderCustomerCountry" class="form-control" onchange="updateCart();">
+											@foreach (LoopItem country in GetLoop("Countries")){
+												if (!string.IsNullOrWhiteSpace(country.GetString("Ecom:Country.IsCustomerCountryOrDefault"))) {  
+												<option value="@country.GetString("Ecom:Country.Code2")" selected="selected">
+													@country.GetString("Ecom:Country.Name")
+												</option>
+												}
+												if (string.IsNullOrWhiteSpace(country.GetString("Ecom:Country.IsCustomerCountryOrDefault"))) {
+												<option value="@country.GetString("Ecom:Country.Code2")">
+													@country.GetString("Ecom:Country.Name")
+												</option>
+												}
+											}
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label" for="EcomOrderCustomerPhone">@Translate("Phone", "Phone")</label>
+									<div class="col-sm-9">
+										<input type="text" style="width: 100%" class="form-control" name="EcomOrderCustomerPhone" id="EcomOrderCustomerPhone" value="@GetString("Ecom:Order.Customer.Phone")" />
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="col-sm-3">
+									</div>
+									<div class="col-sm-9">
+										@{
+											var checkstring = "checked";
+											
+											if (string.IsNullOrWhiteSpace("Ecom:Order.Delivery.Address")) {
+												checkstring = "checked";
+											} else {
+												checkstring = "";
+											}
+										}
+										
+										<label for="enableDelivery" class="control-label">
+											<input type="checkbox" id="enableDelivery" onclick="showHideDelivery();" @checkstring /> @Translate("Deliver to billing address.", "Deliver to billing address.")</input>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				@{
+					var visibility = "";
+					
+					if (!string.IsNullOrWhiteSpace("Ecom:Order.Delivery.Address")) {
+						visibility = "show";
+					} else {
+						visibility = "hidden";
+					}
+				}
+							
+				<div class="@visibility" id="deliveryInformation">
+				<div class="col-md-6">
+					<div class="w-section inverse">
+						<div class="w-box sign-in-wr bg-5">
+							<div class="form-header">
+								<h2>@Translate("Delivery address", "Delivery address")</h2>
+							</div>
+							<div class="form-body">
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderDeliveryCompany">@Translate("Company", "Company")</label>
+										<div class="col-sm-9">
+											<input type="text" style="width: 100%" class="form-control" name="EcomOrderDeliveryCompany" id="EcomOrderDeliveryCompany" value="@GetString("Ecom:Order.Delivery.Company")" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderDeliveryName">@Translate("Name", "Name")</label>
+										<div class="col-sm-9">
+											<input type="text" style="width: 100%" class="form-control" name="EcomOrderDeliveryName" id="EcomOrderDeliveryName" value="@GetString("Ecom:Order.Delivery.Name")" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderDeliveryEmail">@Translate("Email", "Email")</label>
+										<div class="col-sm-9">
+											<input type="email" style="width: 100%" class="form-control" name="EcomOrderDeliveryEmail" id="EcomOrderDeliveryEmail" value="@GetString("Ecom:Order.Delivery.Email")" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderDeliveryAddress">@Translate("Address", "Address")</label>
+										<div class="col-sm-9">
+											<input type="text" style="width: 100%" class="form-control" name="EcomOrderDeliveryAddress" id="EcomOrderDeliveryAddress" value="@GetString("Ecom:Order.Delivery.Address")" />
+										</div>
+									</div>
+									<!--
+									<div class="form-group">
+										<label class="col-sm-3 control-label" for="EcomOrderDeliveryAddress2">@Translate("Address", "Address") 2
+									</label>
+									<div class="col-sm-9">
+										<input type="text" class="form-control" name="EcomOrderDeliveryAddress2" id="EcomOrderDeliveryAddress2" value="@GetString("Ecom:Order.Delivery.Address2")" />
+									</div>
+								</div>
+							</div>
+							-->
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="EcomOrderDeliveryZip">@Translate("Zip code", "Zip code")/@Translate("City", "City")</label>
+								<div class="col-md-3 col-sm-3 col-xs-12">
+									<input type="text" style="width: 100%"  class="form-control" name="EcomOrderDeliveryZip" id="EcomOrderDeliveryZip" value="@GetString("Ecom:Order.Delivery.Zip")" />
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-12">
+									<input type="text" style="width: 100%"  class="form-control" name="EcomOrderDeliveryCity" id="EcomOrderDeliveryCity" value="@GetString("Ecom:Order.Delivery.City")" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="EcomOrderDeliveryCountry">@Translate("Country", "Country")</label>
+								<div class="col-sm-9">
+									<select name="EcomOrderDeliveryCountry" id="EcomOrderDeliveryCountry" class="form-control" onchange="updateCart();">
+										@foreach (LoopItem country2 in GetLoop("Countries")){
+											if (!string.IsNullOrWhiteSpace(country2.GetString("Ecom:Country.IsDeliveryCountryOrDefault"))) {  
+											<option value="@country2.GetString("Ecom:Country.Code2")" selected="selected">
+												@country2.GetString("Ecom:Country.Name")
+											</option>
+											}
+											if (string.IsNullOrWhiteSpace(country2.GetString("Ecom:Country.IsDeliveryCountryOrDefault"))) {
+											<option value="@country2.GetString("Ecom:Country.Code2")">
+												@country2.GetString("Ecom:Country.Name")
+											</option>
+											}
+										}
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label" for="EcomOrderDeliveryPhone">@Translate("Phone", "Phone")</label>
+								<div class="col-sm-9">
+									<input type="text" style="width: 100%" class="form-control" name="EcomOrderDeliveryPhone" id="EcomOrderDeliveryPhone" value="@GetString("Ecom:Order.Delivery.Phone")" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="pull-right">
+							<button class="btn btn-link" type="submit" name="@GetString("CartV2.PreviousStepButtonName")" id="@GetString("CartV2.PreviousStepButtonName")">@Translate("Back", "Back")</button>
+							<button class="btn btn-primary" type="submit" name="@GetString("CartV2.NextStepButtonName")" id="@GetString("CartV2.NextStepButtonName")">@Translate("Proceed", "Proceed")</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+</form>

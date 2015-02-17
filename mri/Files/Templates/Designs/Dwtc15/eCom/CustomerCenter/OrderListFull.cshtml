@@ -1,0 +1,147 @@
+<style>
+    @@media only screen and (max-width: 800px) {
+	
+	/* Force table to not be like tables anymore */
+	table, 
+	thead, 
+	tbody, 
+	th, 
+	td, 
+	tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	tr { border: 1px solid #ccc; }
+ 
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-top: none;
+		border-bottom: none; 
+		position: relative;
+		padding-left: 50% !important;  
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	td:before { content: attr(data-title); }
+    }
+</style>
+
+<div class="row">
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="table-responsive">
+	<table class="table table-hover" id="orderlist">
+	    <thead>
+		<tr class="CustomerCenterMenu" style="background: none !important; font-weight: bold">
+		    <td>@Translate("Order ID", "Order ID")
+			@GetString("Ecom:CustomerCenter.SortByID.Desc").Replace("img ", "img style=\"width: 11px\"")
+			@GetString("Ecom:CustomerCenter.SortByID.Asc").Replace("img ", "img style=\"width: 11px\"")
+		    </td>
+		    <td>@Translate("Date", "Date")
+			@GetString("Ecom:CustomerCenter.SortByDate.Desc").Replace("img ", "img style=\"width: 11px\"")
+			@GetString("Ecom:CustomerCenter.SortByDate.Asc").Replace("img ", "img style=\"width: 11px\"")
+		    </td>
+		    <td>@Translate("State", "State")
+			@GetString("Ecom:CustomerCenter.SortByStateName.Desc").Replace("img ", "img style=\"width: 11px\"")
+			@GetString("Ecom:CustomerCenter.SortByStateName.Asc").Replace("img ", "img style=\"width: 11px\"")
+		    </td>
+		    <td>@Translate("Price", "Price")
+			@GetString("Ecom:CustomerCenter.SortByPrice.Desc").Replace("img ", "img style=\"width: 11px\"")
+			@GetString("Ecom:CustomerCenter.SortByPrice.Asc").Replace("img ", "img style=\"width: 11px\"")
+		    </td>
+		    <td>@Translate("Payment", "Payment")
+			@GetString("Ecom:CustomerCenter.SortByPaymentMethod.Desc").Replace("img ", "img style=\"width: 11px\"")
+			@GetString("Ecom:CustomerCenter.SortByPaymentMethod.Asc").Replace("img ", "img style=\"width: 11px\"")
+		    </td>
+		    <td>@Translate("Freight", "Freight")
+			@GetString("Ecom:CustomerCenter.SortByShippingMethod.Desc").Replace("img ", "img style=\"width: 11px\"")
+			@GetString("Ecom:CustomerCenter.SortByShippingMethod.Asc").Replace("img ", "img style=\"width: 11px\"")
+		    </td>
+		    <td align="right">
+			<a href="/Admin/Public/CustomerCenter/ExcelExport.aspx" title="Excel">
+				<i class="fa fa-download" title="Download" alt="Download"></i>
+			</a>                
+		    </td>
+		</tr>
+	    </thead>
+	    <tbody>
+		@if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Orders.EmptyList"))){
+		    <tr id="trNoOrdersFound"> 
+			<td colspan="7"><strong>@Translate("No orders found", "No orders found")</strong></td>
+		    </tr>
+		} else {
+		    foreach (LoopItem order in GetLoop("Orders"))
+		    {
+			<tr class="@order.GetString("Ecom:CustomerCenter.Paging.EvenRowClass")">
+			    <td data-title="@Translate("Order ID", "Order ID")"><a href="@order.GetString("Ecom:CustomerCenter.Orders.OrderDetailsURL")">@order.GetString("Ecom:Order.ID")&nbsp;</a></td>
+			    <td data-title="@Translate("Date", "Date")"><a href="@order.GetString("Ecom:CustomerCenter.Orders.OrderDetailsURL")">@order.GetString("Ecom:Order.Date")&nbsp;</a></td>
+			    <td data-title="@Translate("State", "State")">@order.GetString("Ecom:Order:Orderstate.Name")&nbsp;</td>
+			    <td data-title="@Translate("Price", "Price")">@order.GetString("Ecom:Order.OrderLines.Total.Price")&nbsp;</td>
+			    <td data-title="@Translate("Payment", "Payment")">@order.GetString("Ecom:Order.PaymentMethod")&nbsp;</td>
+			    <td data-title="@Translate("Freight", "Freight")">@order.GetString("Ecom:Order.ShippingMethod")&nbsp;</td>
+				<td>
+					<a href="@order.GetString("Ecom:Order.ReorderID")"><i class="fa fa-undo" title="@Translate("Reorder", "Reorder")" alt="@Translate("Reorder", "Reorder")"></i></a>&nbsp;
+					<a target="_blank" href="@order.GetString("Ecom:CustomerCenter.Orders.PrintOrderURL")"><i class="fa fa-print" title="@Translate("Print", "Print")" alt="@Translate("Print", "Print")"></i></a>
+					<a href="@order.GetString("Ecom:CustomerCenter.Orders.AddRMA")"><i class="fa fa-truck" title="@Translate("Return", "Return")" alt="@Translate("Return", "Return")"></i></a>&nbsp;
+					<a href="@order.GetString("Ecom:CustomerCenter.Orders.MailOrderURL")"><i class="fa fa-envelope" title="@Translate("Email", "Email")" alt="@Translate("Email", "Email")"></i></a>
+				</td>
+			</tr>
+		    }
+			
+		    if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Orders.Paging.Show"))) {
+			<tr>
+			    <td align="center" colspan="7" valign="top">
+				@if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.Back.URL"))) {
+					<a href="@GetString("Ecom:CustomerCenter.Paging.Back.URL")">@GetString("Ecom:CustomerCenter.Paging.Back")</a>
+				}	
+		
+				@if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.HasPages"))) {
+				    <text>&nbsp;&nbsp;</text>
+				    
+				    foreach (LoopItem page in GetLoop("Ecom:CustomerCenter.Paging.Pages")) {
+				    <a class="@page.GetString("Ecom:CustomerCenter.Paging.PageClass")" href="@page.GetString("Ecom:CustomerCenter.Paging.PageIndexUrl")">@page.GetString("Ecom:CustomerCenter.Paging.PageIndex")</a><text>&nbsp;</text>
+				    }
+				    <text>&nbsp;&nbsp;</text>
+				}
+						
+				@if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.Forward.URL"))) {
+				    <a href="@GetString("Ecom:CustomerCenter.Paging.Forward.URL")">@GetString("Ecom:CustomerCenter.Paging.Forward")</a>
+				}
+			    </td>
+			</tr>
+			<tr>
+					<td align="center" colspan="7">
+						Page&nbsp;@GetString("Ecom:CustomerCenter.Paging.CurrentPage")&nbsp;of&nbsp;@GetString("Ecom:CustomerCenter.Paging.NumPages")
+					</td>
+			</tr>
+		    }
+		}
+	    </tbody>
+	</table>
+    </div>
+</div>
+</div>

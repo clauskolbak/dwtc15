@@ -1,0 +1,57 @@
+
+
+@helper DivBreakout()
+{
+	string rawstring = "";
+
+	<!-- Fluid settings -->
+	if (GetString("Item.LayoutWidth") == "fluid")
+	{
+		rawstring = "</div></div></div></div>";
+	    <text>@rawstring</text>
+	   
+	    if (GetBoolean("ParagraphContainerIsLast"))
+	    {
+			<!-- Makes the banner stick to the bottom -->
+			rawstring = "<div class=\"container-fluid\" style=\"position: relative !important; margin-bottom: -30px; \"><div class=\"row\">";
+	    } 
+	    else if (GetBoolean("ParagraphContainerIsFirst"))
+	    {
+	    	<!-- Makes the banner stick to the top -->
+			rawstring = "<div class=\"container-fluid\" style=\"position: relative !important; margin-top: -31px; \"><div class=\"row\">";
+	    } 
+	    else 
+	    {
+	    	rawstring = "<div class=\"container-fluid\"><div class=\"row\">";
+		}
+	    <text>@rawstring</text>
+	} else {
+	    var layoutwidth = GetString("Item.LayoutWidth");
+	    rawstring = "<div class=\"col-md-" + @layoutwidth + " col-xs-" + @layoutwidth + "\">";
+	    <text>@rawstring</text>
+	    <p>&nbsp;</p>
+	}
+}
+
+@helper DivBreakbackin()
+{
+	string rawstring = "";
+
+	if (GetString("Item.LayoutWidth") != "fluid") 
+	{
+	    rawstring = "</div>";
+	    <text>@rawstring</text>
+	} 
+	else 
+	{
+	    rawstring = "</div></div>";
+	    <text>@rawstring</text>
+	    
+	    <!-- Makes the rest of the page work proberly -->
+	    if (!GetBoolean("ParagraphContainerIsLast"))
+	    {
+			rawstring = "<div class=\"container\"><div class=\"row\"><div class=\"col-md-12 col-sm-12 col-xs-12\"><div class=\"row\" id=\"maincontent\" title=\"Content area\">";
+			<text>@rawstring</text>
+	    }
+	}
+}

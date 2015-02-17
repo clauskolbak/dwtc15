@@ -1,0 +1,85 @@
+<div class="row">&nbsp;</div>
+<div class="row">
+@GetValue("Ecom:CustomerCenter.Menu")
+<!--<H2>Return Merchandise Authorization</H2>-->
+<div class="col-md-9 col-sm-9 col-xs-12">
+<table class="table table-striped">
+    <tr><td class="btn btn-xs btn-three pull-right"><a href="@GetString("Ecom:CustomerCenter.RMA.AddURL")">@Translate("Add New Request", "Add New Request")</a></td></tr>
+</table>
+</div>
+<div class="col-md-9 col-sm-9 col-xs-12">
+<table class="table table-striped" id="orderlist">
+    <thead>
+        <tr class="CustomerCenterMenu">
+            <td>@Translate("Date", "Date")
+                @GetString("Ecom:CustomerCenter.SortByDate.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByDate.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td>@Translate("RMA ID", "RMA ID")
+                @GetString("Ecom:CustomerCenter.SortByID.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByID.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td>@Translate("Order ID", "Order ID")
+                @GetString("Ecom:CustomerCenter.SortByOrderID.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByOrderID.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td>@Translate("Status", "Status")
+		@GetString("Ecom:CustomerCenter.SortByStatus.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByStatus.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.RMA.EmptyList"))) {
+	    <tr id="trNoOrdersFound"> 
+		<td colspan="5"><strong>@Translate("No RMAs found", "No RMAs found")</strong></td>
+	    </tr>
+	} else {
+	    foreach (LoopItem rma in GetLoop("RMAs")) {
+		<tr class="<!--@Ecom:CustomerCenter.Paging.EvenRowClass-->">
+		    <td><a href="@rma.GetString("Ecom:RMA.DetailsURL")">@rma.GetString("Ecom:RMA.Date")&nbsp;</a></td>
+		    <td><a href="@rma.GetString("Ecom:RMA.DetailsURL")">@rma.GetString("Ecom:RMA.ID")&nbsp;</a></td>
+		    <td><a href="@rma.GetString("Ecom:RMA.DetailsURL")">@rma.GetString("Ecom:RMA.OrderID")&nbsp;</a></td>
+		    <td><B>@rma.GetString("Ecom:RMA.Status")&nbsp;</td>
+		    <td>
+			<a href="@rma.GetString("Ecom:RMA.DetailsURL")" title="View return merchandise authorization">View</a>&nbsp;
+		    @if (!string.IsNullOrWhiteSpace(rma.GetString("Ecom:RMA.HasCancel"))) {
+			<a href="@rma.GetString("Ecom:RMA.CancelURL")" title="View return merchandise authorization" onclick="return confirm('Are you sure to cancel request?');">Cancel</a>
+		    }
+		    </td>
+	    </tr>
+	    }
+	    
+	    if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.RMA.Paging.Show"))) {
+	    <tr>
+		<td align="center" colspan="6" valign="top">
+		    @if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.Back.URL"))) {
+			<a href="@GetString("Ecom:CustomerCenter.Paging.Back.URL")">@GetString("Ecom:CustomerCenter.Paging.Back")</a>
+		    }
+		    
+		    @if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.HasPages"))) {
+			<text>&nbsp;&nbsp;</text>
+			
+			foreach (LoopItem page in GetLoop("Ecom:CustomerCenter.Paging.Pages")) {
+			    <a class="@page.GetString("Ecom:CustomerCenter.Paging.PageClass")" href="@page.GetString("Ecom:CustomerCenter.Paging.PageIndexUrl")">@page.GetString("Ecom:CustomerCenter.Paging.PageIndex")</a><text>&nbsp;</text>
+			}
+			<text>&nbsp;&nbsp;</text>
+		    }
+				    
+		    @if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.Forward.URL"))) {
+			<a href="@GetString("Ecom:CustomerCenter.Paging.Forward.URL")">@GetString("Ecom:CustomerCenter.Paging.Forward")</a>
+		    }
+		</td>
+	    </tr>
+	    <tr>
+		<td align="center" colspan="6">
+			 @Translate("Page", "Page") &nbsp; @GetString("Ecom:CustomerCenter.Paging.CurrentPage") &nbsp; @Translate("of", "of") &nbsp; @GetString("Ecom:CustomerCenter.Paging.NumPages")
+		</td>
+	    </tr>
+	    }
+        }
+    </tbody>
+</table>
+</div>
+</div>

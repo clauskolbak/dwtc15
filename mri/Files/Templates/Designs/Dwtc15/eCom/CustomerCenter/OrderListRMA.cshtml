@@ -1,0 +1,90 @@
+<div class="row">&nbsp;</div>
+<div class="row">
+@GetValue("Ecom:CustomerCenter.Menu")
+<div class="col-md-9 col-sm-9 col-xs-12">
+<table class="table table-striped" id="orderlist">
+    <thead>
+        <tr class="CustomerCenterMenu">
+            <td>@Translate("Date", "Date")
+                @GetString("Ecom:CustomerCenter.SortByDate.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByDate.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td>@Translate("Order ID", "Order ID")
+                @GetString("Ecom:CustomerCenter.SortByID.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByID.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td>@Translate("Price", "Price")
+		@GetString("Ecom:CustomerCenter.SortByPrice.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByPrice.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td>@Translate("Payment", "Payment")
+                @GetString("Ecom:CustomerCenter.SortByPaymentMethod.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByPaymentMethod.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td>@Translate("Freight", "Freight")
+                @GetString("Ecom:CustomerCenter.SortByShippingMethod.Desc").Replace("img ", "img style=\"width: 11px\"")
+                @GetString("Ecom:CustomerCenter.SortByShippingMethod.Asc").Replace("img ", "img style=\"width: 11px\"")
+            </td>
+            <td align="right">
+		<a href="/Admin/Public/CustomerCenter/ExcelExport.aspx" title="Excel">
+			<img border="0" src="/Files/Templates/eCom/CustomerCenter/Images/ExcelIcon.gif" />
+		</a>                
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+	@if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Orders.EmptyList"))) {
+	    <tr id="trNoOrdersFound"> 
+		<td colspan="6"><strong>@Translate("No orders found", "No orders found")</strong></td>
+	    </tr>
+	} else {
+	    GetString("Ecom:CustomerCenter.Orders.EmptyList");
+		
+	    foreach (LoopItem order in GetLoop("Orders")) {
+		<tr class="@order.GetString("Ecom:CustomerCenter.Paging.EvenRowClass")">
+		    <td><a href="@order.GetString("Ecom:CustomerCenter.Orders.OrderDetailsURL")">@order.GetString("Ecom:Order.Date")&nbsp;</a></td>
+		    <td><a href="@order.GetString("Ecom:CustomerCenter.Orders.OrderDetailsURL")">@order.GetString("Ecom:Order.ID")&nbsp;</a></td>
+		    <td>@order.GetString("Ecom:Order.OrderLines.Total.Price")&nbsp;</td>
+		    <td>@order.GetString("Ecom:Order.PaymentMethod")&nbsp;</td>
+		    <td>@order.GetString("Ecom:Order.ShippingMethod")&nbsp;</td>
+		    <td>
+			<a href="@order.GetString("Ecom:Order.ReorderID")"><img alt="" id="ResendOrderImage" src="/Files/Templates/eCom/CustomerCenter/Images/ReCycle.gif" title="Reorder" style="border:0;" /></a>&nbsp;
+			<a target="_blank" href="@order.GetString("Ecom:CustomerCenter.Orders.PrintOrderURL")"><img src="/Files/Templates/eCom/CustomerCenter/Images/Print.gif" alt="Print" width="16" height="16" style="border:0;" /></a>
+			<a href="@order.GetString("Ecom:CustomerCenter.Orders.AddRMA")"><img src="/Files/Templates/eCom/CustomerCenter/Images/rma.png" alt="Return Merchandise Authorization" width="16" height="16" style="border:0;" /></a>&nbsp;
+			<a href="@order.GetString("Ecom:CustomerCenter.Orders.MailOrderURL")"><img src="/Files/Templates/eCom/CustomerCenter/Images/email.gif" alt="Email" width="16" height="16" style="border:0;" /></a>
+		    </td>
+		</tr>
+	    }
+	    
+	    if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Orders.Paging.Show"))) {
+		<tr>
+		    <td align="center" colspan="6" valign="top">
+			if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.Back.URL"))) {
+			    <a href="@GetString("Ecom:CustomerCenter.Paging.Back.URL")">@GetString("Ecom:CustomerCenter.Paging.Back")</a>
+			}
+    
+			if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.HasPages"))) {
+			    <text>&nbsp;&nbsp;</text>
+			
+			    @foreach (LoopItem page in GetLoop("Ecom:CustomerCenter.Paging.Pages")) {
+				<a class="@page.GetString("Ecom:CustomerCenter.Paging.PageClass")" href="@page.GetString("Ecom:CustomerCenter.Paging.PageIndexUrl")">@page.GetString("Ecom:CustomerCenter.Paging.PageIndex")</a><text>&nbsp;</text>
+			    }
+			    <text>&nbsp;&nbsp;</text>
+			}
+				    
+			if (!string.IsNullOrWhiteSpace(GetString("Ecom:CustomerCenter.Paging.Forward.URL"))) {
+			    <a href="@GetString("Ecom:CustomerCenter.Paging.Forward.URL")">@GetString("Ecom:CustomerCenter.Paging.Forward")</a>
+			}
+		    </td>
+		</tr>
+		<tr>
+		    <td align="center" colspan="6">
+			    @Translate("Page", "Page") &nbsp; @GetString("Ecom:CustomerCenter.Paging.CurrentPage") &nbsp; @Translate("of", "of") &nbsp; @GetString("Ecom:CustomerCenter.Paging.NumPages")
+		    </td>
+		</tr>
+	    }
+        }
+    </tbody>
+</table>
+</div>
+</div>

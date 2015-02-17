@@ -1,0 +1,24 @@
+﻿{
+"pageid": "<!--@Global:Page.ID-->",
+"numberofproducts": "<!--@Ecom:Order.OrderLines.TotalProductQuantity-->",
+"isempty": "<!--@Ecom:Order.IsEmpty-->",
+"paymentmethod": "<!--@Ecom:Order.PaymentMethod.JSEncoded()-->",
+"paymentfee": "<!--@Ecom:Order.PaymentFee.PriceFormatted.JSEncoded()-->",
+"shippingmethod": "<!--@Ecom:Order.ShippingMethod.JSEncoded()-->",
+"shippingfee": "<!--@Ecom:Order.ShippingFee.PriceFormatted.JSEncoded()-->",
+"totalprice": "<!--@Ecom:Order.OrderLines.Total.PriceWithVAT-->",
+<!--@If Not Defined(Ecom:Order.IsEmpty)-->
+  "orderlines": [
+<!--@LoopStart(OrderLines)--><!--@If(OrderLines.LoopCounter>1)-->,<!--@EndIf-->{
+		"id": "<!--@Ecom:Product.ID.JSEncoded()-->",
+		"name": "<!--@Ecom:Order:OrderLine.ProductName.JSEncoded()--><!--@If Defined(Ecom:Order:OrderLine.ProductVariantText)--> (<!--@Ecom:Order:OrderLine.ProductVariantText.JSEncoded()-->)<!--@EndIf-->",
+		"quantity": "<!--@Ecom:Order:OrderLine.Quantity.JSEncoded()-->",
+		"unitprice": "<!--@Ecom:Order:OrderLine.UnitPrice.JSEncoded()-->",
+		"totalprice": "<!--@Ecom:Order:OrderLine.TotalPrice.JSEncoded()-->",
+		"link": "<!--@Ecom:Product.LinkGroup.Clean.JSEncoded()-->",
+		"description": "<!--@Ecom:Product.ShortDescription.JSEncoded()-->",
+		"image": "<!--@Ecom:Product.ImageSmall.Default.Clean.JSEncoded()-->"
+	  }<!--@LoopEnd(OrderLines)-->
+    ]
+<!--@EndIf-->
+}

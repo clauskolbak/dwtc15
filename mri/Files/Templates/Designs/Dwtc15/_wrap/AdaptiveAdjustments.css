@@ -1,0 +1,44 @@
+/* Adaptive adjustments */
+
+@media only screen and (max-width: 722px)  {
+    .logobox {
+        text-align: center;
+    }
+
+    .top-header .top-header-menu > ul.menu > li.dropdown > a:after {
+        content: "";
+    }
+
+    .pull-xs-left {
+        float: left;
+    }
+    .pull-xs-right {
+        float: right;
+    }
+
+    /*
+    .navbar-sticky {
+        width: 100%;
+    }
+    */
+}
+
+@media only screen and (max-width: 990px)  {
+    .pull-sm-left {
+        float: left;
+    }
+    .pull-sm-right {
+        float: right;
+    }
+
+    .navbar-sticky {
+        width: 100%;
+    }
+}
+/*
+@media only screen and (min-width : 1200px) {
+    .navbar-sticky {
+        width: 1230px;
+    }
+}
+*/

@@ -1,0 +1,30 @@
+<h2>@Translate("Unsubscribe for email", "Unsubscribe for email")</h2>
+
+@foreach (LoopItem orderline in GetLoop("FormValidationErrors")){
+	@GetValue("HeaderStart")
+		<div id="errormessages">
+			<ul>
+	@GetValue("HeaderEnd")
+				<li>@Translate("Error in the input field", "Error in the input field") @GetString("UserManagement:User.FormValidationError.FieldNiceName"): <a href="javascript:document.getElementById('@GetString("UserManagement:User.FormValidationError.FieldName")').focus();">@GetString("UserManagement:User.FormValidationError.Message")</a></li>
+	@GetValue("FooterStart")
+			</ul>
+		</div>
+	@GetValue("FooterEnd")
+}
+
+@GetValue("UserManagement:User.FormStart")
+	<table>
+		<tr>
+			<th align="left">@Translate("Email", "Email"): </th>
+			<td>@GetString("UserManagement:User.Email.Input")</td>
+		</tr>
+      	<tr style="display: none;">
+      		<th align="left">@Translate("I want to unsubscribe", "I want to unsubscribe"): </th>
+			<td>
+				<input name="UserManagement_Form_EmailAllowed" type="checkbox" id="UserManagement_Form_EmailAllowed" value="False" />
+				@GetString("UserManagement:User.EmailAllowed.Hidden.Input")
+			</td>
+      	</tr>
+	</table>
+	<input type="submit" id="submitter" value="@Translate("Unsubscribe", "Unsubscribe")">
+@GetValue("UserManagement:User.FormEnd")

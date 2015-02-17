@@ -1,0 +1,41 @@
+
+@Include("../../../_wrap/WrapMethods.cshtml")
+
+
+@helper GetImageList(dynamic Loop, int Col=3, bool Spaces=true)
+{
+	int Count = 0;
+
+	string  Columns = WrapMethods.ColumnMaker(Col, "md");
+
+	string imageclass = "";
+	
+	if (Spaces = false)
+	{
+		imageclass = "content-image";
+	}
+
+	foreach (LoopItem imagebox in Loop){
+		var image = @imagebox.GetValue("Gallery.Image.Path");
+		var imageLink = @imagebox.GetValue("Gallery.Image.Path");
+		
+		<div class="mix category_1 @Columns col-sm-6 col-xs-12" data-cat="1">
+			<div class="w-box inverse">
+				<div class="">
+					<a href="@imageLink" rel="group" class="mt-10 fancybox">
+						<img alt="" src="/Admin/Public/GetImage.ashx?image=@image&width=320&height=200&compression=90&crop=0" class="img-responsive @imageclass">
+					</a>
+				</div>
+			</div>
+		</div>
+	
+		Count++;
+
+		if (Count == Col)
+		{
+			<div class="row"></div>
+			Count = 0;
+		}
+	}
+}
+	

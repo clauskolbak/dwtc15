@@ -1,0 +1,678 @@
+@using System
+@using System.Web
+
+@Include("_wrap/WrapMethods.cshtml")
+@Include("eCom7/CartV2/MiniCart.cshtml")
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>@GetGlobalValue("Global:Page.Top.Name")</title>
+	<meta name="description" content="DynamicWeb - Bootstrap 3 Template">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<meta name="robots" content="index, follow">
+
+    <!-- Facebook Admin -->
+	@if (!string.IsNullOrWhiteSpace(GetString("Item.Area.FacebookCommendAdmin"))) {
+        string fbadmin = GetString("Item.Area.FacebookCommendAdmin");
+		<meta property="fb:admins" content="@fbadmin" />
+    }
+
+	<!-- Essential styles -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+
+	<!-- Mobile menu styles -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" rel="stylesheet" type="text/css" media="screen" />
+
+	<!-- Favicon -->
+	<link href="images/favicon.png" rel="icon" type="image/png">
+
+    <!-- Template styles -->
+    <link id="wpStylesheet" type="text/css" href="css/global-style.css" rel="stylesheet" media="screen">
+    <link id="dwStylesheet" type="text/css" href="_wrap/DWGlobalStyles.css" rel="stylesheet" media="screen">
+    <link id="dwAdaptiveStylesheet" type="text/css" href="_wrap/AdaptiveAdjustments.css" rel="stylesheet" media="screen">
+
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="assets/sky-forms/css/sky-forms-ie8.css">
+	<![endif]-->
+
+	<!-- Required JS -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+    <!-- Variables -->
+    @{
+        var attrValue = "";
+        string currentpageid = GetString("DwPageID");
+        string firstpageid = GetString("DwAreaFirstActivePageID");
+        string searchplaceholder = Translate("Search products", "Search products");
+
+        var cartid = GetValue("DwAreaCartPageID");
+    }
+
+
+	<!--FONT SETTINGS-->
+	@Include("_wrap/FontSettings.cshtml")
+    @GoogleFonts()
+	@FontStylesCSS()
+
+
+    <!-- GENERAL/COLOR SETTINGS -->
+    @Include("_wrap/ColorSettings.cshtml")
+    @Include("_wrap/GeneralSettings.cshtml")
+
+    <style type="text/css">
+   		@GetColorSettings()
+        @GetGeneralCSS()
+    </style>
+
+	<!-- Analytics code -->
+	@GetValue("Item.Area.OtherAnalyticsCode")
+
+</head>
+
+<!-- MAIN WRAPPER -->
+
+<body style="@GeneralSettings.Background.Style" id="sitecontent">
+
+	<!-- MODALS -->
+
+	<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">@Translate("Login", "Login")</h4>
+				</div>
+				<form role="form" id="loginform" method="post">
+					<div class="modal-body">
+						@if (!string.IsNullOrWhiteSpace(GetString("DW_extranet_error_uk")))
+                        {
+						      <script>alert("@GetValue("DW_extranet_error_uk")");</script>
+                        }
+
+						<input type="hidden" name="ID" value="@Pageview.Page.ID" />
+						<input type="hidden" name="DWExtranetUsernameRemember" value="True" />
+						<input type="hidden" name="DWExtranetPasswordRemember" value="True" />
+						<div class="form-group">
+							@{ attrValue = Translate("Enter username", "Enter username");
+							}
+
+							<label for="username">@Translate("Email address", "Email address")</label>
+							<input type="text" class="form-control" name="username" id="username" placeholder="@attrValue" value='@GetValue("DWExtranetUsername")' style="width: 100% !important" />
+						</div>
+						<div class="form-group" style="padding-top: 10px">
+							@{ attrValue = Translate("Enter password", "Enter password");
+							}
+
+							<label for="password">@Translate("Password", "Password")</label>
+							<input type="password" class="form-control" name="password" id="password" placeholder="@attrValue" style="width: 100% !important" />
+							<p>&nbsp;</p>
+							<a class="pull-left" href="/Default.aspx?ID=@firstpageid&LoginAction=Recovery">@Translate("Forgot your password?", "Forgot your password?")</a>
+							<text>&nbsp;</text>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="checkbox pull-left" style="margin-top: 0px !important">
+							<label>
+								<input type="checkbox" name="Autologin" checked="checked" value="True"> @Translate("Remember me", "Remember me")</input>
+							</label>
+						</div>
+						<button type="submit" class="btn btn-xs btn-base pull-right">@Translate("Sign in", "Sign in")</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- MOBILE MENU -->
+	@{
+		var offsetmenuplace = "left";
+
+		if (GeneralSettings.Header.Mode == "mobile"){
+			offsetmenuplace = GeneralSettings.Navigation.Position;
+		}
+	}
+
+	<div id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-@offsetmenuplace offcanvas">
+		<div class="row offcanvas-row">&nbsp;</div>
+		<div class="row offcanvas-row">
+			<div class="col-sm-12 col-xs-12 offcanvas-col">
+				<a href="/Default.aspx?ID=@firstpageid" class="brand" style="">
+				@if (!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo")))
+                {
+                    var logoimage = GetString("Item.Area.GeneralLogo");
+                    <div class="dw-offsetmenu-logo">
+						<img src="@logoimage" />
+					</div>
+                }
+                else
+                {
+					<div class="dw-offsetmenu-logo">@GetValue("Item.Area.GeneralLogoText")</div>
+                }
+				</a>
+			</div>
+		</div>
+		<div class="row offcanvas-row">&nbsp;</div>
+		@if (GetBoolean("Item.Area.EcomEnabled")) {
+    		<div class="row offcanvas-row">
+    			<div class="col-sm-12 col-xs-12 offcanvas-col">
+    				<form method="get" action="Default.aspx">
+    					<input type="hidden" name="ID" value="8399" />
+    					<div class="input-group" style="padding: 0 16px 0 16px">
+    						<input type="text" class="form-control" name="eComQuery" tabindex="1" placeholder="Søg">
+    						<span class="input-group-btn">
+    							<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+    						</span>
+    					</div>
+    				</form>
+    			</div>
+    		</div>
+    		<div class="row offcanvas-row">&nbsp;</div>
+    		<div class="row offcanvas-row">
+    			<div class="col-sm-12 col-xs-12 offcanvas-col">
+                    @if (!Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName"))) {
+						<div class="pull-left" style="padding: 11px 11px 0 16px !important">
+							<a href="/Login"><button class="btn btn-sm btn-default"><i class="fa fa-sign-in"></i> @Translate("Sign in", "Sign in")</button></a>
+						</div>
+                    }
+
+                    @if (Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName"))) {
+						<div class="pull-left" style="padding: 11px 11px 0 16px !important">
+							<a href="Default.aspx?ID=8473" class="btn btn-sm btn-default">
+								<i class="fa fa-user"></i> <strong>@GetGlobalValue("Global:Extranet.Name")</strong>
+							</a>
+						</div>
+						<div class="pull-left" style="padding: 11px 11px 0 16px !important">
+							<a href="/Admin/Public/ExtranetLogoff.aspx?ID=@GetValue("DwPageID")"><button class="btn btn-sm btn-default"><i class="fa fa-sign-out"></i> @Translate("Sign out", "Sign out")</button></a>
+						</div>
+                    }
+    			</div>
+    		</div>
+    		<div class="row offcanvas-row">&nbsp;</div>
+        }
+		<div class="row offcanvas-row">
+			<div class="col-sm-12 col-xs-12 offcanvas-col">
+				<ul class="dwnavigation" id="drawernavigation" data-settings="endlevel:2;template:LiCleanBootstrapShifter.xslt;expandmode:all;">
+					<li class="active">
+						<a href="#"><i class="fa fa-home"></i> <b class="caret"></b></a>
+						<ul>
+							<li><a href="">Default</a></li>
+							<li><a href="">Simple</a></li>
+							<li><a href="">Corporate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- HEADER AND CONTENT-->
+
+	<div class="body-wrap shad @GeneralSettings.Site.LayoutMode">
+
+		<!-- HEADER -->
+		<div id="divHeaderWrapper">
+			<header class="@GeneralSettings.Header.Classes">
+
+				<!-- TOP HEADER -->
+				@if (GeneralSettings.Header.Show){
+					<div class="top-header">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6 logobox">
+									@if (GeneralSettings.Header.Mode == "solid"){
+										<a href="/Default.aspx?ID=@firstpageid" class="brand">
+										@if (!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo")))
+		                                {
+		                                    var logoimage = GetString("Item.Area.GeneralLogo");
+											<img style="padding: 16px 16px" src="@logoimage">
+		                                }
+		                                else
+		                                {
+											<div style="padding: 20px 0px; font-family:@FontSettings.Logo.FontFamily; font-size: 38px; color:@FontSettings.Logo.Color !important">@GetValue("Item.Area.GeneralLogoText")</div>
+		                                }
+										</a>
+									}
+								</div>
+								<div class="col-md-6 logobox">
+									<nav class="top-header-menu hidden-sm hidden-xs">
+										<ul class="top-menu">
+
+											<!-- Ecommerce user menu -->
+											@if (GetBoolean("Item.Area.EcomEnabled")) {
+	                                            if (!Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName")))
+	                                            {
+												<text>
+													<li><a href="#" data-toggle="modal" data-target="#login">@Translate("Login", "Login")</a></li>
+														<ul id="toolsnavigationNotloggedin" class="dwnavigation" data-settings="template:LICleanLiOnly.xslt;parenttag:notloggedin;endlevel:3"></ul>
+												</text>
+	                                            }
+
+	                                            if (Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName")))
+	                                            {
+												<text>
+													<li>
+														<a href="Default.aspx?ID=8473">
+															<nobr>
+																<i class="fa fa-user"></i> <strong>@GetGlobalValue("Global:Extranet.Name")</strong>
+															</nobr>
+														</a>
+													</li>
+													<li>
+														<a href="/Admin/Public/ExtranetLogoff.aspx?ID=@GetValue("DwPageID")">@Translate("Logout", "Logout")</a>
+													</li>
+												</text>
+												}
+											}
+
+
+											<!-- Ecommerce Cart -->
+											@if (GetBoolean("Item.Area.EcomEnabled")) {
+											<li class="dropdown animate-hover" data-animate="animated fadeInUp">
+												<a href="Default.aspx?ID=@cartid" title="" id="minipagecart" class="dw-minicart"><i class="fa fa-shopping-cart"></i> @GetValue("Ecom:Order.OrderLines.TotalProductQuantity") <span>@GetValue("Ecom:Order.OrderLines.Total.PriceWithVAT")</span></a>
+
+												<ul class="sub-menu">
+													<li id="minicart">
+														@MiniCart()
+													</li>
+												</ul>
+											</li>
+											}
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				}
+
+				<!-- MAIN NAV -->
+
+                @{
+                	var sticky = GeneralSettings.Navigation.StickyMenu;
+                	var navbarpos = GeneralSettings.Navigation.Position;
+                	var selectionstyle = GeneralSettings.Navigation.SelectionStyle;
+                }
+
+				<div id="navOne" class="navbar navbar-wp @selectionstyle navbar-fixed mega-nav affix-top" role="navigation" @sticky >
+					<div class="container">
+						@if (GeneralSettings.Header.Mode != "solid" || !GeneralSettings.Header.Show){
+							<div class="navbar-header pull-@GeneralSettings.Navigation.InvertedPosition">
+	                           	<div class="hidden-sm hidden-xs">
+									<a href="/Default.aspx?ID=@firstpageid" class="brand">
+									@if (!string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo")))
+	                                {
+	                                    var logoimage = GetString("Item.Area.GeneralLogo");
+										<img style="padding: 16px 16px" src="@logoimage">
+	                                }
+	                                else
+	                                {
+										<div style="padding: 20px 0px; font-family:@FontSettings.Logo.FontFamily; font-size: 38px; color:@FontSettings.Logo.Color !important">@GetValue("Item.Area.GeneralLogoText")</div>
+	                                }
+									</a>
+								</div>
+							</div>
+						}
+
+						@if (GeneralSettings.Header.Mode != "mobile"){
+							<!-- Small screen header -->
+							<div class="hidden-md hidden-lg pull-left" style="padding: 11px 11px 0 0 !important">
+								<button type="button" class="btn btn-sm btn-base" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+									<i class="fa fa-bars"></i>
+								</button>
+							</div>
+
+							<div class="hidden-md hidden-lg pull-left">
+								<h2 style="color: @ColorSettings.Color.NavbarFont !important; margin: 16px 0 0 0 !important">@GetGlobalValue("Global:Page.Top.Name")</h2>
+							</div>
+
+							if (GetBoolean("Item.Area.EcomEnabled")) {
+
+								<div class="hidden-md hidden-lg pull-right" style="padding: 11px 11px 0 0 !important">
+									<ul class="top-menu">
+										<li>
+			    							<a href="Default.aspx?ID=@cartid" title="" style="padding-right:0;" id="smallscreen-minipagecart"><button class="btn btn-sm btn-base dw-minicart" id="minipagecart-button"><i class="fa fa-shopping-cart"></i><strong> @GetValue("Ecom:Order.OrderLines.TotalProductQuantity") <span class="amount">@GetValue("Ecom:Order.OrderLines.Total.PriceWithVAT")</span></strong></button></a>
+
+			    							<ul class="sub-menu hidden-xs">
+												<li id="smallscreen-minicart">
+			    									@MiniCart()
+			    								</li>
+			    							</ul>
+		    							</li>
+		    						</ul>
+		    					</div>
+
+
+	                            if (Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName"))) {
+		    						<div class="hidden-md hidden-lg hidden-xs pull-right" style="padding: 11px 11px 0 0 !important">
+		    							<a href="/Admin/Public/ExtranetLogoff.aspx?ID=@GetValue("DwPageID")"><button class="btn btn-sm btn-base"><i class="fa fa-sign-out"></i></button></a>
+		    						</div>
+		    						<div class="hidden-md hidden-lg hidden-xs pull-right" style="padding: 11px 11px 0 0 !important">
+		    							<a href="Default.aspx?ID=8473" class="btn btn-sm btn-base">
+		    								<i class="fa fa-user"></i> <strong>@GetGlobalValue("Global:Extranet.Name")</strong>
+		    							</a>
+		    						</div>
+	                            }
+
+	                            if (!Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName"))) {
+		    						<div class="hidden-md hidden-lg hidden-xs pull-right" style="padding: 11px 11px 0 0 !important">
+		    							<a href="/Login"><button class="btn btn-sm btn-base"><i class="fa fa-sign-in"></i></button></a>
+		    						</div>
+	                            }
+
+	    						<!--
+	    						<div class="hidden-md hidden-lg pull-right" style="padding: 11px !important">
+	    							<ul id="headertoolsnavigation" class="dwnavigation" data-settings="template:LICleanLiOnly.xslt;parenttag:toptools;endlevel:2"></ul>
+	    						</div>
+	    						-->
+	                        }
+
+
+							<!-- Big screen header -->
+							<div class="navbar-navigation">
+								<div class="hidden-sm hidden-xs">
+									<nav class="col-md-10 col-sm-10 col-xs-10 navbar-collapse collapse navbar-@navbarpos">
+										<ul class="nav navbar-nav dwnavigation" id="topnavigation" data-settings="endlevel:2;template:LiCleanBootstrapDropdown.xslt;expandmode:all;">
+											<li class="active">
+												<a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" href="#"><i class="fa fa-home"></i><span></span></a>
+												<ul class="dropdown-menu" role="menu">
+													<li class="dw-navbar-button"><a href="">Default</a><span></span></li>
+													<li class="dw-navbar-button"><a href="">Simple</a><span></span></li>
+													<li class="dw-navbar-button"><a href="">Corporate</a><span></span></li>
+												</ul>
+											</li>
+										</ul>
+
+										<!-- Extra navigation when no header is shown -->
+										@if (GetBoolean("Item.Area.EcomEnabled")) {
+											if (!GeneralSettings.Header.Show){
+												<ul class="nav navbar-nav">
+													<li>&nbsp;&nbsp;&nbsp;</li>
+		                                            @if (!Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName")))
+		                                            {
+														<li class="dw-navbar-button"><a href="#" data-toggle="modal" data-target="#login" data-hover="dropdown"><i class="fa fa-sign-in"></i><span></span></a></li>
+														<li class="dw-navbar-button"><a href="/not-logged-in/create-user-profile" data-hover="dropdown"><i class="fa fa-user"></i><span></span></a></li>
+		                                            }
+
+		                                            @if (Dynamicweb.Input.FormatBoolean(GetGlobalValue("Global:Extranet.UserName")))
+		                                            {
+														<li class="dw-navbar-button">
+															<a href="Default.aspx?ID=8473" data-hover="dropdown">
+																<nobr>
+																	<strong><i class="fa fa-user"></i></strong>
+																</nobr>
+																<span></span>
+															</a>
+														</li>
+														<li class="dw-navbar-button">
+															<a href="/Admin/Public/ExtranetLogoff.aspx?ID=@GetValue("DwPageID")" data-hover="dropdown"><i class="fa fa-sign-out"></i><span></span></a>
+														</li>
+													}
+
+													<li class="dw-navbar-button">
+														<a href="Default.aspx?ID=@cartid" title="" style="padding-right:0;" id="nav_minipagecart" data-hover="dropdown"><i class="fa fa-shopping-cart"></i> @GetValue("Ecom:Order.OrderLines.TotalProductQuantity") <span class="amount">@GetValue("Ecom:Order.OrderLines.Total.PriceWithVAT")</span><span></span></a>
+													</li>
+												</ul>
+											}
+
+											if (GeneralSettings.Header.Mode != "solid"){
+												<ul class="nav navbar-nav">
+													<li class="dropdown dropdown-aux animate-click dw-navbar-button" data-animate-in="animated bounceInUp" data-animate-out="animated fadeOutDown" style="z-index:500;">
+								                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i class="fa fa-search"></i><span></span></a>
+								                        <ul class="dropdown-menu dropdown-menu-user animate-wr">
+								                            <li id="dropdownForm">
+								                                <div class="dropdown-form">
+								                                    <form class="form-horizontal form-light p-15" role="form" method="get" action="Default.aspx">
+								                                    	<input type="hidden" name="ID" value="8399" />
+								                                        <div class="input-group">
+								                                            <input type="text" class="form-control" name="eComQuery" placeholder="@searchplaceholder">
+								                                            <span class="input-group-btn">
+								                                                <button class="btn btn-base" type="submit"><i class="fa fa-search"></i></button>
+								                                            </span>
+								                                        </div>
+								                                    </form>
+								                                </div>
+								                            </li>
+								                         </ul>
+								                    </li>
+							                   	</ul>
+											}
+										}
+									</nav>
+								</div>
+
+								@if (GetBoolean("Item.Area.EcomEnabled")) {
+									if (GeneralSettings.Header.Mode == "solid" && GeneralSettings.Header.Show){
+										<div class="hidden-sm hidden-xs">
+											<div class="col-md-2 col-sm-2 col-xs-2 pull-@GeneralSettings.Navigation.InvertedPosition" style="padding: 9px 0 0 0">
+												<form method="get" action="Default.aspx">
+													<input type="hidden" name="ID" value="8399" />
+													<div class="input-group pull-@GeneralSettings.Navigation.InvertedPosition" style="width: 210px">
+														<input type="text" class="form-control" name="eComQuery" tabindex="1" placeholder="@searchplaceholder">
+														<span class="input-group-btn">
+															<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+														</span>
+													</div>
+												</form>
+											</div>
+										</div>
+									}
+								}
+							</div>
+						} else {
+							<!-- Using only mobile navigation -->
+							<div class="pull-@GeneralSettings.Navigation.Position">
+								<ul class="nav navbar-nav">
+									<li class="dw-navbar-button" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+										<a><i class="fa fa-bars fa-2x"></i></text><span></span></a>
+									</li>
+								</ul>
+							</div>
+						}
+					</div>
+				</div>
+				@if (!string.IsNullOrWhiteSpace(GetString("Item.Area.HeaderLayoutImage"))){
+					if (currentpageid != firstpageid){
+						var coverimage = GetString("Item.Area.HeaderLayoutImage");
+
+						<div class="container-fluid" style="position: relative !important; margin-bottom: -20px; ">
+							<div class="row">
+								<section class="carousel carousel-1 slice fluid" style="height: 160px !important; background: url('/Admin/Public/Getimage.ashx?width=1920&amp;compression=75&amp;Crop=5&amp;image=@coverimage') no-repeat; background-size: cover !important; background-color: @ColorSettings.Color.Navbar">
+								</section>
+							</div>
+						</div>
+					}
+				} else if (GeneralSettings.Header.Mode != "solid"){
+					<div class="container-fluid" style="position: relative !important; margin-bottom: -20px; ">
+						<div class="row">
+							<section class="carousel carousel-1 slice fluid" style="height: 160px !important; background-color: transparent; background-size: cover !important;">
+							</section>
+						</div>
+					</div>
+				}
+			</header>
+		</div>
+
+		<!-- MAIN CONTENT -->
+
+		<!--@ContentPlaceholder-->
+
+
+		<!-- FOOTER -->
+		<div class="body-wrap @GeneralSettings.Site.LayoutMode" style="margin-top: -21px; margin-bottom: -21px">
+			<footer class="footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<div class="col">
+								<h4>@Translate("Contact us", "Contact us")</h4>
+
+								@{
+									string footeremail = GetString("Item.Area.FooterEmail");
+								}
+
+								<ul>
+									<li>@GetValue("Item.Area.FooterCompanyName")</li>
+									<li>@GetValue("Item.Area.FooterAddress.Replace('\n','<br>')")</li>
+									<li>@Translate("Phone", "Phone"): @GetValue("Item.Area.FooterPhone") </li>
+									<li>@Translate("Email", "Email"): <a href="mailto:@footeremail" title="Email Us">@GetValue("Item.Area.FooterEmail")</a></li>
+								</ul>
+								<div>&nbsp;</div>
+							</div>
+						</div>
+
+						@if (GetBoolean("Item.Area.FooterNewsletterSignUp")) {
+    						<div class="col-md-3 col-sm-6 col-xs-12">
+    							<div class="col">
+    								<h4>@Translate("Mailing list", "Mailing list")</h4>
+    								<p>@Translate("Sign up if you would like to receive occasional treats from us.", "Sign up if you would like to receive occasional treats from us.")</p>
+    								<form name="UserManagementEditForm" action="/Default.aspx?ID=8478" method="post" enctype="multipart/form-data">
+    									<input name="UserManagementForm" value="1" type="hidden"></input>
+    									<input id="UserManagementForm.DeleteImage" name="UserManagementForm.DeleteImage" type="hidden"></input>
+    									<div style="display: none;">
+    										<input name="UserManagement_Form_EmailAllowed" id="UserManagement_Form_EmailAllowed" value="True" checked="checked" type="checkbox">
+    										<input name="UserManagement_Form_EmailAllowed_ApplyValue" id="UserManagement_Form_EmailAllowed_ApplyValue" value="AllowEmail" type="hidden">
+    									</div>
+    									<div class="input-group">
+    										@{ attrValue = Translate("Your email address", "Your email address");
+    										}
+
+    										<input name="UserManagement_Form_Email" id="UserManagement_Form_Email" type="text" class="form-control" placeholder="@attrValue"></input>
+    										<span class="input-group-btn">
+    											<input class="btn btn-base" type="submit" id="submitter" value="Go"></input>
+    										</span>
+    										</input>
+    									</div>
+    									<div>&nbsp;</div>
+    								</form>
+    							</div>
+    						</div>
+                        }
+
+						@if (GetBoolean("Item.Area.SocialLinksInFooter"))
+                        {
+                            string sicon = "";
+                            string slink = "";
+
+							<div class="col-md-3 col-sm-6 col-xs-12">
+								<div class="col">
+									<h4>@Translate("Social links", "Social links")</h4>
+									<p>
+										@foreach (LoopItem socialitem in GetLoop("Item.Area.SocialIconInFooter"))
+                                        {
+                                            sicon = socialitem.GetString("Item.SocialIconInFooter.Icon");
+                                            slink = socialitem.GetString("Item.SocialIconInFooter.Link");
+
+											<a href="@slink"><i class="fa @sicon fa-2"></i></a><text>&nbsp;&nbsp;</text>
+                                        }
+									</p>
+								</div>
+							</div>
+                        }
+
+						@if (GetBoolean("Item.Area.FooterShowSitemap"))
+                        {
+    						<div class="col-md-6 col-sm-12 col-xs-12">
+    							<div class="col">
+    								<ul class="dwnavigation" id="footersitemap" data-settings="expandmode:all;template:sitemap-bottom_bootstrap.xslt;"></ul>
+    							</div>
+    							<div>&nbsp;</div>
+    						</div>
+                        }
+					</div>
+
+					<hr>
+
+					<div class="row">
+						<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 copyright">
+							<div class="col">
+								<p>@GetGlobalValue("Global:Server.Date.Year") &copy; @GetValue("Item.Area.FooterCompanyName"). @Translate("All rights reserved.", "All rights reserved.")</p>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+							<div class="col pull-right">
+								@{
+                                    var webmasterlink = GetString("Item.Area.WebmasterLinkCode");
+                                    var username = GetValue("Item.Area.FooterEmail");
+                                    var pagename = GetGlobalValue("Global:Page.Name");
+								}
+
+								<p><a href="javascript:void(0);" onclick="window.open('@webmasterlink?un=@username&pn=@pagename&url=' + encodeURI(location),'_blank','width=1050,height=750,resizable=yes,scrollbars=yes');">Webmaster</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+
+		<!-- Essentials -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<script src="//forcdn.googlecode.com/files/jquery.mousewheel.min.js"></script>
+		<script src="//xoomla.googlecode.com/files/jquery.easing.1.3.js"></script>
+
+		<!-- Assets -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.0.10/bootstrap-hover-dropdown.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js"></script>
+
+		<!-- Sripts for individual pages, depending on what plug-ins are used -->
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+
+		<!-- Replacing the Home text -->
+		<script>
+			if (document.getElementById("homemenubtn")) {
+				document.getElementById("homemenubtn").innerHTML = "<i class='fa fa-home fa-2'></i><span></span>";
+			}
+		</script>
+
+
+		<!-- Logo in sticky navigation -->
+		<!--
+		@if (GetBoolean("Item.Area.NavigationSticky"))
+		{
+			if (string.IsNullOrWhiteSpace(GetString("Item.Area.GeneralLogo")))
+			{
+				<script>
+					$(document).ready(function () {
+
+						//Calculate the height of <header>
+						//Use outerHeight() instead of height() if have padding
+						var aboveHeight = $('header').outerHeight({margin: true});
+
+						//when scroll
+						$(window).scroll(function () {
+
+							//if scrolled down more than the header’s height
+							if ($(window).scrollTop() > 60) {
+								document.getElementById("logotext").style = "";
+							} else {
+								document.getElementById("logotext").style = "display: none";
+							}
+						});
+					});
+				</script>
+			}
+		}
+		-->
+		<!-- Initialize Fancybox -->
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$(".fancybox").fancybox();
+			});
+		</script>
+
+		<!-- Boomerang App JS -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+</body>
+</html>

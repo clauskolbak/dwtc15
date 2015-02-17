@@ -1,0 +1,221 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">		
+				<h3 class="section-title">@Translate("Reciept", "Reciept")</h3>
+			</div>
+		</div>
+</div>
+<section class="slice white">
+	<div class="w-section inverse shop">
+		<div class="container bordered">
+			<div class="row">
+				<div class="col-sm-4">
+
+					<h4>@Translate("Billing address", "Billing address")</h4>
+					<div>@GetString("Ecom:Order.Customer.Company")</div>
+					<div>@GetString("Ecom:Order.Customer.Name")</div>
+					<div>@GetString("Ecom:Order.Customer.Address")</div>
+					<div>@GetString("Ecom:Order.Customer.Address2")</div>
+					<div>@GetString("Ecom:Order.Customer.Zip") @GetString("Ecom:Order.Customer.City") - @GetString("@Ecom:Order.Customer.Country")</div>
+					<div>@GetString("Ecom:Order.Customer.Email")</div>
+					<div>@GetString("Ecom:Order.Customer.Phone")</div>
+
+				</div>
+				<div class="col-sm-4">
+
+					@if (!string.IsNullOrWhiteSpace(GetString("Ecom:Order.Delivery.Address"))){
+						<h4>@Translate("Shipping address", "Shipping address")</h4>
+						<div>@GetString("Ecom:Order.Delivery.Company")</div>
+						<div>@GetString("Ecom:Order.Delivery.Name")</div>
+						<div>@GetString("Ecom:Order.Delivery.Address")</div>
+						<div>@GetString("Ecom:Order.Delivery.Address2")</div>
+						<div>@GetString("Ecom:Order.Delivery.Zip") @GetString("Ecom:Order.Delivery.City") - @GetString("Ecom:Order.Delivery.Country")</div>
+						<div>@GetString("Ecom:Order.Delivery.Email")</div>
+						<div>@GetString("Ecom:Order.Delivery.Phone")</div>
+					}
+
+				</div>
+				<div class="col-sm-4">
+
+					<h4>@Translate("Order information", "Order information")</h4>
+
+					<div class="row">
+						<div class="col-sm-6">
+							<strong>@Translate("Order number", "Order number"):</strong>
+						</div>
+						<div class="col-sm-6">@GetString("Ecom:Order.ID")</div>
+					</div>
+
+					@if (!string.IsNullOrWhiteSpace(GetString("Ecom:Order.TransactionNumber"))) {
+					<div class="row">
+						<div class="col-sm-6">
+							<strong>@Translate("Transaction number", "Transaction number"):</strong>
+						</div>
+						<div class="col-sm-6">
+							@GetString("Ecom:Order.TransactionNumber")
+						</div>
+					</div>
+					}
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<strong>@Translate("Order date", "Order date"):</strong>
+						</div>
+						<div class="col-sm-6">
+							@GetString("Ecom:Order.Date.MediumDate") @GetString("Ecom:Order.Date.ShortTime")
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<strong><i class="fa fa-credit-card"></i> @Translate("Payment method", "Payment method"):</strong>
+						</div>
+						<div class="col-sm-6">
+							@GetString("Ecom:Order.PaymentMethod")
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-6">
+							<strong><i class="fa fa-truck"></i> @Translate("Shipping method", "Shipping method"):</strong>
+						</div>
+						<div class="col-sm-6">
+							@GetString("Ecom:Order.ShippingMethod")
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<strong>@Translate("Client IP", "Client IP"):</strong>
+						</div>
+						<div class="col-sm-6">
+							@GetString("Ecom:Order.IP")
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="subsection">
+						<table class="table table-cart table-responsive">
+							<tbody>
+								<tr>
+									<th>#</th>
+									<th>@Translate("Product", "Product")</th>
+									<th>@Translate("Price", "Price")</th>
+									<th>@Translate("Qty", "Qty")</th>
+									<th>@Translate("Total", "Total")</th>
+								</tr>
+								@foreach (LoopItem orderline in GetLoop("OrderLines")){
+									<tr>
+										<td>
+											@orderline.GetString("Ecom:Order:OrderLine.ProductNumber")
+											@if (orderline.GetString("Ecom:Order:OrderLine.Type") == "1") {
+												<small>@Translate("Discount", "Discount")</small>
+											}
+										</td>
+										<td>
+											<a href="@orderline.GetString("Ecom:Order:OrderLine.ProductLink")">
+												@orderline.GetString("Ecom:Order:OrderLine.ProductName.Short")
+												@if (!string.IsNullOrWhiteSpace(orderline.GetString("Ecom:Order:OrderLine.ProductVariantText"))) {
+													orderline.GetString("Ecom:Order:OrderLine.ProductVariantText");
+												}
+											</a>
+										</td>
+										<td>@orderline.GetString("Ecom:Order:OrderLine.Price")</td>
+										<td>@orderline.GetString("Ecom:Order:OrderLine.Quantity")</td>
+										<td>@orderline.GetString("Ecom:Order:OrderLine.TotalPrice")</td>
+									</tr>
+									foreach (LoopItem bomitem in GetLoop("BOMItems")){
+										<tr class="active">
+											<td style="padding-top:4px;padding-bottom:4px;">@bomitem.GetString("Ecom:Order:OrderLine.ProductNumber")</td>
+											<td style="padding-top:4px;padding-bottom:4px;">@bomitem.GetString("Ecom:Order:OrderLine.ProductName.Short")</td>
+											<td style="padding-top:4px;padding-bottom:4px;">@bomitem.GetString("Ecom:Order:OrderLine.Price")</td>
+											<td style="padding-top:4px;padding-bottom:4px;">@bomitem.GetString("Ecom:Order:OrderLine.Quantity")</td>
+											<td style="padding-top:4px;padding-bottom:4px;">@bomitem.GetString("Ecom:Order:OrderLine.TotalPrice")</td>
+										</tr>
+									}
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="subsection">
+
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="subsection">
+						<h4>@Translate("Total", "Total")</h4>
+						<div class="row">
+							<div class="col-md-12">
+								<hr></hr>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								@Translate("Total", "Total")
+							</div>
+							<div class="col-md-6">
+								@GetString("Ecom:Order.PriceWithoutFees.PriceFormatted")
+							</div>
+						</div>
+						
+						@if (GetInteger("Ecom:Order.PaymentFee.Price") > 0){
+						<div class="row">
+							<div class="col-md-6">
+								<i class="fa fa-credit-card"></i> @GetString("Ecom:Order.PaymentMethod")
+							</div>
+							<div class="col-md-6">
+								@GetString("Ecom:Order.PaymentFee.PriceFormatted")
+							</div>
+						</div>
+						}
+						
+						<div class="row">
+							<div class="col-md-6">
+								<small>@Translate("VAT", "VAT")</small>
+							</div>
+							<div class="col-md-6">
+								<small>@GetString("Ecom:Order.Price.VATFormatted")</small>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<i class="fa fa-truck"></i> @GetString("Ecom:Order.ShippingMethod")
+							</div>
+							<div class="col-md-6">
+								@GetString("Ecom:Order.ShippingFee.PriceFormatted")
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<hr></hr>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								@Translate("Total with VAT", "Total with VAT")
+							</div>
+							<div class="col-md-6">
+								<strong>@GetString("Ecom:Order.Price.PriceWithVATFormatted")</strong>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<hr></hr>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+		</div>
+	</div>
+</section>
