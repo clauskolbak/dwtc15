@@ -601,4 +601,10 @@
     <translation culture="en-GB"><![CDATA[Alternative delivering address]]></translation>
     <translation culture="da-DK"><![CDATA[Alternativ leveringsadresse]]></translation>
   </key>
+  <key name="CompanyName">
+    <translation culture="en-US"><![CDATA[Company]]></translation>
+  </key>
+  <key name="Address.Country">
+    <translation culture="en-US"><![CDATA[Country]]></translation>
+  </key>
 </translations>
