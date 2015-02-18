@@ -4,7 +4,8 @@ set generator=c:\Projects\SQLGenerator\SQLGenerator\bin\Release\SQLGenerator.exe
 
 set dbHost=localhost\MSSQLSERVER2014
 set dbName=dwtc15.local.dynamicweb.dk
-set tableNames=Area Page Paragraph ItemType_Dwtc15_*
+set tableNames=Area Page Paragraph ItemType_DwsimpleWebsiteSettings ItemType_Dwtc15_* ItemListRelation ItemNamedItemList ItemList
+
 rem set tableNames=ItemType_Dwtc15_Paragraph
 set outputFileName=%dbName%.sql
 
@@ -30,7 +31,7 @@ set sql=/* Update item type ids */^
 
 declare @c as cursor^
 
-set @c = cursor for select replace(name, 'ItemType_', '') from sys.tables where name like 'ItemType_Dwtc15_%'^
+set @c = cursor for select replace(name, 'ItemType_', '') from sys.tables where name like 'ItemType_Dwtc15_%%'^
 
 declare @itemType as nvarchar(max)^
 
@@ -46,7 +47,7 @@ begin^
 
 	declare @count as int^
 
-	declare @sql as nvarchar(max) = 'select @count = max(Id) from ItemType_'+@itemType^
+	declare @sql as nvarchar(max) = 'select @count = max(cast(Id as int)) from ItemType_'+@itemType^
 
 	exec sp_executesql @sql, N'@count int output', @count = @count output^
 
