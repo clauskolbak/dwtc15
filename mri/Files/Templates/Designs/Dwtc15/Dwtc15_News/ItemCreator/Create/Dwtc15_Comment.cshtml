@@ -1,0 +1,61 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@GetValue("ItemCreator:Edit.Form.Begin")
+
+@if (GetString("ItemCreator:Edit.Status") != "NEW_SESSION")
+{
+    var errors = GetLoop("ValidationErrors");
+    if (errors.Count > 0)
+    {
+        <div class="alert alert-danger validation-errors">
+            <p><strong>@Translate("Error_creating_item", "Error creating item")</strong></p>
+            <ul>
+                @foreach (var error in errors)
+                {
+                    <li>@error.GetValue("ItemCreator:Edit.Validation.FieldName"): @error.GetValue("ItemCreator:Edit.Validation.Error")</li>
+                }
+            </ul>
+        </div>
+    }
+}
+
+@if (GetString("ItemCreator:Edit.Status") == "ITEM_CREATED")
+{
+    // Reload page to show added comment
+    System.Web.HttpContext.Current.Response.Redirect(System.Web.HttpContext.Current.Request.Url.PathAndQuery);
+}
+else { 
+    <div class="form-horizontal" role="form">
+        <input type="hidden" name="CreatedAt" value='@DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")'/>
+
+        @foreach (var fieldName in new[] { "Name", "Email", "Comment" })
+        {
+            var fieldId = fieldName;
+            var fieldType = GetString("ItemCreator:Edit.Item." + fieldName + ".Type");
+            var value = GetValue("ItemCreator:Edit.Item." + fieldName);
+            var isRequired = GetBoolean("ItemCreator:Edit.Item."+fieldName+".IsRequired");
+            
+            <div class='form-group @(isRequired ? " required" : "")'>
+                <label for='@GetValue("ItemCreator:Edit.Item."+fieldName+".SystemName")' class="col-sm-2 control-label">@Translate(fieldName)</label>
+                <div class="col-sm-10">
+                    @switch (fieldType)
+                    {
+                        case "Long text":
+                            <textarea name="@fieldName" id="@fieldId" class="form-control">@value</textarea>
+                            break;
+                        default:
+                        <input type="text" name="@fieldName" id="@fieldId" class="form-control" value="@value" />
+                            break;
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">@Translate("Post comment")</button>
+            </div>
+        </div>
+    </div>
+}
+@GetValue("ItemCreator:Edit.Form.End")

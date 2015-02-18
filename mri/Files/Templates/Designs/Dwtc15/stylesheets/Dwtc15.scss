@@ -22,3 +22,31 @@ footer {
         }
     }
 }
+
+a:hover {
+    text-decoration: underline;
+}
+
+.form-group {
+    &.required {
+        label::after {
+            content: '*';
+            padding-left: 1em;
+            color: red;
+        }
+    }
+}
+
+.comments {
+    .comment {
+        margin: 1em 0;
+    }
+
+    .name, .time {
+        font-weight: bold;
+    }
+
+    .comment {
+
+    }
+}

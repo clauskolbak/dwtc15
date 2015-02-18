@@ -35,6 +35,10 @@
                         @GetExcerpt(news.GetString("ItemPublisher:Item.Content"), 80)
                     </div>
 
+                    <div class="read-more">
+                        <a href="@url" class="btn btn-primary">@Translate("Read more")</a>
+                    </div>
+
                     @{
                 var categories = news.GetLoop("ItemPublisher:Item.Categories.Options").Where(i => i.GetBoolean("ItemPublisher:Item.Categories.Option.IsSelected"));
                 if (categories.Any())
