@@ -1,0 +1,32 @@
+@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@if (Pageview.User.UserID > 0)
+{
+    <div class="alert alert-info">
+        @Translate("Signed in as") @Pageview.User.UserID
+        <a class="btn btn-default" href="/Admin/Public/ExtranetLogoff.aspx?redirect=/Default.aspx?Id=@Pageview.Page.ID">@Translate("Sign out")</a>
+    </div>
+}
+else
+{
+    foreach (var name in new[] { "dwtc15-viewed-product-user", "dwtc15-bought-product-user" })
+    {
+        var sql = "select * from AccessUser where AccessUser_RecommendationModels like '%" + name + "%'";
+        var users = Dynamicweb.Modules.UserManagement.User.GetUsersBySql(sql);
+        if (users.Count > 0)
+        {
+            <section>
+                <header><h1>@name</h1></header>
+
+                <ul>
+                    @foreach (var user in users.OrderBy(u => u.ID))
+                    {
+                        var signInUrl = "/Default.aspx?Id="+Pageview.Page.ID+"&username=" + user.UserName + "&password=" + user.Password;
+                        <li><a href="@signInUrl">@user.ID</a></li>
+                    }
+                </ul>
+            </section>
+        }
+    }
+}
+

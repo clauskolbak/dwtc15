@@ -77,19 +77,37 @@
         return pattern.replace('{ProductNumber}', product.Number);
     },
 
-    getProductsQuery = function () {
-        var attributeName = 'data-product-auto-id',
+    getProductIds = function (config) {
+        var
+            attributeName,
+            selector,
+            parent,
             productsIds = [],
-            i, id, node,
-            nodes = document.querySelectorAll('[' + attributeName + ']');
+        i, id, node,
+        nodes;
+        config || (config = {});
+        attributeName = config.attributeName || 'data-product-id';
+        selector = config.selector || null;
+        parent = config.parent || document;
+        nodes = parent.querySelectorAll(selector ? selector : '[' + attributeName + ']');
         for (i = 0; node = nodes[i]; i++) {
-            id = parseInt(node.getAttribute(attributeName));
-            if (!isNaN(id)) {
+            id = node.getAttribute(attributeName);
+            if (id) {
                 productsIds.push(id);
             }
         }
-        return productsIds.length > 0 ? 'product=' + productsIds.join('&product=') : null;
+        return productsIds;
     },
+
+                getProductsQuery = function (config) {
+                    var productsIds = null;
+                    if (Object.prototype.toString.call(config) === '[object Array]') {
+                        productsIds = config;
+                    } else {
+                        productsIds = getProductIds(config);
+                    }
+                    return (productsIds && productsIds.length > 0) ? '&product=' + productsIds.join('&product=') : null;
+                },
 
     getProducts = function (data) {
         var i, product, products = null,
@@ -120,12 +138,18 @@
             request.onreadystatechange = function () {
                 if (this.readyState === 4) {
                     if (this.status === 200) {
-                        var data, products = null;
+                        var data = null;
                         try {
                             data = JSON.parse(this.response.replace(/"_/g, '"'));
-                            products = getProducts(data);
                         } catch (ignore) { }
-                        config.renderProducts(products);
+                        if (data) {
+                            data.Products = getProducts(data);
+                            if (config.renderProducts) {
+                                config.renderProducts(data.Products);
+                            } else if (config.render) {
+                                config.render(data);
+                            }
+                        }
                     } else {
                         // ;;; console.debug('error', this);
                     }
@@ -144,6 +168,8 @@
     window.Dynamicweb.Recommendation = {
         buildUrl: buildUrl,
         addQueryString: addQueryString,
+        getProductIds: getProductIds,
+        getProductsQuery: getProductsQuery,
         loadRecommendations: loadRecommendations
     };
 }());

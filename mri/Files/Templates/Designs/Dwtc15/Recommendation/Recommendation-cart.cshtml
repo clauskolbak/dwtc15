@@ -1,0 +1,77 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@using System.Web
+
+@{
+    var elementId = "recommendation-" + GetValue("ElementId");
+    var recommendationsUrlBase = GetString("RecommendationsUrlBase");
+}
+
+@if (!string.IsNullOrEmpty(recommendationsUrlBase))
+{
+    var cart = Dynamicweb.eCommerce.Common.Context.Cart;
+    if (cart != null)
+    {
+        <div style="display: none" id="cart-content">
+            @foreach (var line in cart.OrderLines)
+            {
+                <span data-product-number="@line.Product.Number"></span>
+            }
+        </div>
+    }
+    <div class="row recommendations" id="@elementId">
+        <script type="text/dynamicweb-ecom-template" id="dynamicweb-recommendations-template">
+            <div class="col-md-4 col-sm-4 col-xs-12 recommendation">
+                <a href="{{ProductDetailsUrl}}">
+                    <div class="image"><img src="/Admin/Public/GetImage.ashx?Image={{ImageUrlLarge}}&amp;width=200" width="200" height="200" /></div>
+                    <div class="name">{{Name}}</div>
+                </a>
+            </div>
+        </script>
+    </div>
+    <script src='@GetValue("Template:BaseUrl")javascripts/Recommendation.js'></script>
+    <script>
+        window, addEventListener('load', function () {
+            var recommendationsUrl = '@recommendationsUrlBase',
+            Recommendation = Dynamicweb.Recommendation,
+            render = function (template, data) {
+                return template.replace(/\{{2}([^}]+)\}{2}/g, function (_, key) {
+                    return typeof data[key] != 'undefined' ? data[key] : key;
+                });
+            },
+
+            productIds = Recommendation.getProductIds({
+                selector: '#cart-content *'
+            }),
+
+            productsQuery = Recommendation.getProductsQuery(productIds);
+
+            if (productsQuery) {
+                recommendationsUrl = Recommendation.addQueryString(recommendationsUrl, 'type=item', productsQuery);
+                Recommendation.loadRecommendations({
+                    recommendationsUrl: recommendationsUrl,
+                    renderProducts: function (products) {
+                        var i, product, content,
+                            template = document.getElementById('dynamicweb-recommendations-template').innerHTML.replace(/^\s+/, '').replace(/\s+$/, '')
+                        container = document.getElementById('@elementId');
+                        if (template && container && products) {
+                            content = [];
+                            for (i = 0; product = products[i]; i++) {
+                                content.push(render(template, product));
+                            }
+                            container.innerHTML = content.join('');
+                        }
+                    }
+                })
+            }
+
+            var info = document.createElement('pre');
+            info.setAttribute('style', 'clear: both; white-space: pre-wrap; position: fixed; bottom: 0; width: 100%');
+            info.innerHTML = [
+                'Recommendations url (base):   <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '</a>',
+                'Recommendations url:          <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '</a>',
+                'Computed recommendations url: <a href="' + recommendationsUrl + '" target="recommendations">' + recommendationsUrl + '</a>',
+            ].join('\n');
+            document.body.appendChild(info);
+        })</script>
+}

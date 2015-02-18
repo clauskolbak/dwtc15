@@ -1,0 +1,17 @@
+@Include("includes/ProductListRender.cshtml")
+
+<div class="row">
+	<div class="col-md-6">
+		@if (!string.IsNullOrWhiteSpace(GetString("Server:Request.ecomquery"))) {
+			<h3 class="section-title">@GetValue("Server:Request.ecomquery")</h3>
+		} else {
+			<h3 class="section-title">@GetValue("Ecom:ProductList:Page.GroupName")</h3>
+		}
+	</div>
+</div>
+
+<div class="row">
+
+	@GetProductList(GetLoop("Products"), 4)
+
+</div>

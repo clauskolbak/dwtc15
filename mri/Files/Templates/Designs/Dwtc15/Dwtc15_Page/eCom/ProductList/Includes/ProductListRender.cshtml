@@ -19,7 +19,7 @@
 		string  Discount = product.GetString("Ecom:Product.Discount.Price");
 		string  Price = product.GetString("Ecom:Product.Price");
 
-		<div class="@ColumnsMD @ColumnsSM @ColumnsXS" name="productlist" data-product-number='@product.GetValue("Ecom:Product.Number")'>
+		<div class="@ColumnsMD @ColumnsSM @ColumnsXS" name="productlist" data-product-id='@product.GetValue("Ecom:Product.ID")'>
 			<div class="wp-block product" name="boxproduct">
 				<div class="" name="listproductright">
                     <a href="@GroupLink" title="@Name">
