@@ -44,6 +44,9 @@
     <Reference Include="Dynamicweb.Data.Providers">
       <HintPath>..\..\..\..\..\..\..\..\dynamicweb.net\Application\bin\Dynamicweb.Data.Providers.dll</HintPath>
     </Reference>
+    <Reference Include="Dynamicweb.Modules">
+      <HintPath>..\..\..\..\..\..\..\..\dynamicweb.net\Application\bin\Dynamicweb.Modules.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -84,6 +87,7 @@
     <Content Include="Designs\Dwtc15\ItemPublisher\List\Dwtc15_Speaker.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Designs\Dwtc15\Recommendation\javascripts\Recommendation.js" />
     <Content Include="Designs\Dwtc15\stylesheets\Dwtc15.css">
       <DependentUpon>Dwtc15.scss</DependentUpon>
     </Content>
@@ -93,7 +97,6 @@
     <Content Include="Designs\lib\scripts\CodeViewer.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Designs\Recommendations\Recommendation\javascripts\Recommendation.js" />
     <Content Include="Web.config" />
     <Content Include="Designs\Dwtc15\ItemPublisher\List\Dwtc15_Attendee.cshtml" />
     <Content Include="Designs\Dwtc15\ItemPublisher\Edit\Dwtc15_Edit.cshtml" />
@@ -157,17 +160,43 @@
     <Content Include="Designs\Dwtc15\Dwtc15_Page.csv.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Designs\Recommendations\Recommendation\Recommendation.angularjs.cshtml" />
-    <Content Include="Designs\Recommendations\Recommendation\Recommendation.cshtml" />
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Designs\Recommendations\Dwtc15_Page\eCom\ProductList\ProductList.cshtml">
-      <SubType>
-      </SubType>
-    </None>
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Designs\Recommendations\Dwtc15_Page\eCom\ProductList\Includes\ProductListRender.cshtml" />
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-user.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-context.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-render.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\Dwtc15_Page\eCom\ProductList\Includes\ProductListRender.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-render-loop.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\Paragraph\Recommendations_Users.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\ItemCreator\Create\Dwtc15_Comment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\Partials\_Comments.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\ItemPublisher\List\Dwtc15_Comment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\razor\News.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Designs\Dwtc15\ItemPublisher\List\Dwtc15_News.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

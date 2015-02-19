@@ -219,6 +219,7 @@ pip-log.txt
 # dwtc15
 _parsed/
 mri/Files/System/Items/WebsiteLayouts_*
+.sass-cache/
 
 # Ignore everything from Dwsimple design
 # mri/Files/Templates/Designs/dwtc15/assets/

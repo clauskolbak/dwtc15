@@ -22,19 +22,23 @@
 @if (GetString("ItemCreator:Edit.Status") == "ITEM_CREATED")
 {
     // Reload page to show added comment
-    System.Web.HttpContext.Current.Response.Redirect(System.Web.HttpContext.Current.Request.Url.PathAndQuery);
+    var id = "comment-" + GetValue("ItemCreator:Item.Id");
+    var url = "/Default.aspx?Id=" + Pageview.Page.ID + "#" + id;
+
+    System.Web.HttpContext.Current.Response.Redirect(url);
 }
-else { 
+else
+{
     <div class="form-horizontal" role="form">
-        <input type="hidden" name="CreatedAt" value='@DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")'/>
+        <input type="hidden" name="CreatedAt" value='@DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")' />
 
         @foreach (var fieldName in new[] { "Name", "Email", "Comment" })
         {
             var fieldId = fieldName;
             var fieldType = GetString("ItemCreator:Edit.Item." + fieldName + ".Type");
             var value = GetValue("ItemCreator:Edit.Item." + fieldName);
-            var isRequired = GetBoolean("ItemCreator:Edit.Item."+fieldName+".IsRequired");
-            
+            var isRequired = GetBoolean("ItemCreator:Edit.Item." + fieldName + ".IsRequired");
+
             <div class='form-group @(isRequired ? " required" : "")'>
                 <label for='@GetValue("ItemCreator:Edit.Item."+fieldName+".SystemName")' class="col-sm-2 control-label">@Translate(fieldName)</label>
                 <div class="col-sm-10">

@@ -1,0 +1,83 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@functions {
+    string categoryItemType = "Dwtc15_NewsCategory";
+
+    HashSet<string> GetNewsCategoryIds(LoopItem item, string tagPrefix)
+    {
+        Dynamicweb.Frontend.Page itemPage = null;
+        var ids = new HashSet<string>();
+        if (item != null)
+        {
+            ids.UnionWith(item.GetLoop(tagPrefix + "Item.Categories.Options").Where(i => i.GetBoolean(tagPrefix + "Item.Categories.Option.IsSelected")).Select(i => i.GetString(tagPrefix + "Item.Categories.Option.Value")));
+            // @TODO Get parent category
+            var itemType = (string)item.GetValue(tagPrefix + "Item.SystemName");
+            var itemId = (string)item.GetValue(tagPrefix + "Item.Id") ?? (string)item.GetValue(tagPrefix + "Item.Field.Id");
+            if (itemType != null && itemId != null)
+            {
+                itemPage = Dynamicweb.Frontend.Page.FindPage(itemType, itemId);
+            }
+        }
+        else
+        {
+            ids.UnionWith(GetLoop(tagPrefix + "Item.Categories.Options").Where(i => i.GetBoolean(tagPrefix + "Item.Categories.Option.IsSelected")).Select(i => i.GetString(tagPrefix + "Item.Categories.Option.Value")));
+            itemPage = Pageview.Page;
+        }
+
+        if (itemPage != null)
+        {
+            // Add parent news category
+            if (itemPage.Parent != null && itemPage.Parent.Item != null && itemPage.Parent.Item.SystemName == categoryItemType)
+            {
+                ids.Add(itemPage.Parent.Item.Id);
+            }
+        }
+        return ids;
+    }
+
+    IEnumerable<Item> GetNewsCategories(LoopItem item, string tagPrefix)
+    {
+        var ids = GetNewsCategoryIds(item, tagPrefix);
+        return GetItemsByIds(categoryItemType, ids.ToList<string>()).OrderBy(i => i["Name"]);
+    }
+}
+
+@helper ShowCategories(LoopItem item = null, string tagPrefix = "")
+{
+    var categories = GetNewsCategories(item, tagPrefix);
+    if (categories.Any())
+    {
+        var mainCategoryPage = GetMostDistantAncestorByItemType(categoryItemType);
+        <div class="categories">
+            @Translate("Categories"):
+            @foreach (var category in categories)
+            {
+                if (mainCategoryPage != null)
+                {
+                    var url = BuildUrl(new
+                    {
+                        Id = mainCategoryPage.ID,
+                        Categories = category.Id
+                    });
+                    <a href="@url" class="category">@category["Name"]</a>
+                }
+                else
+                {
+                    <span class="category">@category["Name"]</span>
+                }
+            }
+        </div>
+    }
+}
+
+@helper ShowArchiveInfo(LoopItem item = null)
+{
+    var expirationTime = item != null ? item.GetDate("ItemPublisher:Item.ExpirationTime") : GetDate("Item.ExpirationTime");
+
+    if (expirationTime > new DateTime(1975, 05, 23) && expirationTime < DateTime.Now)
+    {
+        <div class="archive-info">
+            <span class="label label-info">@Translate("Archived on") @expirationTime.ToLongDateString()</span>
+        </div>
+    }
+}

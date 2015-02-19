@@ -1,0 +1,70 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+@using Dynamicweb.Content.Items
+
+@* Page comments *@
+@if (!string.IsNullOrWhiteSpace(GetString("Item.CommentActions")))
+{
+    var actions = new List<string>(GetString("Item.CommentActions").Split(new[] { ',' }));
+
+    if (actions.Contains("show"))
+    {
+        // Render comment using Named item list API
+        var comments = NamedItemList.GetNamedItemListByName("Comments", NamedItemList.ListSourceType.Page, Pageview.Page.ID);
+        if (comments != null && comments.ItemList != null && comments.ItemList.Relations != null && comments.ItemList.Relations.Any())
+        {
+            <section class="comments">
+                @foreach (Item comment in comments.ItemList.Relations)
+                {
+                    var id = "comment-" + comment.Id;
+                    var url = "/Default.aspx?Id=" + Pageview.Page.ID + "#" + id;
+
+                    <article class="comment">
+                        <header>
+                            <a href="@url">
+                                <span class="name">@comment["Name"]</span>
+                                @Translate(comment["CreatedAt"] == null ? "says" : "says on")
+                                <span class="time">@(((DateTime)comment["CreatedAt"]).ToString("U"))</span>
+                            </a>
+                        </header>
+
+                        <blockquote class="comment">@comment["Comment"]</blockquote>
+                    </article>
+                }
+            </section>
+        }
+
+        // Render comments using Item publisher
+        @*
+        @RenderItemList(new
+{
+    ItemType = "Dwtc15_Comment",
+    ListSourceType = "NamedList",
+    TargetNamedList = "Comments",
+    NamedListPageID = Pageview.Page.ID,
+    ItemFieldsList = "*",
+    ListTemplate = "ItemPublisher/List/Dwtc15_Comment.cshtml",
+    ListPageSize = 1000,
+})
+            *@
+    }
+
+    if (actions.Contains("create"))
+    {
+        // Create comment
+        <fieldset>
+            <legend>@Translate("Post a comment")</legend>
+
+            @RenderItemCreationForm(new
+{
+    TargetPage = Pageview.Page.ID,
+    ContentStructure = 2, // "NamedList"
+    TargetNamedList = "Comments",
+    ItemType = "Dwtc15_Comment",
+    ContentOrderDirection = 1,
+    ContentCreationStatus = 0,
+    CreateTemplate = "ItemCreator/Create/Dwtc15_Comment.cshtml"
+})
+        </fieldset>
+    }
+}

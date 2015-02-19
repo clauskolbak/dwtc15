@@ -5,7 +5,8 @@
 @IncludeFile("../lib/razor/functions/functions.cshtml")
 
 <article class="news-list">
-    <div class="feeds pull-right">
+    <div class="feeds">
+        @Translate("Feeds"):
         @{
             foreach (var format in new string[] { "rss", "json" })
             {

@@ -3,63 +3,47 @@
 @MasterPageFile("Master/Dwtc15.cshtml")
 
 @IncludeFile("../lib/razor/functions/functions.cshtml")
+@IncludeFile("razor/News.cshtml")
 
 @using System.Collections.Generic
 @using Dynamicweb.Content.Items
 
-@functions {
-    string categoryItemType = "Dwtc15_NewsCategory";
-
-    HashSet<string> GetNewsCategoryIds()
-    {
-        var ids = new HashSet<string>();
-        ids.UnionWith(GetLoop("Item.Categories.Options").Where(i => i.GetBoolean("Item.Categories.Option.IsSelected")).Select(i => i.GetString("Item.Categories.Option.Value")));
-        // Add parent news category
-        var parentCategory = (Pageview.Page.Parent != null && Pageview.Page.Parent.Item != null && Pageview.Page.Parent.Item.SystemName == categoryItemType) ? Pageview.Page.Parent.Item : null;
-        if (parentCategory != null)
-        {
-            ids.Add(parentCategory.Id);
-        }
-        return ids;
-    }
-
-    IEnumerable<Item> GetNewsCategories()
-    {
-        var ids = GetNewsCategoryIds();
-        return GetItemsByIds(categoryItemType, ids.ToList<string>()).OrderBy(i => i["Name"]);
-    }
-}
-
 <article class="news">
+    @ShowArchiveInfo()
+
     <h1>@GetValue("Item.Heading")</h1>
 
     <div class="content">@GetValue("Item.Content")</div>
 
-    @{
-        var categories = GetNewsCategories();
-        if (categories.Any())
-        {
-            var mainCategoryPage = GetMostDistantAncestorByItemType(categoryItemType);
-            <div class="categories">
-                @foreach (var category in categories)
-                {
-                    if (mainCategoryPage != null)
+    @ShowCategories()
+    @*
+        @{
+            var categories = GetNewsCategories();
+            if (categories.Any())
+            {
+                var mainCategoryPage = GetMostDistantAncestorByItemType(categoryItemType);
+                <div class="categories">
+                    @Translate("Categories"):
+                    @foreach (var category in categories)
                     {
-                        var url = BuildUrl(new
+                        if (mainCategoryPage != null)
                         {
-                            Id = mainCategoryPage.ID,
-                            Categories = category.Id
-                        });
-                        <a href="@url" class="category">@category["Name"]</a>
+                            var url = BuildUrl(new
+                            {
+                                Id = mainCategoryPage.ID,
+                                Categories = category.Id
+                            });
+                            <a href="@url" class="category">@category["Name"]</a>
+                        }
+                        else
+                        {
+                            <span class="category">@category["Name"]</span>
+                        }
                     }
-                    else
-                    {
-                        <span class="category">@category["Name"]</span>
-                    }
-                }
-            </div>
+                </div>
+            }
         }
-    }
+    *@
 
     @{
         var relatedNews = GetLoop("Item.RelatedNews");
@@ -76,56 +60,3 @@
         }
     }
 </article>
-
-@{
-    var comments = NamedItemList.GetNamedItemListByName("Comments", NamedItemList.ListSourceType.Page, Pageview.Page.ID);
-    if (comments != null && comments.ItemList.Relations.Any())
-    {
-        <section class="comments">
-            @foreach (Item comment in comments.ItemList.Relations)
-            {
-                <article class="comment">
-                    <header>
-                        <span class="name">@comment["Name"]</span>
-                        @if (comment["CreatedAt"] == null)
-                        {
-                            @: @Translate("says")
-                        }
-                        else
-                        {
-                            @: @Translate("says on")
-                            <span class="time">@(((DateTime)comment["CreatedAt"]).ToLongDateString())</span>
-                        }
-                    </header>
-
-                    <blockquote class="comment">@comment["Comment"]</blockquote>
-                </article>
-            }
-        </section>
-    }
-}
-
-@RenderItemList(new
-{
-    ItemType = "Dwtc15_Comment",
-    ListSourceType = "NamedList",
-    TargetNamedList = "Comments",
-    NamedListPageID = Pageview.Page.ID,
-    ItemFieldsList = "*",
-    ListTemplate = "ItemPublisher/List/Dwtc15_Comment.cshtml",
-    ListPageSize = 1000,
-})
-
-<fieldset>
-    <legend>@Translate("Post a comment")</legend>
-    @RenderItemCreationForm(new
-{
-    TargetPage = Pageview.Page.ID,
-    ContentStructure = 2, // "NamedList"
-    TargetNamedList = "Comments",
-    ItemType = "Dwtc15_Comment",
-    ContentOrderDirection = 1,
-    ContentCreationStatus = 0,
-    CreateTemplate = "ItemCreator/Create/Dwtc15_Comment.cshtml"
-})
-</fieldset>
