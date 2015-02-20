@@ -9,18 +9,16 @@
 
 @if (!string.IsNullOrEmpty(recommendationsUrl))
 {
-    <style>
-        .recommendations {
-            border: solid 1px #aaa;
-            margin: 1em 0;
-            padding: 1em;
-        }
-    </style>
+    @SnippetStart("StyleSheet")
+    <link rel="stylesheet" href='@GetValue("Template:BaseUrl")stylesheets/Recommendation.min.css' />
+    @SnippetEnd("StyleSheet")
+
     <section class="recommendations" id="@elementId">
         <header><h1>@Translate("Recommendations")</h1></header>
 
         <div class="row content"></div>
     </section>
+
     <script src='@GetValue("Template:BaseUrl")javascripts/Recommendation.js'></script>
     <script>
         window, addEventListener('load', function () {
@@ -31,7 +29,6 @@
                     Recommendation.loadRecommendations({
                         recommendationsUrl: recommendationsUrl,
                         render: function (data) {
-                            ;;; console.debug(data);
                             var container = document.querySelector('#@elementId .content');
                             if (data && data.Content) {
                                 container.innerHTML = data.Content;

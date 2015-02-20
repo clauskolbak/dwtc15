@@ -4,87 +4,51 @@
 
 @{
     var elementId = "recommendation-" + GetValue("ElementId");
-    var useRecommendationContext = false;
-    var recommendationsUrl = GetString("RecommendationsUrl");
     var recommendationsUrlBase = GetString("RecommendationsUrlBase");
-    if (string.IsNullOrEmpty(recommendationsUrl))
-    {
-        useRecommendationContext = true;
-        recommendationsUrl = recommendationsUrlBase;
-    }
 }
 
-@if (!string.IsNullOrEmpty(recommendationsUrl))
+@if (!string.IsNullOrEmpty(recommendationsUrlBase))
 {
-    <style>
-        .recommendations {
-            border: solid 1px #aaa;
-            margin: 1em 0;
-            padding: 1em;
-        }
-    </style>
+    @SnippetStart("StyleSheet")
+    <link rel="stylesheet" href='@GetValue("Template:BaseUrl")stylesheets/Recommendation.min.css' />
+    @SnippetEnd("StyleSheet")
+
     <section class="recommendations" id="@elementId">
         <header><h1>@Translate("Recommendations")</h1></header>
 
         <div class="row content"></div>
-
-        <script type="text/dynamicweb-ecom-template" id="dynamicweb-recommendations-template">
-            <div class="col-md-4 col-sm-4 col-xs-12 recommendation">
-                <a href="{{ProductDetailsUrl}}">
-                    <div class="image"><img src="/Admin/Public/GetImage.ashx?Image={{ImageUrlLarge}}&amp;width=200" width="200" height="200" /></div>
-                    <div class="name">{{Name}}</div>
-                </a>
-            </div>
-        </script>
     </section>
+
     <script src='@GetValue("Template:BaseUrl")javascripts/Recommendation.js'></script>
     <script>
         window, addEventListener('load', function () {
             try {
-                var recommendationsUrl = '@recommendationsUrl',
+                var recommendationsUrl = '@recommendationsUrlBase',
                 Recommendation = Dynamicweb.Recommendation,
-                render = function (template, data) {
-                    return template.replace(/\{{2}([^}]+)\}{2}/g, function (_, key) {
-                        return typeof data[key] != 'undefined' ? data[key] : key;
-                    });
-                };
-                @if (useRecommendationContext) {
-      <text>
-                var productsQuery = Recommendation.getProductsQuery();
+                productsQuery = Recommendation.getProductsQuery();
 
                 if (productsQuery) {
                     recommendationsUrl = Recommendation.addQueryString(recommendationsUrl, 'type=item', productsQuery);
-                } else {
-                    recommendationsUrl = null;
-                }
-                </text>
-}
-                if (recommendationsUrl) {
+
                     Recommendation.loadRecommendations({
                         recommendationsUrl: recommendationsUrl,
-                        renderProducts: function (products) {
-                            var i, product, content,
-                                template = document.getElementById('dynamicweb-recommendations-template').innerHTML.replace(/^\s+/, '').replace(/\s+$/, '')
-                            container = document.querySelector('#@elementId .content');
-                            if (template && container && products) {
-                                content = [];
-                                for (i = 0; product = products[i]; i++) {
-                                    content.push(render(template, product));
-                                }
-                                container.innerHTML += content.join('');
+                        render: function (data) {
+                            var container = document.querySelector('#@elementId .content');
+                            if (data && data.Content) {
+                                container.innerHTML = data.Content;
                             }
-
-                            var info = document.createElement('pre');
-                            info.setAttribute('style', 'clear: both; white-space: pre-wrap; position: fixed; bottom: 0; width: 100%');
-                            info.innerHTML = [
-                                'Recommendations url (base):   <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '</a>',
-                                'Recommendations url:          <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '</a>',
-                                'Computed recommendations url: <a href="' + recommendationsUrl + '" target="recommendations">' + recommendationsUrl + '</a>',
-                            ].join('\n');
-                            document.body.appendChild(info);
                         }
                     });
                 }
+
+                var info = document.createElement('pre');
+                info.setAttribute('style', 'clear: both; white-space: pre-wrap; position: fixed; bottom: 0; width: 100%');
+                info.innerHTML = [
+                    'Recommendations url (base):   <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '</a>',
+                    'Recommendations url:          <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '</a>',
+                    'Computed recommendations url: <a href="' + recommendationsUrl + '" target="recommendations">' + recommendationsUrl + '</a>',
+                ].join('\n');
+                document.body.appendChild(info);
             } catch (ex) {
                 ;;; console.debug(ex);
             }

@@ -1,27 +1,19 @@
 ﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
 
 @{
-    var recommendations = GetLoop("Recommendations");
+    var products = GetLoop("Recommendations");
 
-    if (recommendations.Count == 0)
+    if (products.Count == 0)
     {
         <div class="alert alert-info">@Translate("No recommendations available")</div>
     }
     else
     {
-        <style>
-            .recommendations {
-                border: solid 1px #aaa;
-                margin: 1em 0;
-                padding: 1em;
-            }
-        </style>
-
         <section class="recommendations">
             <header><h1>@Translate("Recommendations")</h1></header>
 
             <div class="row">
-                @foreach (var product in recommendations)
+                @foreach (var product in products)
                 {
                     var url = product.GetValue("Ecom:Product.Link.Clean.PID");
                     <div class="recommendation">
