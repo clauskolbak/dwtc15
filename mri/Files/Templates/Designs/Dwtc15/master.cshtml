@@ -73,6 +73,8 @@
 	<!-- Analytics code -->
 	@GetValue("Item.Area.OtherAnalyticsCode")
 
+		@RenderSnippet("StyleSheet")
+		@RenderSnippet("JavaScript")
 </head>
 
 <!-- MAIN WRAPPER -->
@@ -674,5 +676,7 @@
 			<script src="js/html5shiv.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
+
+		@RenderSnippet("JavaScriptBottom")
 </body>
 </html>
