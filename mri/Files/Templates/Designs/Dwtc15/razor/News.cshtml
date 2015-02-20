@@ -42,6 +42,63 @@
     }
 }
 
+@helper RenderNewsList(bool isArchive = false)
+{
+    if (isArchive)
+    {
+        @RenderItemList(new
+{
+    ItemType = "Dwtc15_News",
+    ListSourceType = "Page",
+    ListSourcePage = GetInteger("Item.NewsPage"),
+    IncludeAllChildItems = true,
+    IncludeInheritedItems = true,
+    ItemFieldsList = "*",
+    ListTemplate = "ItemPublisher/List/Dwtc15_News.cshtml",
+    ListPageSize = 10,
+    ListOrderBy = "PublicationTime",
+    ListOrderByDirection = "Descending",
+    Filter = "ExpirationTime is before " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+})
+    }
+    else
+    {
+        // http://templates.dynamicweb.com/TemplateTags/Dynamicweb-template-tags/Module-tags/Item-publisher/Item-Render.aspx
+        @RenderItemList(new
+{
+    ItemType = "Dwtc15_News",
+    ListSourceType = "SelfPage",
+    IncludeAllChildItems = true,
+    ItemFieldsList = "*",
+    ListTemplate = "ItemPublisher/List/Dwtc15_News.cshtml",
+    ListPageSize = 10,
+    ListOrderBy = "PublicationTime",
+    ListOrderByDirection = "Descending",
+    Filter = "ExpirationTime is after " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " and PublicationTime is before " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+})
+    }
+}
+
+@helper RenderNewsListV2(bool isArchive)
+{
+    var newsItems = (GetDescendants() as IEnumerable<Dynamicweb.Frontend.Page>)
+        .Where(p => p.Item != null && p.Item.SystemName == "Dwtc15_News")
+        .Select(p => p.Item)
+        .OrderByDescending(i => i["PublicationTime"]);
+
+    if (newsItems.Any())
+    {
+        <div class="news-list">
+            @foreach (var news in newsItems)
+            {
+                <div class="news">
+                    @DUMP(news)
+                </div>
+            }
+        </div>
+    }
+}
+
 @helper ShowCategories(LoopItem item = null, string tagPrefix = "")
 {
     var categories = GetNewsCategories(item, tagPrefix);
@@ -72,7 +129,12 @@
 
 @helper ShowArchiveInfo(LoopItem item = null)
 {
+    var publicationTime = item != null ? item.GetDate("ItemPublisher:Item.PublicationTime") : GetDate("Item.PublicationTime");
     var expirationTime = item != null ? item.GetDate("ItemPublisher:Item.ExpirationTime") : GetDate("Item.ExpirationTime");
+
+    <div class="publication-time">
+        @publicationTime.ToLongDateString()
+    </div>
 
     if (expirationTime > new DateTime(1975, 05, 23) && expirationTime < DateTime.Now)
     {

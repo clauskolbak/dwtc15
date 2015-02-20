@@ -3,11 +3,17 @@
 @MasterPageFile("Master/Dwtc15.cshtml")
 
 @IncludeFile("../lib/razor/functions/functions.cshtml")
+@IncludeFile("razor/News.cshtml")
 
-<article class="news-list">
-    <div class="feeds">
-        @Translate("Feeds"):
-        @{
+<section class="news-list">
+    @{
+        var isArchive = GetBoolean("Item.IsArchive");
+
+        if (!isArchive)
+        {
+            <div class="feeds">
+                @Translate("Feeds"):
+                @{
             foreach (var format in new string[] { "rss", "json" })
             {
                 var url = BuildUrl(new
@@ -16,45 +22,10 @@
                 });
                 <a href="@url">@format</a>
             }
+                }
+            </div>
         }
-    </div>
-
-    @* <h1><a href="/Default.aspx?id=@Pageview.Page.ID">@GetValue("Item.Name")</a></h1> *@
-
-    @* http://templates.dynamicweb.com/TemplateTags/Dynamicweb-template-tags/Module-tags/Item-publisher/Item-Render.aspx *@
-    @if (GetBoolean("Item.IsArchive"))
-    {
-        @RenderItemList(new
-{
-    ItemType = "Dwtc15_News",
-    ListSourceType = "Page",
-    ListSourcePage = GetInteger("Item.NewsPage"),
-    IncludeAllChildItems = true,
-    IncludeInheritedItems = true,
-    ItemFieldsList = "*",
-    ListTemplate = "ItemPublisher/List/Dwtc15_News.cshtml",
-    ListPageSize = 10,
-    ListOrderBy = "PublicationTime",
-    ListOrderByDirection = "Descending",
-    Filter = "ExpirationTime is before " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-})
     }
-    else
-    {
-        @RenderItemList(new
-{
-    ItemType = "Dwtc15_News",
-    ListSourceType = "SelfPage",
-    IncludeAllChildItems = true,
-    IncludeInheritedItems = true,
-    ItemFieldsList = "*",
-    ListTemplate = "ItemPublisher/List/Dwtc15_News.cshtml",
-    ListPageSize = 10,
-    ListOrderBy = "PublicationTime",
-    ListOrderByDirection = "Descending",
-    Filter = "ExpirationTime is after " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-    + " and PublicationTime is before " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-})
-    }
-</article>
 
+    @RenderNewsList(isArchive)
+</section>

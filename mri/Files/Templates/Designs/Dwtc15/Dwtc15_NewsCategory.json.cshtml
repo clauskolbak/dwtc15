@@ -1,6 +1,7 @@
 @functions {
     IEnumerable<Dynamicweb.Content.Items.Item> GetItems()
     {
+        var now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         try
         {
             var rules = new Dynamicweb.Modules.Searching.Rules.RulesGroup()
@@ -12,14 +13,20 @@
                 ID = "PublicationTime",
                 Name = "PublicationTime",
                 TypeName = typeof(DateTime).FullName
-            }, Dynamicweb.Modules.Searching.Rules.RuleOperator.IsBefore, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), null));
+            }, Dynamicweb.Modules.Searching.Rules.RuleOperator.IsBefore, now));
+
+            rules.Add(new Dynamicweb.Modules.Searching.Rules.Rule(new Dynamicweb.Modules.Searching.Rules.RuleField()
+            {
+                ID = "ExpirationTime",
+                Name = "ExpirationTime",
+                TypeName = typeof(DateTime).FullName
+            }, Dynamicweb.Modules.Searching.Rules.RuleOperator.IsAfter, now));
+            
             var query = new Dynamicweb.Content.Items.Queries.Query();
             query.Where = new Dynamicweb.Modules.Searching.Rules.RulesGroupCollection();
             query.Where.Add(rules);
             query.OrderBy = new Dynamicweb.Content.Items.Queries.OrderByCollection();
             query.OrderBy.Add(new Dynamicweb.Content.Items.Queries.OrderBy("PublicationTime", Dynamicweb.Content.Items.Queries.OrderByDirection.Descending));
-
-            // query.Fields = new string[] { "PublicationTime" };
 
             query.Amount = 10;
 

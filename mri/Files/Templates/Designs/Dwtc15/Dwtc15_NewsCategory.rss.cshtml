@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
 <rss version="2.0">
     <channel>
         @XmlElement("title", XmlEncode(GetValue("Item.Name")))
@@ -8,18 +9,7 @@
         @XmlElement("pubDate", DateTime.Now.ToString("ddd, dd MMM yyyy HH:mm:ss K"))
         <ttl>1800</ttl>
 
-        @RenderItemList(new
-{
-    ItemType = "Dwtc15_News",
-    ListSourceType = "SelfPage",
-    IncludeAllChildItems = true,
-    ItemFieldsList = "*",
-    ListTemplate = "ItemPublisher/List/Dwtc15_News.cshtml",
-    ListPageSize = 10,
-    ListOrderBy = "PublicationTime",
-    ListOrderByDirection = "Descending",
-    Filter = "PublicationTime is before "+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-})
+        @RenderNewsList()
     </channel>
 </rss>
 
@@ -32,4 +22,5 @@
     System.Web.HttpContext.Current.Response.ContentType = "application/rss+xml";
 }
 
-    @IncludeFile("../lib/razor/functions/functions.cshtml")
+@IncludeFile("../lib/razor/functions/functions.cshtml")
+@IncludeFile("razor/News.cshtml")
