@@ -1,0 +1,20 @@
+﻿.recommendation-info {
+    clear: both;
+    white-space: pre;
+    position: fixed;
+    bottom: 0;
+    overflow: hidden;
+    transition: width ease-in .2s;
+    padding-left: 2em;
+    width: 2em;
+
+    &:hover {
+        width: 100%;
+    }
+}
+
+.recommendations {
+    border: solid 1px #aaa;
+    margin: 1em 0;
+    padding: 1em;
+}
