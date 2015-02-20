@@ -1,0 +1,52 @@
+﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Navigation</title>
+</head>
+<body>
+    <h1>Navigation</h1>
+
+    @helper RenderNavigationPage(Dynamicweb.Frontend.Page page = null)
+{
+    if (page != null)
+    {
+        var url = "/Default.aspx?Id=" + page.ID;
+        <li>
+            <a href="@url" class="title">@page.Values["pagemenutext"]</a>
+            @if (page.Children != null && page.Children.Count > 0)
+            {
+                <ul>
+                    @foreach (var c in page.Children)
+                    {
+                        @RenderNavigationPage(c)
+                    }
+                </ul>
+            }
+        </li>
+    }
+}
+
+    @helper RenderNavigationRoot(Func<Dynamicweb.Frontend.Page, RazorEngine.Templating.TemplateWriter> renderNode, Dynamicweb.Frontend.Page page = null)
+{
+    if (page == null)
+    {
+        page = Pageview.Page;
+    }
+    { }
+    if (page != null && page.Children != null && page.Children.Count > 0)
+    {
+        <div class="navigation">
+            <ul>
+                @renderNode(page)
+            </ul>
+        </div>
+    }
+}
+
+    @RenderNavigationRoot(RenderNavigationPage)
+</body>
+</html>
