@@ -100,6 +100,31 @@
     }
 }
 
+@helper DisplaySpeakers(LoopItem session)
+{
+    var speakers = session.GetLoop("");
+    if (speakers.Count > 0)
+    {
+        <div class="speakers">
+            <div class="header">@Translate(speakers.Count == 1 ? "Speaker" : "Speakers")</div>
+            <ul>
+                @foreach (var speaker in speakers)
+                {
+                    var url = speaker.GetValue("ItemPublisher:Item.Speakers.Url");
+                    var title = speaker.GetString("ItemPublisher:Item.Speakers.Title");
+                    <li class="speaker">
+                        <a href="@url">
+                            <span class="name">@speaker.GetValue("ItemPublisher:Item.Speakers.Name")</span>@if (!string.IsNullOrWhiteSpace(title))
+                            {<text>,</text> <span class="title">@title</span>
+                            }
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}
+
 @helper DisplaySession(Session session)
 {
     var editUrl = "";
