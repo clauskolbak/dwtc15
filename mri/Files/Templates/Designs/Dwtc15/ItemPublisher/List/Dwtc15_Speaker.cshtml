@@ -24,10 +24,13 @@
 <div class="speakers">
     @foreach (var speaker in GetLoop("ItemPublisher:Items.List"))
     {
+        var url = speaker.GetValue("ItemPublisher:Item.Url");
         <div class="speaker">
             <h1>
-                <span class="name">@speaker.GetValue("ItemPublisher:Item.Name")</span>
-                @DisplayTitle(speaker)
+                <a href="@url">
+                    <span class="name">@speaker.GetValue("ItemPublisher:Item.Name")</span>
+                    @DisplayTitle(speaker)
+                </a>
             </h1>
 
             <div class="description">@speaker.GetValue("ItemPublisher:Item.Biography")</div>
