@@ -84,7 +84,7 @@
         }
         catch
         {
-            throw;
+            // throw;
         }
     }
 
@@ -107,9 +107,11 @@
             font-size: 100%;
         }
 
-        .snippet pre {
+        .snippet pre,
+        .snippet pre code {
             word-break: initial;
             word-wrap: initial;
+            white-space: pre;
         }
 
         .container {
