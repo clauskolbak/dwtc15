@@ -1,6 +1,7 @@
 ﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
 
-@using System.Web;
+@using System.Web
+@using System.Linq
 
 @functions {
     string GetAbsoluteUrl(string url)
@@ -140,68 +141,75 @@
         return null;
     }
 
-    Dynamicweb.Frontend.Page GetAncestor(Predicate<Dynamicweb.Frontend.Page> predicate, Dynamicweb.Frontend.Page page = null)
+    IEnumerable<Dynamicweb.Frontend.Page> GetAncestors(Dynamicweb.Frontend.Page page = null, bool includeSelf = false)
     {
         if (page == null)
         {
             page = Pageview.Page;
         }
-
-        var parent = page.Parent;
-        while (parent != null)
+        if (!includeSelf && page != null)
         {
-            if (predicate(parent))
-            {
-                break;
-            }
-            parent = parent.Parent;
+            page = page.Parent;
         }
 
-        return parent;
+        var ancestors = new List<Dynamicweb.Frontend.Page>();
+        while (page != null)
+        {
+            ancestors.Add(page);
+            page = page.Parent;
+        }
+        return ancestors;
     }
 
-    Dynamicweb.Frontend.Page GetMostDistantAncestor(Predicate<Dynamicweb.Frontend.Page> predicate, Dynamicweb.Frontend.Page page = null)
+    // Get all descendants of a page (breadth-first)
+    IEnumerable<Dynamicweb.Frontend.Page> GetDescendants(Dynamicweb.Frontend.Page page = null, bool includeSelf = false)
     {
-        Dynamicweb.Frontend.Page ancestor = null;
         if (page == null)
         {
             page = Pageview.Page;
         }
-
-        var parent = page.Parent;
-        while (parent != null)
+        var descendants = new List<Dynamicweb.Frontend.Page>();
+        if (page != null)
         {
-            if (predicate(parent))
+            if (includeSelf)
             {
-                ancestor = parent;
+                descendants.Add(page);
             }
-            parent = parent.Parent;
+            if (page.Children != null)
+            {
+                foreach (var c in page.Children)
+                {
+                    descendants.Add(c);
+                    descendants.AddRange(GetDescendants(c));
+                }
+            }
         }
-
-        return ancestor;
+        return descendants;
     }
 
-    Dynamicweb.Frontend.Page GetMostDistantAncestorOrSelf(Predicate<Dynamicweb.Frontend.Page> predicate, Dynamicweb.Frontend.Page page = null)
+    IEnumerable<Dynamicweb.Frontend.Page> GetDescendants(Func<Dynamicweb.Frontend.Page, bool> predicate, Dynamicweb.Frontend.Page page = null, bool includeSelf = false)
     {
-        Dynamicweb.Frontend.Page ancestor = null;
-        if (page == null)
-        {
-            page = Pageview.Page;
-        }
-
-        var parent = page;
-        while (parent != null)
-        {
-            if (predicate(parent))
-            {
-                ancestor = parent;
-            }
-            parent = parent.Parent;
-        }
-
-        return ancestor;
+        var descendants = GetDescendants(page, includeSelf);
+        return descendants != null ? descendants.Where(predicate) : null;
     }
-    
+
+    Dynamicweb.Frontend.Page GetAncestor(Func<Dynamicweb.Frontend.Page, bool> predicate, Dynamicweb.Frontend.Page page = null)
+    {
+        var ancestors = GetAncestors(page);
+        return ancestors != null ? ancestors.FirstOrDefault(predicate) : null;
+    }
+
+    Dynamicweb.Frontend.Page GetMostDistantAncestor(Func<Dynamicweb.Frontend.Page, bool> predicate, Dynamicweb.Frontend.Page page = null)
+    {
+        var ancestors = GetAncestors(page);
+        return ancestors != null ? ancestors.LastOrDefault(predicate) : null;
+    }
+
+    Dynamicweb.Frontend.Page GetMostDistantAncestorOrSelf(Func<Dynamicweb.Frontend.Page, bool> predicate, Dynamicweb.Frontend.Page page = null)
+    {
+        var ancestors = GetAncestors(page, true);
+        return ancestors != null ? ancestors.LastOrDefault(predicate) : null;
+    }
 
     Dynamicweb.Frontend.Page GetAncestorByItemType(string itemType, Dynamicweb.Frontend.Page page = null)
     {
@@ -217,4 +225,18 @@
     {
         return GetMostDistantAncestorOrSelf(p => p.Item != null && p.Item.SystemName == itemType, page);
     }
+}
+
+@helper DUMP(object value, string heading = null)
+{
+    // https://github.com/dynamicweb/razor/wiki/Using-Json.Net-to-inspect-values
+    <pre class="dw-dump">@if (heading != null) {<text>@heading</text>
+    }
+@Newtonsoft.Json.JsonConvert.SerializeObject(value, new Newtonsoft.Json.JsonSerializerSettings {
+    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+    MissingMemberHandling = Newtonsoft.Json.MissingMemberHandling.Ignore,
+    Error = (serializer,err) => err.ErrorContext.Handled = true,
+    Formatting = Newtonsoft.Json.Formatting.Indented
+})
+</pre>
 }

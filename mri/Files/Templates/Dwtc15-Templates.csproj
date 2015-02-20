@@ -58,6 +58,7 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
@@ -88,16 +89,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Designs\Dwtc15\Recommendation\javascripts\Recommendation.js" />
-    <Content Include="Designs\Dwtc15\stylesheets\Dwtc15.css">
-      <DependentUpon>Dwtc15.scss</DependentUpon>
-    </Content>
-    <Content Include="Designs\Dwtc15\stylesheets\Dwtc15.min.css">
-      <DependentUpon>Dwtc15.css</DependentUpon>
-    </Content>
+    <None Include="Designs\Dwtc15\Recommendation\stylesheets\Recommendation.scss" />
     <Content Include="Designs\lib\scripts\CodeViewer.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Designs\Dwtc15\ItemPublisher\List\Dwtc15_Attendee.cshtml" />
     <Content Include="Designs\Dwtc15\ItemPublisher\Edit\Dwtc15_Edit.cshtml" />
     <Content Include="Designs\lib\razor\functions\functions.cshtml" />
@@ -141,11 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Designs\Dwtc15\stylesheets\Dwtc15.scss" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Designs\Dwtc15\stylesheets\Dwtc15.css.map">
-      <DependentUpon>Dwtc15.css</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Designs\Dwtc15\Dwtc15_Page.csv\ItemPublisher\List\Dwtc15_List.cshtml" />
