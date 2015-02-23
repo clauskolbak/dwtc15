@@ -16,11 +16,11 @@
             var specs = System.Net.WebUtility.UrlDecode(Request.Url.Query.Trim('?')).Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (var spec in specs)
             {
-                var match = Regex.Match(spec, @"^(?<filename>[^\[]+)(?:\[(?<start>[0-9]*)(?:\.{2,}(?<end>[0-9]*))?\])?");
+                var match = Regex.Match(spec, @"^(?<filename>[^\[]+)(?:\[(?<start>[0-9]*)(?:\.{2}(?<end>[0-9]*))?(?<dots>\.{3})?\])?");
                 if (match.Success)
                 {
                     var filename = match.Groups["filename"].Value;
-                    if (!filename.StartsWith("/Files/Templates/"))
+                    if (!(filename.StartsWith("/Files/Templates/") || filename.StartsWith("/Files/System/Items/")))
                     {
                         continue;
                     }
@@ -44,6 +44,7 @@
                             type = "xml";
                             break;
                     }
+                    
                     IEnumerable<string> lines = System.IO.File.ReadAllText(Server.MapPath(filename)).Replace("\t", "  ").Split('\n').ToList<string>();
                     if (lines != null)
                     {
@@ -75,7 +76,8 @@
                             type = type,
                             start = start,
                             end = end,
-                            lines = lines
+                            lines = lines,
+                            continued = match.Groups["dots"].Success
                         });
                     }
                     //end = start + lines.Count()-1;
@@ -135,7 +137,7 @@
                 <h1><a href="<%= thisUrl+"?"+snippet.filename %>"><%= snippet.filename %></a></h1>
             </header>
 
-            <pre><code class="<%= snippet.type %>"><%= HtmlEncode(string.Join("\n", snippet.lines)) %></code></pre>
+            <pre><code class="<%= snippet.type %>"><%= HtmlEncode(string.Join("\n", snippet.lines)) %><% if (snippet.continued) { %><a href="<%= thisUrl+"?"+snippet.filename %>">&#x2026;</a><% } %></code></pre>
         </section>
         <% } %>
 
