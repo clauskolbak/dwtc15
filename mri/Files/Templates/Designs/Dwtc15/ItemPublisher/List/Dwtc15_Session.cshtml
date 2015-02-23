@@ -139,9 +139,13 @@
         {
             <a class="edit" target="backend" href="@editUrl"><span class="glyphicon glyphicon-edit"></span></a>
         }
-        <div class="title">@session.Title</div>
-        @if (!session.IsBreak)
+        @if (session.IsBreak)
         {
+            <div class="title">@session.Title</div>
+        }
+        else
+        {
+            <div class="title"><a href="@session.Url">@session.Title</a></div>
             <div class="description">@session.Description</div>
         }
         @DisplaySpeakers(session)
