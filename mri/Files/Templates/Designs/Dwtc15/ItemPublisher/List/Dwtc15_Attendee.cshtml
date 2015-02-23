@@ -89,7 +89,7 @@
                     <tr>
                         <th class="name">@DisplayHeader("Name", "Name")</th>
                         <th class="company">@DisplayHeader("Company", "CompanyName", true)</th>
-                        <th class="country">@DisplayHeader("Country", "Address.Country", true)</th>
+                        <th class="country">@Translate("Address.Country", "Country")</th>
                         @if (GetBoolean("ItemPublisher:ItemType.CanEdit"))
                         {
                             <th></th>
@@ -102,7 +102,7 @@
                         <tr>
                             <td class="name">@attendee.GetValue("ItemPublisher:Item.Name")</td>
                             <td class="company">@DisplayFilter(attendee, "CompanyName")</td>
-                            <td class="country">@DisplayFilter(attendee, "Address.Country")</td>
+                            <td class="country">@attendee.GetValue("ItemPublisher:Item.Address.Country")</td>
                             @if (attendee.GetBoolean("ItemPublisher:Item.CanEdit"))
                             {
                                 <td><a href="@attendee.GetValue("ItemPublisher:Item.EditUrl")">edit</a></td>
