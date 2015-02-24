@@ -52,6 +52,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine">
+      <HintPath>..\..\..\..\..\..\..\..\dynamicweb.net\Application\bin\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -63,6 +66,7 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -89,7 +93,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Designs\Dwtc15\Recommendation\javascripts\Recommendation.js" />
+    <Content Include="Designs\Dwtc15\Partials\_Navigation.cshtml" />
+    <Content Include="Designs\Dwtc15\Examples_CoolTemplateTricks.cshtml" />
+    <Content Include="Designs\Dwtc15\Dwtc15_Page.json\ItemPublisher\List\Dwtc15_Attendee.cshtml" />
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-custom.cshtml" />
     <None Include="Designs\Dwtc15\Recommendation\stylesheets\Recommendation.scss" />
+    <Content Include="Designs\Dwtc15\stylesheets\Dwtc15.min.css">
+      <DependentUpon>Dwtc15.scss</DependentUpon>
+    </Content>
     <Content Include="Designs\lib\scripts\CodeViewer.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +167,7 @@
     <Content Include="Designs\Dwtc15\Recommendation\Recommendation.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-cart.cshtml" />
+    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-context-cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Designs\Dwtc15\Recommendation\Recommendation-user.cshtml" />

@@ -34,8 +34,9 @@
             window, addEventListener('load', function () {
                 var recommendationsUrl = '@recommendationsUrlBase',
                         Recommendation = Dynamicweb.Recommendation,
-                        productIds = @Newtonsoft.Json.JsonConvert.SerializeObject(cart.OrderLines.Where(l => l.HasType(Dynamicweb.eCommerce.Orders.OrderLine.OrderLineType.Product)).Select(l => l.Product.ID)),
-                        productsQuery = Recommendation.getProductsQuery(productIds);
+                productsQuery = Recommendation.getProductsQuery({
+                    selector: '#cart-content [data-product-id]'
+                });
 
                 if (productsQuery) {
                     recommendationsUrl = Recommendation.addQueryString(recommendationsUrl, 'type=item', productsQuery);
