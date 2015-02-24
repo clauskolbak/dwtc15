@@ -1,15 +1,35 @@
-﻿.recommendation-info {
+﻿$recommendation-info-width-collapsed: 2em;
+
+.recommendation-info {
     clear: both;
     white-space: pre;
     position: fixed;
+    left: 0;
     bottom: 0;
     overflow: hidden;
     transition: width ease-in .2s;
-    padding-left: 2em;
-    width: 2em;
+    padding-left: $recommendation-info-width-collapsed;
+    padding-right: 0;
+    width: $recommendation-info-width-collapsed;
+
+    &::before {
+        content: '»';
+        position: absolute;
+        left: .2em;
+        font-size: $recommendation-info-width-collapsed;
+        line-height: $recommendation-info-width-collapsed;
+        top: 50%;
+        margin-top: - $recommendation-info-width-collapsed / 2;
+        opacity: .5;
+        transition: opacity ease-in .2s;
+    }
 
     &:hover {
         width: 100%;
+
+        &::before {
+            opacity: 0;
+        }
     }
 }
 
