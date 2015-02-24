@@ -11,6 +11,8 @@ Here you’ll find templates and item type definitions used in the Dynamicweb Te
 Installation
 ------------
 
-* Add item types and the Dwsimple design from [Wrap for Dynamicweb](http://developer.dynamicweb.com/downloads.aspx) to a Dynamicweb solution
-* Copy the design Dwtc15 to the solution
-* Copy the Dwtc15 item types to the solution
+1. Install a clean version of the latest [Dynamicweb 8.6.0 release](http://developer.dynamicweb.com/downloads/dynamicweb-8.aspx) using the Dynamicweb installer
+2. Copy item types from [Wrap for Dynamicweb](http://developer.dynamicweb.com/downloads.aspx) to the solution
+3. Copy everything from the *[Files](Files/)* folder to the solution's *Files* folder
+4. Apply the sql script [dwtc15.local.dynamicweb.dk.sql](database/dwtc15.local.dynamicweb.dk.sql) to the database. **Warning**: this will delete all content in the database!
+5. Restart your webserver, e.g. by running `iisreset`
