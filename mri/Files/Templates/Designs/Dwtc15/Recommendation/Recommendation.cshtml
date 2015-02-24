@@ -75,7 +75,7 @@
                             }
 
                             var info = document.createElement('pre');
-                            info.setAttribute('style', 'clear: both; white-space: pre-wrap; position: fixed; bottom: 0; width: 100%');
+                            info.classList.add('recommendation-info');
                             info.innerHTML = [
                                 'Recommendations url (base):   <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrlBase")) + '</a>',
                                 'Recommendations url:          <a href="' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '" target="recommendations">' + @Newtonsoft.Json.JsonConvert.SerializeObject(GetString("RecommendationsUrl")) + '</a>',
