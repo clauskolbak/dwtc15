@@ -23,9 +23,16 @@ footer {
     }
 }
 
-
 a:hover {
     text-decoration: underline;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: disc;
 }
 
 .form-group {
