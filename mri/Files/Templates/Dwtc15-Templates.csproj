@@ -80,24 +80,24 @@
     <Content Include="Designs\Dwtc15\Dwtc15_Venue.cshtml" />
     <Content Include="Designs\Dwtc15\Dwtc15.cshtml" />
     <Content Include="Designs\Dwtc15\ItemPublisher\List\images\geek.png" />
-    <Content Include="Designs\Dwtc15\ItemPublisher\List\stylesheets\Program.css">
-      <DependentUpon>Program.scss</DependentUpon>
-    </Content>
-    <Content Include="Designs\Dwtc15\ItemPublisher\List\stylesheets\Program.min.css">
-      <DependentUpon>Program.css</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Designs\Dwtc15\ItemPublisher\List\Dwtc15_Session.cshtml" />
     <Content Include="Designs\Dwtc15\ItemPublisher\List\Dwtc15_Speaker.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Designs\Dwtc15\ItemPublisher\List\stylesheets\Program.min.css">
+      <DependentUpon>Program.scss</DependentUpon>
+    </Content>
     <Content Include="Designs\Dwtc15\Recommendation\javascripts\Recommendation.js" />
     <Content Include="Designs\Dwtc15\Partials\_Navigation.cshtml" />
     <Content Include="Designs\Dwtc15\Examples_CoolTemplateTricks.cshtml" />
     <Content Include="Designs\Dwtc15\Dwtc15_Page.json\ItemPublisher\List\Dwtc15_Attendee.cshtml" />
     <Content Include="Designs\Dwtc15\Recommendation\Recommendation-custom.cshtml" />
     <None Include="Designs\Dwtc15\Recommendation\stylesheets\Recommendation.scss" />
+    <Content Include="Designs\Dwtc15\Recommendation\stylesheets\Recommendation.min.css">
+      <DependentUpon>Recommendation.scss</DependentUpon>
+    </Content>
     <Content Include="Designs\Dwtc15\stylesheets\Dwtc15.min.css">
       <DependentUpon>Dwtc15.scss</DependentUpon>
     </Content>
@@ -124,9 +124,6 @@
     <Content Include="Designs\Dwtc15\Paragraph\Partials\_Dwtc15_Edit.cshtml" />
     <Content Include="Designs\Dwtc15\Master\Partials\_Dwtc15_Edit.cshtml" />
     <Content Include="Designs\Dwtc15\ItemPublisher\List\stylesheets\Program.scss" />
-    <Content Include="Designs\Dwtc15\ItemPublisher\List\stylesheets\Program.css.map">
-      <DependentUpon>Program.css</DependentUpon>
-    </Content>
     <Content Include="Designs\Dwtc15\ItemCreator\Create\Dwtc15_Attendee.cshtml">
       <SubType>Code</SubType>
     </Content>
