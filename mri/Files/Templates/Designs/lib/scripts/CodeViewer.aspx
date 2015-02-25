@@ -74,7 +74,7 @@
                         {
                             filename = filename,
                             type = type,
-                            start = start,
+                            start = start+1,
                             end = end,
                             lines = lines,
                             continued = match.Groups["dots"].Success
@@ -131,10 +131,20 @@
 <body>
     <div class="container">
         <% foreach (var snippet in snippets)
-           { %>
+           {
+               var githubUrl = "https://github.com/dynamicweb/dwtc15/blob/master/mri" + snippet.filename;
+               if (snippet.start > 1)
+               {
+                   githubUrl += "#L" + snippet.start;
+                   if (snippet.end > snippet.start)
+                   {
+                       githubUrl += "-L" + snippet.end;
+                   }
+               }
+                %>
         <section class="snippet">
             <header>
-                <h1><a href="<%= thisUrl+"?"+snippet.filename %>"><%= snippet.filename %></a></h1>
+                <h1><a href="<%= thisUrl+"?"+snippet.filename %>"><%= snippet.filename %></a> <small><a href="<%= githubUrl %>">GitHub</a></small></h1>
             </header>
 
             <pre><code class="<%= snippet.type %>"><%= HtmlEncode(string.Join("\n", snippet.lines)) %><% if (snippet.continued) { %><a href="<%= thisUrl+"?"+snippet.filename %>">&#x2026;</a><% } %></code></pre>
