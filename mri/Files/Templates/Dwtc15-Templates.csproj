@@ -167,9 +167,6 @@
     <Content Include="Designs\Dwtc15\Recommendation\Recommendation-context-cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Designs\Dwtc15\Recommendation\Recommendation-user.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Designs\Dwtc15\Recommendation\Recommendation-context.cshtml" />
   </ItemGroup>
   <ItemGroup>
