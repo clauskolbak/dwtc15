@@ -1,5 +1,13 @@
 ﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
 
+@*
+    Render recommendations based on module settings
+
+    Required module settings:
+        Render recommendations: ✓
+        Render recommendations catalog settings: select a product catalog
+*@
+
 @using System.Web
 
 @{
@@ -21,7 +29,7 @@
 
     <script src='@GetValue("Template:BaseUrl")javascripts/Recommendation.js'></script>
     <script>
-        window, addEventListener('load', function () {
+        window.addEventListener('load', function () {
             try {
                 var recommendationsUrl = '@recommendationsUrl',
                 Recommendation = Dynamicweb.Recommendation;

@@ -10,7 +10,7 @@
 
     // Compute a list of products used for getting recommendations
 
-    // Get products in cart
+    // Example: Get products in cart
     var cart = Dynamicweb.eCommerce.Common.Context.Cart;
     if (cart != null && cart.OrderLines.Count > 0)
     {
@@ -40,7 +40,7 @@
 
     <script src='@GetValue("Template:BaseUrl")javascripts/Recommendation.js'></script>
     <script>
-        window, addEventListener('load', function () {
+        window.addEventListener('load', function () {
             var recommendationsUrl = '@recommendationsUrlBase',
                     Recommendation = Dynamicweb.Recommendation,
                     productIds = @Newtonsoft.Json.JsonConvert.SerializeObject(productIds),

@@ -1,5 +1,14 @@
 ﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
 
+@*
+    This is a very generic recommendation template. It only serves as an example.
+
+    If set, it will use the recommendations url computed by Dynamicweb (RecommendationsUrl).
+    Otherwise it will use RecommendationsUrlBase to build a recommendations url based on the products shown on the page (with data-product-id attributes).
+
+    Recommendations will be rendered using a custom template (see #dynamicweb-recommendations-template), but this is not really a good way to do it as the raw product data does not contain information on discounts and the like
+*@
+
 @using System.Web
 
 @{
@@ -39,7 +48,7 @@
     </section>
     <script src='@GetValue("Template:BaseUrl")javascripts/Recommendation.js'></script>
     <script>
-        window, addEventListener('load', function () {
+        window.addEventListener('load', function () {
             try {
                 var recommendationsUrl = '@recommendationsUrl',
                 Recommendation = Dynamicweb.Recommendation,

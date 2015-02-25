@@ -1,5 +1,14 @@
 ﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
 
+@*
+    Render recommendations based on module settings
+
+    Required module settings:
+        Render recommendations: ✓
+        Render recommendations catalog settings: select a product catalog
+        Render recommendations in template: ✓
+*@
+
 @{
     var products = GetLoop("Recommendations");
 

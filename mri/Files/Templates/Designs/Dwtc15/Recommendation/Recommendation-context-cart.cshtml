@@ -1,5 +1,14 @@
 ﻿@inherits Dynamicweb.Rendering.RazorTemplateBase<Dynamicweb.Rendering.RazorTemplateModel<Dynamicweb.Rendering.Template>>
 
+@*
+    Render recommendations based on products in the cart.
+    The cart content is rendered into the page (see #cart-content) and then the JavaScript uses this content to compute the recommendations url (like Recommendation-context.cshtml)
+
+    Required module settings:
+        Render recommendations: ✓
+        Render recommendations catalog settings: select a product catalog
+*@
+
 @using System.Web
 
 @{
@@ -31,7 +40,7 @@
 
         <script src='@GetValue("Template:BaseUrl")javascripts/Recommendation.js'></script>
         <script>
-            window, addEventListener('load', function () {
+            window.addEventListener('load', function () {
                 var recommendationsUrl = '@recommendationsUrlBase',
                         Recommendation = Dynamicweb.Recommendation,
                 productsQuery = Recommendation.getProductsQuery({
