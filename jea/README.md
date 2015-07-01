@@ -12,6 +12,6 @@ Usage
 
 1. Open the `.sln` file in Visual Studio 2012 or newer
 2. Update assembly references for `Dynamicweb.Diagnostics`, `Dynamicweb.Extensibility` and `Dynamicweb.Indexing` to your local files
-	*2a If you do not have it, download the latest [Dynamicweb 8.6.1 release](http://developer.dynamicweb.com/downloads/dynamicweb-8.aspx)
+    1. If you do not have it, download the latest [Dynamicweb 8.6.1 release](http://developer.dynamicweb.com/downloads/dynamicweb-8.aspx)
 3. Compile the solution
 4. Copy the assemblies to your `bin` folder
