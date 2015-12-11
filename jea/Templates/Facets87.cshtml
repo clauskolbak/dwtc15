@@ -1,0 +1,91 @@
+﻿<hr />
+<div class="container">
+  <form method="get" action="/Default.aspx" class="pull-left">
+		<input type='hidden' name='ID' value='@Pageview.Page.ID' />
+		<h3 class="dw-section-title">@Translate("Filter", "Select options")</h3><br />
+		<table>
+			@foreach(LoopItem facetGroup in GetLoop("FacetGroups"))
+			{
+				foreach (LoopItem facet in facetGroup.GetLoop("Facets"))
+				{
+					var facetOptions = facet.GetLoop("FacetOptions");
+					if (!facetOptions.Any())
+					{
+						continue;
+					}
+				<tr>
+					<td><i>@facet.GetString("Facet.Name")</i>&nbsp;&nbsp;&nbsp;</td>
+					<td>
+						<select name="@facet.GetString("Facet.QueryParameter")" class="form-control">
+							<option value="">None</option>
+						@foreach (LoopItem option in facetOptions)
+						{
+							var value = option.GetValue("FacetOption.Value");
+							var isSelected = option.GetBoolean("FacetOption.Selected");
+							var label = option.GetString("FacetOption.Label");
+							var count = option.GetInteger("FacetOption.Count");
+
+							<option value="@value" selected="@isSelected">@label (@count)</option>
+						}
+						</select>
+					</td>
+				</tr>
+				}
+			}
+			@foreach (LoopItem parameter in GetLoop("Query.Parameters"))
+			{
+				if (parameter.GetBoolean("Parameter.IsHandledAsFacet"))
+				{
+					continue;
+				}
+				
+				var name = parameter.GetString("Parameter.Name");
+				var value = parameter.GetValue("Parameter.Value");
+				var type = parameter.GetString("Parameter.Type");
+				var valueString = "";
+				var rangeFromName = name + ".from";
+				var rangeToName = name + ".to";
+				var rangeFrom = "";
+				var rangeTo = "";
+				if (value != null)
+				{
+					if (type == "System.Boolean")
+					{
+						valueString = "checked";
+					}
+					else if (type == "System.Double[]")
+					{
+						var valueSplit = value.ToString().Split(',');
+						rangeFrom = valueSplit[0];
+						rangeTo = valueSplit[1];
+					}
+					else
+					{
+						valueString = value.ToString();
+					}
+				}
+			<tr>
+				<td><i>@name</i></td>
+				<td>
+					@if (type == "System.Boolean")
+					{
+					<input type="checkbox" name="@name" checked="@valueString" />
+					}
+					else if (type == "System.Double[]")
+					{
+					<input type="text" name="@rangeFromName" value="@rangeFrom" /> <text>-</text> <input type="text" name="@rangeToName" value="@rangeTo" />
+					}
+					else
+					{
+					<input type="text" name="@name" value='@valueString' />
+					}
+				</td>
+			</tr>
+			}
+		</table>
+		<p>&nbsp;</p>
+		<input type="submit" value="Send" class="btn btn-dw-primary" />
+		<a href="/Default.aspx?ID=@Pageview.Page.ID" class="btn">Clear</a>
+	</form>
+</div>
+<hr />
